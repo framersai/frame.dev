@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="../../logos/frame-logo-green-transparent-4x.png" alt="Frame" width="400" />
+</div>
+
 # Frame - Denoising the Web
 
 The OS for your life. A window to organize, simplify, and enhance your digital existence.
