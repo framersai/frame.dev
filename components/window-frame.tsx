@@ -1,11 +1,30 @@
 'use client'
 
 import { useState } from 'react'
+import type { ReactNode, ComponentType } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
-const osData = {
+type OSIcon = ComponentType<{ className?: string }>
+
+type OSDefinition = {
+  title: string
+  icon: OSIcon
+  description: string
+  status: string
+  statusColor: string
+  placeholder?: boolean
+  customSvg?: ReactNode
+  logo?: string
+  links?: {
+    github?: string
+    npm?: string
+    website?: string
+  }
+}
+
+const osData: Record<string, OSDefinition> = {
   WebOS: {
     title: 'WebOS',
     icon: Globe,
