@@ -681,7 +681,7 @@ export default function WindowFrame() {
 
                 {/* Tabs */}
                 <div className="flex gap-1 border-b border-ink-200/10 dark:border-paper-200/10">
-                  {Object.keys(osData[selectedOS].tabs).map((tab) => (
+                  {(Object.keys(osData[selectedOS].tabs) as Array<'overview' | 'features' | 'technical'>).map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
