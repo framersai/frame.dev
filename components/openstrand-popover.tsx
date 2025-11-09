@@ -12,9 +12,8 @@ const pages = [
     content: (
       <div className="space-y-6">
         <p className="text-base body-text">
-          OpenStrand is the knowledge operating system that underpins every Frame surface. It is a
-          TypeScript-first monorepo that ships a Fastify + Prisma API, a Next.js application, and shared SDKs. 
-          Teams deploy it to own their data fabric, orchestrate AI-native knowledge work, and sync structured & unstructured strands across devices.
+          OpenStrand is a modern personal knowledge management system (PKMS) that combines the power of AI with local-first data ownership. 
+          Build your second brain with knowledge graph visualization, multi-format import (20+ formats), and block-level organization—while keeping complete control of your information.
         </p>
         
         <div className="grid grid-cols-3 gap-4">
@@ -226,8 +225,8 @@ export default function OpenStrandPopover() {
               {/* Header with logo */}
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
                 <div className="flex items-center justify-center">
-                  <div className="relative h-16">
-                    <svg height="64" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
+                  <div className="relative h-16 w-full max-w-xs">
+                    <svg height="64" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
                       <defs>
                         <linearGradient id="strand" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" style={{ stopColor: '#00C896', stopOpacity: 1 }} />
