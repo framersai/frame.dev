@@ -13,24 +13,67 @@ export default function ThemeToggle() {
   }, [])
 
   if (!mounted) {
-    return null
+    return <div className="w-10 h-10" />
   }
 
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-3 rounded-full bg-paper-100 dark:bg-ink-800 shadow-lg hover:shadow-xl transition-shadow"
+      className="relative p-2.5 rounded-lg bg-paper-100 dark:bg-ink-900 hover:bg-paper-200 dark:hover:bg-ink-800 transition-all duration-300 group"
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (
-        <svg className="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        // Hand-drawn sun
+        <svg 
+          className="w-5 h-5 text-ink-600 dark:text-paper-300 group-hover:text-frame-green transition-colors" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <motion.g
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Sun rays - hand-drawn style */}
+            <path d="M12 2L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M12 19L12 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M4.22 4.22L6.34 6.34" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M17.66 17.66L19.78 19.78" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M2 12L5 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M19 12L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M4.22 19.78L6.34 17.66" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M17.66 6.34L19.78 4.22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            {/* Sun circle */}
+            <circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.8" />
+          </motion.g>
         </svg>
       ) : (
-        <svg className="w-5 h-5 text-ink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        // Hand-drawn moon
+        <svg 
+          className="w-5 h-5 text-ink-600 dark:text-paper-300 group-hover:text-frame-green transition-colors" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <motion.path
+            initial={{ rotate: -30 }}
+            animate={{ rotate: 0 }}
+            transition={{ duration: 0.5 }}
+            d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+            fill="currentColor"
+            opacity="0.8"
+          />
+          {/* Stars - hand-drawn */}
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <path d="M19 8L19.5 9L20 8L19.5 7L19 8Z" fill="currentColor" opacity="0.6" />
+            <path d="M17 4L17.5 5L18 4L17.5 3L17 4Z" fill="currentColor" opacity="0.6" />
+          </motion.g>
         </svg>
       )}
     </motion.button>

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import ThemeToggle from './theme-toggle'
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -51,8 +52,9 @@ export default function Navigation() {
               </a>
             </div>
 
-            {/* Desktop Social Links */}
+            {/* Desktop Social Links + Theme Toggle */}
             <div className="hidden lg:flex items-center gap-3">
+              <ThemeToggle />
               <a 
                 href="https://discord.gg/VXXC4SJMKh" 
                 className="p-2.5 rounded-lg bg-paper-100 dark:bg-ink-900 hover:bg-paper-200 dark:hover:bg-ink-800 transition-all duration-300 group"
@@ -122,8 +124,11 @@ export default function Navigation() {
                 </a>
               </div>
               
-              <div className="mt-auto pb-8">
-                <div className="flex gap-4">
+              <div className="mt-auto pb-8 space-y-4">
+                <div className="flex items-center justify-center">
+                  <ThemeToggle />
+                </div>
+                <div className="flex gap-4 justify-center">
                   <a href="https://discord.gg/VXXC4SJMKh" className="text-ink-600 dark:text-paper-300 hover:text-frame-green transition-colors" target="_blank" rel="noopener noreferrer">
                     Discord
                   </a>

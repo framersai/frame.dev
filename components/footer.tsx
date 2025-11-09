@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import ThemeToggle from './theme-toggle'
 
 export default function Footer() {
   return (
@@ -83,6 +84,9 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="text-center py-6 border-t border-ink-200/20 dark:border-paper-200/10">
+          <div className="flex items-center justify-center gap-4 mb-3">
+            <ThemeToggle />
+          </div>
           <p className="text-xs text-ink-500 dark:text-paper-500">
             © 2025 Framers • Infrastructure for agentic AI
           </p>
