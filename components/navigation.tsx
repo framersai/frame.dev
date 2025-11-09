@@ -157,21 +157,3 @@ export default function Navigation() {
     </>
   )
 }
-
-<style jsx>{`
-  .nav-link {
-    @apply text-sm font-medium text-ink-700 dark:text-paper-200;
-    @apply hover:text-frame-green transition-all duration-300;
-    @apply relative;
-  }
-  
-  .nav-link::after {
-    content: '';
-    @apply absolute -bottom-0.5 left-0 w-0 h-px bg-frame-green;
-    @apply transition-all duration-300;
-  }
-  
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-`}</style>
