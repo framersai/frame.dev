@@ -545,11 +545,13 @@ const osData = {
   }
 }
 
-export default function WindowFrame() {
-  const [selectedOS, setSelectedOS] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState('overview')
+type OSName = keyof typeof osData
 
-  const handlePaneClick = (os: string) => {
+export default function WindowFrame() {
+  const [selectedOS, setSelectedOS] = useState<OSName | null>(null)
+  const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'technical'>('overview')
+
+  const handlePaneClick = (os: OSName) => {
     setSelectedOS(os)
     setActiveTab('overview')
   }
@@ -604,7 +606,7 @@ export default function WindowFrame() {
             <line x1="254" y1="20" x2="254" y2="280" stroke="url(#frame-gradient)" strokeWidth="3"/>
             
             {/* Interactive panes */}
-            {Object.entries(osData).map(([ os, data], i) => {
+            {(Object.entries(osData) as [OSName, typeof osData[OSName]][]).map(([ os, data], i) => {
               const col = i % 3
               const row = Math.floor(i / 3)
               const x = 24 + col * 128
