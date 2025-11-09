@@ -10,6 +10,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Neumorphic palette
+        neu: {
+          base: '#e0e5ec',
+          'base-dark': '#1a1f2e',
+          light: '#ffffff',
+          dark: '#a3b1c6',
+          'dark-shadow': '#0d1117',
+          'light-shadow': '#ffffff30',
+        },
         // Paper-inspired palette
         paper: {
           50: '#fdfcfb',
@@ -43,15 +52,24 @@ const config: Config = {
         }
       },
       fontFamily: {
-        'serif': ['Crimson Text', 'Georgia', 'serif'],
+        'display': ['Playfair Display', 'Georgia', 'serif'],
         'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'monospace'],
+        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+      },
+      boxShadow: {
+        'neu': '9px 9px 16px #a3b1c6, -9px -9px 16px #ffffff',
+        'neu-dark': '9px 9px 16px #0d1117, -9px -9px 16px #ffffff10',
+        'neu-inset': 'inset 6px 6px 10px #a3b1c6, inset -6px -6px 10px #ffffff',
+        'neu-inset-dark': 'inset 6px 6px 10px #0d1117, inset -6px -6px 10px #ffffff10',
+        'neu-sm': '5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff',
+        'neu-sm-dark': '5px 5px 10px #0d1117, -5px -5px 10px #ffffff10',
       },
       animation: {
         'ink-spread': 'inkSpread 1.5s ease-out forwards',
         'paper-fold': 'paperFold 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
         'frame-appear': 'frameAppear 1s ease-out',
         'pane-glow': 'paneGlow 2s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
         inkSpread: {
@@ -81,6 +99,10 @@ const config: Config = {
             boxShadow: '0 0 40px rgba(0, 200, 150, 0.2)',
             borderColor: 'rgba(0, 200, 150, 0.4)'
           }
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' }
         }
       },
       backgroundImage: {

@@ -81,19 +81,19 @@ export default function WindowFrame() {
 
   return (
     <>
-      {/* Main Window Frame - Exact SVG Recreation */}
-      <div className="relative w-full max-w-6xl mx-auto aspect-[8/5]">
+      {/* Main Window Frame - EXACT MATCH to logo */}
+      <div className="relative w-full max-w-5xl mx-auto">
         <svg 
-          viewBox="0 0 800 500" 
-          className="w-full h-full"
+          viewBox="0 0 600 672" 
+          className="w-full h-full animate-float"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Outer frame with shadow */}
+          {/* Shadow filter - exact match */}
           <defs>
             <filter id="frameShadow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
-              <feOffset dx="0" dy="8" result="offsetblur"/>
-              <feFlood floodColor="#000000" floodOpacity="0.1"/>
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+              <feOffset dx="0" dy="4" result="offsetblur"/>
+              <feFlood floodColor="#000000" floodOpacity="0.15"/>
               <feComposite in2="offsetblur" operator="in"/>
               <feMerge>
                 <feMergeNode/>
@@ -102,84 +102,113 @@ export default function WindowFrame() {
             </filter>
           </defs>
 
-          {/* Main frame */}
-          <rect 
-            x="50" y="50" 
-            width="700" height="400" 
-            fill="#ffffff" 
-            stroke="#e0e0e0" 
-            strokeWidth="3"
-            filter="url(#frameShadow)"
-            className="dark:fill-ink-900"
-          />
-          
-          {/* Inner border */}
-          <rect 
-            x="55" y="55" 
-            width="690" height="390" 
-            fill="none" 
-            stroke="#00C896" 
-            strokeWidth="2" 
-            opacity="0.3"
-          />
-          
-          {/* Left spine highlight */}
-          <rect 
-            x="50" y="50" 
-            width="80" height="400" 
-            fill="#00C896" 
-            opacity="0.05"
-          />
+          {/* Main frame - exact proportions from logo */}
+          <g filter="url(#frameShadow)">
+            {/* Outer border rect */}
+            <rect 
+              x="50" y="50" 
+              width="500" height="560" 
+              fill="#00C896" 
+              stroke="#e0e0e0" 
+              strokeWidth="20"
+            />
+            
+            {/* Inner white stroke for contrast */}
+            <rect 
+              x="70" y="70" 
+              width="460" height="520" 
+              fill="none" 
+              stroke="#ffffff" 
+              strokeWidth="20" 
+              opacity="0.5"
+            />
+            
+            {/* Left spine highlight */}
+            <rect 
+              x="50" y="50" 
+              width="100" height="560" 
+              fill="#ffffff" 
+              opacity="0.15"
+            />
+            
+            {/* Vertical divider lines - exact positions */}
+            <line x1="200" y1="50" x2="200" y2="610" stroke="#ffffff" strokeWidth="20"/>
+            <line x1="400" y1="50" x2="400" y2="610" stroke="#ffffff" strokeWidth="20"/>
+            
+            {/* Horizontal center line */}
+            <line x1="50" y1="330" x2="550" y2="330" stroke="#ffffff" strokeWidth="20"/>
+          </g>
 
-          {/* Grid lines - vertical */}
-          <line x1="283" y1="50" x2="283" y2="450" stroke="#00C896" strokeWidth="3" opacity="0.8"/>
-          <line x1="516" y1="50" x2="516" y2="450" stroke="#00C896" strokeWidth="3" opacity="0.8"/>
-          
-          {/* Grid lines - horizontal */}
-          <line x1="50" y1="250" x2="750" y2="250" stroke="#00C896" strokeWidth="3" opacity="0.8"/>
-
-          {/* Interactive Panes */}
+          {/* Interactive Panes with exact grid */}
           {panes.map((pane, index) => {
             const col = index % 3
             const row = Math.floor(index / 3)
-            const x = 50 + col * 233
-            const y = 50 + row * 200
+            const x = 50 + col * 166.67
+            const y = 50 + row * 280
+            const width = 150
+            const height = 260
             const isHovered = hoveredPane === pane.id
             const isActive = pane.status === 'live'
 
             return (
               <g key={pane.id}>
                 <rect
-                  x={x + 5}
-                  y={y + 5}
-                  width="223"
-                  height="190"
-                  fill={isHovered ? pane.color : '#ffffff'}
-                  fillOpacity={isHovered ? 0.1 : 0}
-                  stroke={isActive ? pane.color : 'transparent'}
-                  strokeWidth="2"
-                  className="cursor-pointer transition-all dark:fill-ink-800"
+                  x={x + 10}
+                  y={y + 10}
+                  width={width}
+                  height={height}
+                  fill="transparent"
+                  className="cursor-pointer"
                   onMouseEnter={() => setHoveredPane(pane.id)}
                   onMouseLeave={() => setHoveredPane(null)}
                   onClick={() => setSelectedPane(pane.id)}
                 />
+                
+                {/* Hover effect */}
+                {isHovered && (
+                  <rect
+                    x={x + 10}
+                    y={y + 10}
+                    width={width}
+                    height={height}
+                    fill={pane.color}
+                    fillOpacity="0.1"
+                    className="pointer-events-none animate-pulse"
+                  />
+                )}
+
+                {/* Pane content */}
                 <text
-                  x={x + 116}
-                  y={y + 90}
+                  x={x + 85}
+                  y={y + 120}
                   textAnchor="middle"
                   className="pointer-events-none select-none"
                 >
-                  <tspan className="text-xl font-bold fill-ink-900 dark:fill-paper-100" fontFamily="Playfair Display">
+                  <tspan 
+                    className="text-2xl font-bold fill-white" 
+                    fontFamily="Inter"
+                    fontWeight="700"
+                  >
                     {pane.title}
                   </tspan>
-                  <tspan x={x + 116} dy="25" className="text-sm fill-ink-600 dark:fill-paper-400" fontFamily="Inter">
+                  <tspan 
+                    x={x + 85} 
+                    dy="30" 
+                    className="text-sm fill-white/80" 
+                    fontFamily="Inter"
+                    fontWeight="400"
+                  >
                     {pane.subtitle}
                   </tspan>
                 </text>
-                {isActive && (
-                  <circle cx={x + 200} cy={y + 30} r="8" fill={pane.color}>
-                    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+
+                {/* Status indicator */}
+                {isActive ? (
+                  <circle cx={x + 140} cy={y + 40} r="8" fill="#00FF00">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
                   </circle>
+                ) : (
+                  <circle cx={x + 140} cy={y + 40} r="6" fill="#ffffff" opacity="0.3"/>
                 )}
               </g>
             )
@@ -187,7 +216,7 @@ export default function WindowFrame() {
         </svg>
       </div>
 
-      {/* Pane Detail Popover */}
+      {/* Pane Detail Popover - Neumorphic style */}
       <AnimatePresence>
         {selectedPane && selectedPaneData && (
           <motion.div
@@ -199,31 +228,31 @@ export default function WindowFrame() {
           >
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
             <motion.div
-              className="relative max-w-2xl w-full bg-white dark:bg-ink-900 rounded-2xl shadow-2xl p-8"
+              className="relative max-w-2xl w-full neu-card p-8"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedPane(null)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-ink-100 dark:hover:bg-ink-800 transition-colors"
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-neu-dark/10 dark:hover:bg-neu-light-shadow/10 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="flex items-start gap-4 mb-6">
                 <div 
-                  className="w-16 h-16 rounded-lg flex items-center justify-center"
+                  className="w-16 h-16 rounded-xl flex items-center justify-center shadow-neu-inset dark:shadow-neu-inset-dark"
                   style={{ backgroundColor: selectedPaneData.color + '20' }}
                 >
                   <div 
-                    className="w-10 h-10 rounded"
+                    className="w-10 h-10 rounded-lg"
                     style={{ backgroundColor: selectedPaneData.color }}
                   />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-playfair font-bold ink-text">
+                  <h2 className="text-3xl font-display font-bold heading-display">
                     {selectedPaneData.title}
                   </h2>
-                  <p className="text-ink-600 dark:text-paper-400">
+                  <p className="text-ink-600 dark:text-paper-400 font-medium">
                     {selectedPaneData.subtitle}
                   </p>
                 </div>
@@ -234,7 +263,7 @@ export default function WindowFrame() {
               </p>
 
               {selectedPaneData.id === 'agentos' && (
-                <div className="mb-6 p-4 bg-frame-green/10 rounded-lg border border-frame-green/20">
+                <div className="mb-6 p-4 bg-frame-green/10 rounded-xl border border-frame-green/20">
                   <h3 className="font-bold mb-2 text-frame-green">Live Now</h3>
                   <p className="text-sm ink-text">
                     AgentOS is actively developed and available for use. Join thousands of developers building the next generation of AI agents.
