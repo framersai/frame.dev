@@ -6,7 +6,7 @@
 @layer base {
   :root {
     --font-inter: 'Inter', sans-serif;
-    --font-crimson: 'Crimson Text', serif;
+    --font-playfair: 'Playfair Display', serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 
@@ -46,9 +46,18 @@
   }
 
   .ink-text {
-    @apply text-ink-800 dark:text-paper-100;
+    @apply text-ink-900 dark:text-paper-50;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
   }
 
   .paper-bg {
@@ -67,8 +76,9 @@
 
   .nav-link {
     @apply text-sm font-medium text-ink-600 dark:text-paper-300;
-    @apply hover:text-frame-green transition-colors duration-200;
+    @apply hover:text-frame-green transition-all duration-200;
     @apply relative;
+    letter-spacing: 0.025em;
   }
 
   .nav-link::after {

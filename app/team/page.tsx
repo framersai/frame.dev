@@ -17,33 +17,68 @@ export default function TeamPage() {
         </nav>
 
         <article className="prose prose-lg dark:prose-invert max-w-none">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold ink-text mb-8">
-            Team
+          <h1 className="text-4xl md:text-5xl font-playfair font-bold ink-text mb-8">
+            Meet the Manics
           </h1>
           
-          <div className="text-lg leading-relaxed space-y-6 ink-text">
-            <p className="text-xl font-light">
-              We are a collective of machine learning engineers, artists, product designers, and marketers united by a singular vision: to create infrastructure that empowers agentic AI while preserving human agency.
+          <div className="text-lg leading-relaxed space-y-8 ink-text">
+            <p className="text-xl font-light italic">
+              Manic Agency is comprised of a curated collective of senior engineers, visionary designers, and strategic operators – the navigators of the Frame Blueprint.
             </p>
 
-            <p>
-              Our team spans continents and disciplines, bringing together expertise in distributed systems, natural language processing, user experience design, and creative storytelling. We believe that the future of computing lies not in replacing human intelligence, but in augmenting it through thoughtfully designed operating systems that adapt to individual needs.
-            </p>
+            {/* Team Members */}
+            <div className="space-y-12 mt-12">
+              <div className="p-6 bg-paper-100 dark:bg-ink-900 rounded-lg">
+                <h3 className="text-2xl font-playfair font-bold mb-2">Johnny Dunn</h3>
+                <p className="text-frame-green font-medium mb-3">Lead Engineering & Co-founder</p>
+                <p className="text-ink-700 dark:text-paper-200">
+                  A NLP wizard navigating the digital ether. Full-stack engineer & artist specializing in crafting complex data pipelines, training SOTA models, and tailoring bespoke web/app experiences. Previously architected systems at eBay & blockchain solutions at Tilting Point.
+                </p>
+              </div>
 
-            <p>
-              Each member of our team contributes to Frame's ecosystem of operating systems—from the adaptive agent platform of AgentOS to the universal web framework of WebOS. We work in the open, building public infrastructure that anyone can use, modify, and extend.
-            </p>
+              <div className="p-6 bg-paper-100 dark:bg-ink-900 rounded-lg">
+                <h3 className="text-2xl font-playfair font-bold mb-2">Nathan Franc</h3>
+                <p className="text-frame-green font-medium mb-3">Lead Design & Co-founder</p>
+                <p className="text-ink-700 dark:text-paper-200">
+                  Multidisciplinary Design Principal based in Melbourne, AU. Expertise spans Product Design (UI/UX), intricate Design Systems, and Brand Identity. Explores the liminal space where Generative AI intersects with meaningful, human-centered design applications.
+                </p>
+              </div>
 
-            <p>
-              Our approach is rooted in academic rigor and artistic sensibility. We write code like prose, design interfaces like paintings, and architect systems like cathedrals—with intention, craft, and an eye toward permanence.
-            </p>
+              <div className="p-6 bg-paper-100 dark:bg-ink-900 rounded-lg">
+                <h3 className="text-2xl font-playfair font-bold mb-2">Jeffrey</h3>
+                <p className="text-frame-green font-medium mb-3">Junior Marketer</p>
+                <p className="text-ink-700 dark:text-paper-200">
+                  Gradually forging their mark in the digital marketing world, becoming a staple in web3 communities globally, with a knack for managing social media content and community engagement.
+                </p>
+              </div>
 
-            <div className="mt-12 p-8 bg-paper-100 dark:bg-ink-900 rounded-lg">
-              <h2 className="text-2xl font-serif font-bold mb-4">Get in Touch</h2>
+              <div className="p-6 bg-gradient-to-br from-paper-100 to-paper-200 dark:from-ink-900 dark:to-ink-800 rounded-lg">
+                <h3 className="text-2xl font-playfair font-bold mb-2">Extended Network</h3>
+                <p className="text-frame-green font-medium mb-3">Collaborators & Future Allies</p>
+                <p className="text-ink-700 dark:text-paper-200">
+                  We work with a global network of specialists, researchers, and creative technologists who share our vision for the future of computing.
+                </p>
+                <a href="mailto:team@frame.dev" className="inline-flex items-center gap-2 mt-4 text-frame-green hover:text-frame-green-dark transition-colors font-medium">
+                  Inquire Within →
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-12 p-8 bg-paper-100 dark:bg-ink-900 rounded-lg border-2 border-frame-green/20">
+              <h2 className="text-2xl font-playfair font-bold mb-4">Operational Nexus</h2>
               <p className="mb-4">
-                Whether you're interested in contributing to our open-source projects, exploring partnership opportunities, or joining our team, we'd love to hear from you.
+                Manic operates in multiple hemispheres, with a seamless collaborative workflow spanning Los Angeles to Melbourne, Lagos to London.
               </p>
-              <a href="mailto:team@frame.dev" className="inline-flex items-center gap-2 text-frame-green hover:text-frame-green-dark transition-colors font-medium">
+              <p className="text-sm text-ink-600 dark:text-paper-400">
+                Digital Nexus // Los Angeles Anchor
+              </p>
+            </div>
+
+            <div className="mt-8 text-center">
+              <p className="text-sm text-ink-500 dark:text-paper-500">
+                Frame is a product of <a href="https://www.linkedin.com/company/manic-agency-llc/" className="text-frame-green hover:underline" target="_blank" rel="noopener noreferrer">Manic Agency LLC</a>
+              </p>
+              <a href="mailto:team@frame.dev" className="inline-flex items-center gap-2 mt-4 text-frame-green hover:text-frame-green-dark transition-colors font-medium">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>

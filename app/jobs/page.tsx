@@ -29,9 +29,12 @@ export default function JobsPage() {
 
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <section className="mb-12">
-            <h2 className="text-2xl font-serif font-bold ink-text mb-4">Why Frame?</h2>
+            <h2 className="text-2xl font-playfair font-bold ink-text mb-4">Why Frame?</h2>
             <p className="text-ink-700 dark:text-paper-200">
               We're not just building products—we're crafting the foundation for how humanity will interact with AI systems. Our work spans from low-level infrastructure to beautiful user experiences, all unified by a commitment to thoughtful design and open-source principles.
+            </p>
+            <p className="text-sm text-ink-600 dark:text-paper-400 mt-4">
+              All positions are offered through Manic Agency LLC, our parent company.
             </p>
           </section>
 
@@ -110,6 +113,9 @@ export default function JobsPage() {
                 <span><strong>Permanence:</strong> We build for decades, not quarters</span>
               </li>
             </ul>
+            <p className="text-xs text-ink-500 dark:text-paper-500 mt-6 text-center">
+              Frame is a product of <a href="https://www.linkedin.com/company/manic-agency-llc/" className="text-frame-green hover:underline" target="_blank" rel="noopener noreferrer">Manic Agency LLC</a> • Equal Opportunity Employer
+            </p>
           </section>
         </div>
       </div>

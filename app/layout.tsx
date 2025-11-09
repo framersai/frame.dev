@@ -1,17 +1,26 @@
 import type { Metadata } from 'next'
-import { Inter, Crimson_Text } from 'next/font/google'
+import { Inter, Playfair_Display, JetBrains_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
 })
 
-const crimson = Crimson_Text({ 
-  weight: ['400', '600', '700'],
+const playfair = Playfair_Display({ 
+  weight: ['400', '600', '700', '900'],
   subsets: ['latin'],
-  variable: '--font-crimson',
+  variable: '--font-playfair',
+  display: 'swap',
+})
+
+const jetbrains = JetBrains_Mono({
+  weight: ['400', '500', '600'],
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -59,7 +68,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${crimson.variable} font-sans bg-paper-50 dark:bg-ink-950 text-ink-900 dark:text-paper-50`}>
+      <body className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} font-sans antialiased bg-paper-50 dark:bg-ink-950 text-ink-900 dark:text-paper-50`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
