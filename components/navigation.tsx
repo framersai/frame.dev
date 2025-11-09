@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
@@ -8,6 +9,7 @@ import ThemeToggle from './theme-toggle'
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <>
@@ -37,8 +39,24 @@ export default function Navigation() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
-              <Link href="/about" className="nav-link">About</Link>
-              <Link href="/blog" className="nav-link">Blog</Link>
+              <Link 
+                href="/about" 
+                className={`nav-link relative ${pathname === '/about' ? 'text-frame-green' : ''}`}
+              >
+                About
+                {pathname === '/about' && (
+                  <motion.div layoutId="activeNavLink" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-frame-green" />
+                )}
+              </Link>
+              <Link 
+                href="/blog" 
+                className={`nav-link relative ${pathname?.startsWith('/blog') ? 'text-frame-green' : ''}`}
+              >
+                Blog
+                {pathname?.startsWith('/blog') && (
+                  <motion.div layoutId="activeNavLink" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-frame-green" />
+                )}
+              </Link>
               <a href="https://agentos.sh" className="nav-link text-frame-green font-semibold" target="_blank" rel="noopener noreferrer">
                 AgentOS
               </a>

@@ -199,6 +199,35 @@ export default function IntroducingFramePage() {
             </p>
           </div>
         </div>
+
+        {/* Related Posts */}
+        <div className="mt-16 pt-8 border-t border-ink-200/20 dark:border-paper-200/10">
+          <h2 className="text-2xl font-bold mb-6">Read Next</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Link href="/blog/agentos-launch" className="paper-card p-6 hover:shadow-lg transition-shadow group">
+              <h3 className="text-xl font-bold mb-2 group-hover:text-frame-green transition-colors">
+                AgentOS is Now Live
+              </h3>
+              <p className="text-sm text-ink-600 dark:text-paper-400 mb-3">
+                Our production-ready runtime for AI agents is now available. Deploy, manage, and orchestrate AI agents at scale.
+              </p>
+              <span className="text-frame-green text-sm font-semibold inline-flex items-center gap-1">
+                Read more →
+              </span>
+            </Link>
+            <Link href="/blog/openstrand-architecture" className="paper-card p-6 hover:shadow-lg transition-shadow group">
+              <h3 className="text-xl font-bold mb-2 group-hover:text-frame-green transition-colors">
+                Understanding OpenStrand Architecture
+              </h3>
+              <p className="text-sm text-ink-600 dark:text-paper-400 mb-3">
+                Deep dive into the distributed architecture powering all Frame operating systems.
+              </p>
+              <span className="text-frame-green text-sm font-semibold inline-flex items-center gap-1">
+                Read more →
+              </span>
+            </Link>
+          </div>
+        </div>
       </article>
     </PageLayout>
   )
