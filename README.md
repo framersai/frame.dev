@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../logos/frame-logo-green-transparent-4x.png" alt="Frame" width="400" />
+  <img src="public/frame-logo-transparent.png" alt="Frame" width="400" />
 </div>
 
 # Frame - Denoising the Web
