@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion'
 import WindowFrame from '@/components/window-frame'
 import Navigation from '@/components/navigation'
-import ThemeToggle from '@/components/theme-toggle'
 import OpenStrandPopover from '@/components/openstrand-popover'
+import VCABanner from '@/components/vca-banner'
+import Image from 'next/image'
 
 export default function HomePage() {
   return (
@@ -12,32 +13,33 @@ export default function HomePage() {
       {/* Navigation */}
       <Navigation />
 
-      {/* VCA Marketplace Banner */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="fixed top-20 left-0 right-0 z-40 bg-gradient-to-r from-frame-green to-frame-green-dark text-white py-2 px-4 text-center"
-      >
-        <a href="https://vca.chat" target="_blank" rel="noopener noreferrer" className="text-sm font-medium hover:underline">
-          🚀 Voice Chat Assistant Marketplace Now Live - Free & Premium Agents Compatible with AgentOS →
-        </a>
-      </motion.div>
+      {/* VCA Banner - Now in bottom right */}
+      <VCABanner />
 
       {/* Hero Section */}
-      <main className="container mx-auto px-4 pt-40 pb-12">
+      <main className="container mx-auto px-4 pt-32 pb-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-6xl md:text-8xl font-display font-black tracking-tight heading-display mb-6">
+          <motion.h1 
+            className="text-5xl md:text-6xl lg:text-7xl font-display font-black tracking-tight heading-display mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             Denoising the web
-          </h1>
-          <div className="relative inline-block">
+          </motion.h1>
+          <motion.div 
+            className="text-2xl md:text-3xl"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             <OpenStrandPopover />
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Interactive Window Frame */}
@@ -58,7 +60,30 @@ export default function HomePage() {
         >
           {/* OpenStrand Section */}
           <div className="text-center mb-12">
-            <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-12 mx-auto mb-4" />
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-3xl text-frame-green">∞</span>
+              <div className="relative h-12">
+                <svg height="48" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="footer-strand" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#00C896', stopOpacity: 1 }} />
+                      <stop offset="100%" style={{ stopColor: '#00A67C', stopOpacity: 1 }} />
+                    </linearGradient>
+                  </defs>
+                  <g transform="translate(10, 30)">
+                    <path d="M0,0 Q10,-15 20,0 T40,0 T60,0 T80,0" stroke="url(#footer-strand)" strokeWidth="3" fill="none"/>
+                    <path d="M0,0 Q10,15 20,0 T40,0 T60,0 T80,0" stroke="url(#footer-strand)" strokeWidth="3" fill="none" opacity="0.6"/>
+                    <circle cx="0" cy="0" r="3" fill="#00C896"/>
+                    <circle cx="20" cy="0" r="3" fill="#00C896"/>
+                    <circle cx="40" cy="0" r="3" fill="#00C896"/>
+                    <circle cx="60" cy="0" r="3" fill="#00C896"/>
+                    <circle cx="80" cy="0" r="3" fill="#00C896"/>
+                  </g>
+                  <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
+                </svg>
+              </div>
+              <span className="text-3xl text-frame-green">∞</span>
+            </div>
             <p className="text-sm text-ink-600 dark:text-paper-400">
               Powered by OpenStrand • The backbone of all Frame operating systems
             </p>
@@ -82,9 +107,8 @@ export default function HomePage() {
               <h3 className="font-bold text-sm mb-3 text-ink-500 dark:text-paper-500 uppercase tracking-wider">Company</h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="/about" className="nav-link">About</a></li>
-                <li><a href="/team" className="nav-link">Team</a></li>
-                <li><a href="/jobs" className="nav-link">Jobs</a></li>
                 <li><a href="/blog" className="nav-link">Blog</a></li>
+                <li><a href="mailto:team@frame.dev" className="nav-link">Contact</a></li>
               </ul>
             </div>
             <div>
@@ -93,36 +117,30 @@ export default function HomePage() {
                 <li><a href="https://discord.gg/VXXC4SJMKh" className="nav-link" target="_blank" rel="noopener noreferrer">Discord Support</a></li>
                 <li><a href="https://github.com/framersai" className="nav-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                 <li><a href="https://npmjs.com/org/framers" className="nav-link" target="_blank" rel="noopener noreferrer">NPM</a></li>
-                <li><a href="https://www.linkedin.com/company/manic-agency-llc/" className="nav-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://linkedin.com/company/framersai" className="nav-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
               </ul>
             </div>
             <div>
               <h3 className="font-bold text-sm mb-3 text-ink-500 dark:text-paper-500 uppercase tracking-wider">Legal</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="/legal/privacy" className="nav-link">Privacy Policy</a></li>
-                <li><a href="/legal/terms" className="nav-link">Terms of Service</a></li>
-                <li><a href="https://github.com/framersai/frame.dev/blob/master/LICENSE" className="nav-link" target="_blank" rel="noopener noreferrer">MIT License</a></li>
-                <li><a href="mailto:team@frame.dev" className="nav-link">Contact</a></li>
+                <li><a href="/legal/privacy" className="nav-link">Privacy</a></li>
+                <li><a href="/legal/terms" className="nav-link">Terms</a></li>
+                <li><a href="https://github.com/framersai/frame.dev/blob/main/LICENSE" className="nav-link" target="_blank" rel="noopener noreferrer">MIT License</a></li>
               </ul>
             </div>
           </div>
 
-          {/* Bottom Footer */}
-          <div className="text-center pt-8 border-t border-ink-200 dark:border-ink-800">
-            <p className="text-xs text-ink-500 dark:text-paper-500 mb-2">
+          {/* Bottom Bar */}
+          <div className="text-center py-6 border-t border-ink-200/20 dark:border-paper-200/10">
+            <p className="text-xs text-ink-500 dark:text-paper-500">
               © 2025 Framers • Infrastructure for agentic AI
             </p>
-            <p className="text-xs text-ink-400 dark:text-paper-600">
-              A subsidiary of <a href="https://www.linkedin.com/company/manic-agency-llc/" className="underline hover:text-frame-green" target="_blank" rel="noopener noreferrer">Manic Agency LLC</a> • team@frame.dev
+            <p className="text-xs text-ink-400 dark:text-paper-600 mt-1">
+              team@frame.dev
             </p>
           </div>
         </motion.footer>
       </main>
-
-      {/* Theme Toggle */}
-      <div className="fixed bottom-4 right-4">
-        <ThemeToggle />
-      </div>
     </div>
   )
 }

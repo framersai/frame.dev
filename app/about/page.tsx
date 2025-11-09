@@ -1,104 +1,144 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About - Frame',
-  description: 'Learn about Frame and our mission to denoise the web',
+  title: 'About Frame',
+  description: 'Building infrastructure for agentic AI through open-source operating systems',
 }
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen paper-bg">
-      <div className="container mx-auto px-4 py-24 max-w-4xl">
-        <nav className="mb-8">
-          <Link href="/" className="text-sm text-ink-600 dark:text-paper-400 hover:text-frame-green transition-colors">
-            ← Back to Frame
-          </Link>
-        </nav>
-
-        <article className="prose prose-lg dark:prose-invert max-w-none">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold ink-text mb-8">
-            About Frame
-          </h1>
-          
-          <div className="text-lg leading-relaxed space-y-6 ink-text">
-            <p className="text-xl font-light">
-              Frame is a window dedicated to denoising the web—a lens through which the chaos of digital life becomes organized, purposeful, and beautiful.
+    <div className="min-h-screen pt-32 pb-20">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <h1 className="text-5xl font-bold mb-12 heading-gradient">About Frame</h1>
+        
+        {/* Mission */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">Our Mission</h2>
+          <div className="space-y-6 body-text">
+            <p className="text-lg">
+              Frame is building the infrastructure layer for agentic AI. We believe the future of computing 
+              requires specialized operating systems that can manage, orchestrate, and secure AI agents 
+              at scale.
             </p>
-
-            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">The OS for Your Life</h2>
-            <p>
-              We're building more than software; we're creating a new paradigm for how humans interact with digital systems. Frame represents a suite of operating systems, each designed for a specific aspect of modern life, all working in harmony to create a cohesive digital experience.
-            </p>
-
-            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Our Ecosystem</h2>
-            <div className="space-y-4">
-              <div className="pl-4 border-l-4 border-frame-green">
-                <h3 className="font-bold">AgentOS</h3>
-                <p className="text-base">The adaptive agent platform—our first and original OS, powered by Frame. Live and evolving.</p>
-              </div>
-              <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
-                <h3 className="font-bold">WebOS</h3>
-                <p className="text-base">The universal framework for interacting with web, Web3, and metaverses concurrently.</p>
-              </div>
-              <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
-                <h3 className="font-bold">HomeOS</h3>
-                <p className="text-base">The intelligent platform for smart home management and automation.</p>
-              </div>
-              <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
-                <h3 className="font-bold">SafeOS</h3>
-                <p className="text-base">Your digital vault for storage, backup, firewall protection, and identity monitoring.</p>
-              </div>
-              <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
-                <h3 className="font-bold">WorkOS</h3>
-                <p className="text-base">The comprehensive platform for work management, projects, and CRM.</p>
-              </div>
-              <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
-                <h3 className="font-bold">MyOS</h3>
-                <p className="text-base">The dashboard that manages all OSes—your personal command center.</p>
-              </div>
-            </div>
-
-            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Built on OpenStrand</h2>
-            <p>
-              At the foundation of our ecosystem lies OpenStrand—the backbone technology that powers all our OS sites. It represents our commitment to open infrastructure, allowing anyone to build upon and extend our work.
-            </p>
-
-            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Open Source Commitment</h2>
-            <p>
-              All Frame projects are open source with community or full editions available under MIT or Apache 2.0 licenses. We believe in transparency, collaboration, and the power of open development.
-            </p>
-            <div className="mt-4 p-4 bg-paper-100 dark:bg-ink-900 rounded-lg">
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-frame-green">•</span>
-                  <span><strong>MIT License:</strong> Most Frame projects including WebOS, HomeOS, SafeOS, WorkOS, MyOS</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-frame-green">•</span>
-                  <span><strong>Apache 2.0:</strong> AgentOS core platform for maximum flexibility</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-frame-green">•</span>
-                  <span><strong>Community Editions:</strong> Full-featured versions for personal and educational use</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-frame-green">•</span>
-                  <span><strong>Enterprise Support:</strong> Available through Manic Agency LLC</span>
-                </li>
-              </ul>
-            </div>
-
-            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Our Philosophy</h2>
-            <p>
-              We believe in minimalism without sacrifice, elegance without pretense, and functionality without complexity. Every line of code, every design decision, every interaction is crafted with intention—to create systems that feel as natural as paper and ink, yet as powerful as the future demands.
-            </p>
-
-            <p>
-              Frame isn't just infrastructure for agentic AI—it's infrastructure for human flourishing in an AI-augmented world.
+            <p className="text-lg">
+              Through our suite of open-source operating systems—WebOS, HomeOS, AgentOS, SafeOS, WorkOS, 
+              and MyOS—we're creating the foundation for a world where AI agents seamlessly integrate 
+              into every aspect of digital life.
             </p>
           </div>
-        </article>
+        </section>
+
+        {/* Open Source Commitment */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">Open Source First</h2>
+          <div className="space-y-6 body-text">
+            <p className="text-lg">
+              All Frame projects are open source, available under MIT or Apache 2.0 licenses. We believe 
+              in building in public and empowering developers worldwide to contribute to and build upon 
+              our work.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-semibold mb-3 text-frame-green">Community Edition</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  Full access to all core features, perfect for individuals and small teams building 
+                  the future of AI.
+                </p>
+              </div>
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-semibold mb-3 text-frame-green">Enterprise Edition</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  Advanced features, dedicated support, and SLAs for organizations deploying at scale.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Team */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">The Team</h2>
+          <div className="space-y-6 body-text">
+            <p className="text-lg">
+              Frame is built by a distributed team of engineers, researchers, and designers passionate 
+              about the intersection of AI and operating systems. We're united by our belief that the 
+              next generation of computing requires fundamentally new infrastructure.
+            </p>
+            <div className="paper-card p-8">
+              <p className="text-lg mb-6">
+                Our team brings together expertise in distributed systems, AI/ML, security, and developer 
+                experience. We've previously built products at leading technology companies and research 
+                institutions.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a href="https://github.com/framersai" target="_blank" rel="noopener noreferrer"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Github className="w-5 h-5" />
+                  GitHub
+                </a>
+                <a href="https://linkedin.com/company/framersai" target="_blank" rel="noopener noreferrer"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Linkedin className="w-5 h-5" />
+                  LinkedIn
+                </a>
+                <a href="https://twitter.com/framersai" target="_blank" rel="noopener noreferrer"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Twitter className="w-5 h-5" />
+                  Twitter
+                </a>
+                <a href="mailto:team@frame.dev"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Mail className="w-5 h-5" />
+                  team@frame.dev
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Join Us */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">Join Us</h2>
+          <div className="paper-card p-8 bg-gradient-to-br from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
+            <p className="text-lg mb-4">
+              We're always looking for exceptional people to join our mission. If you're passionate about 
+              building the future of AI infrastructure, we'd love to hear from you.
+            </p>
+            <p className="text-lg">
+              For opportunities and general inquiries, please reach out to{' '}
+              <a href="mailto:team@frame.dev" className="text-frame-green hover:underline">
+                team@frame.dev
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* Values */}
+        <section>
+          <h2 className="text-3xl font-bold mb-6 heading-display">Our Values</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="paper-card p-6">
+              <h3 className="text-xl font-semibold mb-3">Transparency</h3>
+              <p className="text-ink-600 dark:text-paper-400">
+                Building in public, sharing our learnings, and fostering open collaboration.
+              </p>
+            </div>
+            <div className="paper-card p-6">
+              <h3 className="text-xl font-semibold mb-3">Innovation</h3>
+              <p className="text-ink-600 dark:text-paper-400">
+                Pushing boundaries and reimagining what's possible with AI infrastructure.
+              </p>
+            </div>
+            <div className="paper-card p-6">
+              <h3 className="text-xl font-semibold mb-3">Community</h3>
+              <p className="text-ink-600 dark:text-paper-400">
+                Empowering developers worldwide to build the future together.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )

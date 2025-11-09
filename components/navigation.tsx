@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -18,44 +19,35 @@ export default function Navigation() {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            {/* Logo - Using EXACT SVG icon */}
+            {/* Logo - Using ACTUAL Frame logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative">
-                <svg width="50" height="56" viewBox="0 0 50 56" xmlns="http://www.w3.org/2000/svg" className="transition-transform group-hover:scale-110 duration-300">
-                  <defs>
-                    <linearGradient id="frameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#00C896" />
-                      <stop offset="100%" stopColor="#009A74" />
-                    </linearGradient>
-                    <filter id="frameShadow" x="-50%" y="-50%" width="200%" height="200%">
-                      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-                      <feOffset dx="0" dy="2" result="offsetblur"/>
-                      <feFlood floodColor="#000000" floodOpacity="0.1"/>
-                      <feComposite in2="offsetblur" operator="in"/>
-                      <feMerge>
-                        <feMergeNode/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  <rect x="0" y="0" width="50" height="56" fill="url(#frameGradient)" stroke="#ffffff" strokeWidth="1" filter="url(#frameShadow)"/>
-                  <rect x="2" y="2" width="46" height="52" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.6"/>
-                  <rect x="0" y="0" width="10" height="56" fill="#ffffff" opacity="0.2"/>
-                  <line x1="16.67" y1="0" x2="16.67" y2="56" stroke="#ffffff" strokeWidth="2"/>
-                  <line x1="33.33" y1="0" x2="33.33" y2="56" stroke="#ffffff" strokeWidth="2"/>
-                  <line x1="0" y1="28" x2="50" y2="28" stroke="#ffffff" strokeWidth="2"/>
-                </svg>
-                <div className="absolute inset-0 bg-gradient-to-r from-frame-green/0 via-frame-green/20 to-frame-green/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+              <div className="relative w-40 h-15">
+                <Image 
+                  src="/frame-logo.png" 
+                  alt="Frame" 
+                  width={160}
+                  height={60}
+                  className="object-contain group-hover:scale-105 transition-transform duration-300"
+                  priority
+                />
               </div>
-              <span className="text-2xl font-display font-bold text-ink-900 dark:text-paper-50 tracking-tight">Frame</span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               <Link href="/about" className="nav-link">About</Link>
               <Link href="/blog" className="nav-link">Blog</Link>
-              <a href="https://agentos.sh" className="nav-link text-frame-green font-semibold" target="_blank" rel="noopener noreferrer">AgentOS</a>
-              <a href="https://vca.chat" className="nav-link" target="_blank" rel="noopener noreferrer">Marketplace</a>
+              <a href="https://agentos.sh" className="nav-link text-frame-green font-semibold" target="_blank" rel="noopener noreferrer">
+                AgentOS
+              </a>
+              <a href="https://openstrand.ai" className="nav-link flex items-center gap-1" target="_blank" rel="noopener noreferrer">
+                <span className="text-frame-green">∞</span>
+                <span>OpenStrand</span>
+                <span className="text-frame-green">∞</span>
+              </a>
+              <a href="https://vca.chat" className="nav-link" target="_blank" rel="noopener noreferrer">
+                Marketplace
+              </a>
             </div>
 
             {/* Desktop Social Links */}
@@ -120,6 +112,9 @@ export default function Navigation() {
                 </Link>
                 <a href="https://agentos.sh" className="block text-lg font-bold text-frame-green" target="_blank" rel="noopener noreferrer">
                   AgentOS
+                </a>
+                <a href="https://openstrand.ai" className="block text-lg font-medium text-ink-900 dark:text-paper-50 hover:text-frame-green transition-colors" target="_blank" rel="noopener noreferrer">
+                  ∞ OpenStrand ∞
                 </a>
                 <a href="https://vca.chat" className="block text-lg font-medium text-ink-900 dark:text-paper-50 hover:text-frame-green transition-colors" target="_blank" rel="noopener noreferrer">
                   Marketplace

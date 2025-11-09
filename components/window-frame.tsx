@@ -1,444 +1,719 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import { X, Github, Package, ExternalLink, ChevronRight, Globe, Shield, Home, Briefcase, Grid3X3 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package, ChevronRight, Layers, Cpu, Lock, Cloud, Zap, Code, Monitor, Server } from 'lucide-react'
 
-interface Pane {
-  id: string
-  title: string
-  subtitle: string
-  description: string
-  icon: React.ReactNode
-  features: string[]
-  technical: string[]
-  status: 'live' | 'coming-soon'
-  url?: string
-  github?: string
-  npm?: string
-  color: string
-  gradient: string
+const osData = {
+  WebOS: {
+    title: 'WebOS',
+    icon: Globe,
+    description: 'The browser reimagined as an operating system',
+    status: 'In Development',
+    statusColor: 'text-amber-600',
+    tabs: {
+      overview: {
+        title: 'Overview',
+        content: (
+          <div className="space-y-4">
+            <p className="text-base body-text">
+              WebOS transforms the browser into a fully-fledged operating system, enabling web applications 
+              to run with native-like performance and capabilities. Built for the era where the web is the platform.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Monitor className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Browser-Native</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Runs entirely in the browser with no installation required</p>
+              </div>
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Cloud className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Cloud-First</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Seamless sync across all your devices</p>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      features: {
+        title: 'Features',
+        content: (
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Virtual File System</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">In-browser file management with cloud sync</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Process Management</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Multi-tab orchestration and resource allocation</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">WebAssembly Runtime</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Near-native performance for web applications</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">PWA Integration</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Deep integration with Progressive Web Apps</p>
+              </div>
+            </li>
+          </ul>
+        )
+      },
+      technical: {
+        title: 'Technical',
+        content: (
+          <div className="space-y-4">
+            <div className="p-4 bg-ink-950/5 dark:bg-paper-50/5 rounded-lg font-mono text-sm">
+              <p className="text-frame-green"># Architecture</p>
+              <p>• Service Worker orchestration</p>
+              <p>• IndexedDB for persistence</p>
+              <p>• WebRTC for P2P communication</p>
+              <p>• Web Crypto API for security</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">TypeScript</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">React</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">WebAssembly</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Service Workers</span>
+            </div>
+          </div>
+        )
+      }
+    }
+  },
+  HomeOS: {
+    title: 'HomeOS',
+    icon: Home,
+    description: 'Smart home orchestration and automation platform',
+    status: 'In Development',
+    statusColor: 'text-amber-600',
+    tabs: {
+      overview: {
+        title: 'Overview',
+        content: (
+          <div className="space-y-4">
+            <p className="text-base body-text">
+              HomeOS unifies all your smart home devices under a single, intelligent operating system. 
+              Control everything from lights to security systems with natural language and automated workflows.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Home className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Universal Hub</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Works with all major smart home protocols</p>
+              </div>
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Zap className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">AI Automation</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Learns your routines and preferences</p>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      features: {
+        title: 'Features',
+        content: (
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Matter Protocol Support</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Native support for the latest smart home standard</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Voice Control</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Natural language processing for all devices</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Energy Management</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Optimize power usage across your home</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Security Integration</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Unified security and monitoring system</p>
+              </div>
+            </li>
+          </ul>
+        )
+      },
+      technical: {
+        title: 'Technical',
+        content: (
+          <div className="space-y-4">
+            <div className="p-4 bg-ink-950/5 dark:bg-paper-50/5 rounded-lg font-mono text-sm">
+              <p className="text-frame-green"># Protocols</p>
+              <p>• Matter / Thread</p>
+              <p>• Zigbee / Z-Wave</p>
+              <p>• WiFi / Bluetooth</p>
+              <p>• MQTT / CoAP</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Rust</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Python</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Node-RED</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Docker</span>
+            </div>
+          </div>
+        )
+      }
+    }
+  },
+  AgentOS: {
+    title: 'AgentOS',
+    icon: Bot,
+    description: 'Production-ready runtime for AI agents',
+    status: 'Live',
+    statusColor: 'text-green-600',
+    links: {
+      github: 'https://github.com/framersai/agentos',
+      npm: 'https://npmjs.com/package/@framers/agentos',
+      website: 'https://agentos.sh'
+    },
+    tabs: {
+      overview: {
+        title: 'Overview',
+        content: (
+          <div className="space-y-4">
+            <p className="text-base body-text">
+              AgentOS provides a complete runtime environment for deploying, managing, and orchestrating AI agents 
+              at scale. Built with TypeScript for maximum developer productivity.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Bot className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Agent Runtime</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Deploy and manage AI agents with ease</p>
+              </div>
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Server className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Scalable</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">From single agent to enterprise deployment</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <a href="https://github.com/framersai/agentos" target="_blank" rel="noopener noreferrer" 
+                 className="btn-secondary flex items-center gap-2">
+                <Github className="w-4 h-4" />
+                View on GitHub
+              </a>
+              <a href="https://agentos.sh" target="_blank" rel="noopener noreferrer" 
+                 className="btn-primary flex items-center gap-2">
+                Visit Website
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        )
+      },
+      features: {
+        title: 'Features',
+        content: (
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Multi-Provider Support</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Works with OpenAI, Anthropic, Google, and more</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Extension System</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Rich ecosystem of plugins and extensions</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Guardrails</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Built-in safety and compliance features</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Observability</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Complete monitoring and debugging tools</p>
+              </div>
+            </li>
+          </ul>
+        )
+      },
+      technical: {
+        title: 'Technical',
+        content: (
+          <div className="space-y-4">
+            <div className="p-4 bg-ink-950/5 dark:bg-paper-50/5 rounded-lg font-mono text-sm">
+              <p className="text-frame-green"># Quick Start</p>
+              <p>npm install @framers/agentos</p>
+              <p className="mt-2 text-frame-green"># License</p>
+              <p>Apache 2.0</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">TypeScript</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Node.js</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Docker</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Kubernetes</span>
+            </div>
+          </div>
+        )
+      }
+    }
+  },
+  SafeOS: {
+    title: 'SafeOS',
+    icon: Shield,
+    description: 'Security-first operating system for critical infrastructure',
+    status: 'In Development',
+    statusColor: 'text-amber-600',
+    tabs: {
+      overview: {
+        title: 'Overview',
+        content: (
+          <div className="space-y-4">
+            <p className="text-base body-text">
+              SafeOS is designed from the ground up with security as the primary concern. Perfect for financial 
+              institutions, healthcare systems, and government infrastructure.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Lock className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Zero Trust</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Every operation is verified and encrypted</p>
+              </div>
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Shield className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Hardened Kernel</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Formally verified security guarantees</p>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      features: {
+        title: 'Features',
+        content: (
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Secure Boot</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Cryptographically verified boot process</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Memory Encryption</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Full memory encryption at rest and in transit</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Audit Logging</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Immutable audit trail of all operations</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Compliance Ready</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">FIPS, HIPAA, PCI-DSS compliant</p>
+              </div>
+            </li>
+          </ul>
+        )
+      },
+      technical: {
+        title: 'Technical',
+        content: (
+          <div className="space-y-4">
+            <div className="p-4 bg-ink-950/5 dark:bg-paper-50/5 rounded-lg font-mono text-sm">
+              <p className="text-frame-green"># Security Stack</p>
+              <p>• seL4 microkernel</p>
+              <p>• Hardware security modules</p>
+              <p>• Trusted Platform Module</p>
+              <p>• Secure enclaves</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Rust</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">C</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Formal Methods</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">HSM</span>
+            </div>
+          </div>
+        )
+      }
+    }
+  },
+  WorkOS: {
+    title: 'WorkOS',
+    icon: Briefcase,
+    description: 'Enterprise productivity and collaboration platform',
+    status: 'In Development',
+    statusColor: 'text-amber-600',
+    tabs: {
+      overview: {
+        title: 'Overview',
+        content: (
+          <div className="space-y-4">
+            <p className="text-base body-text">
+              WorkOS reimagines enterprise productivity with AI-native workflows, seamless collaboration, 
+              and intelligent automation of repetitive tasks.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Briefcase className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">AI Workflows</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Automate complex business processes</p>
+              </div>
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Layers className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Integration Hub</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Connect all your enterprise tools</p>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      features: {
+        title: 'Features',
+        content: (
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Smart Documents</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">AI-powered document creation and analysis</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Team Spaces</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Collaborative workspaces with real-time sync</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Process Automation</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">No-code workflow builder with AI assistance</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Analytics Dashboard</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Real-time insights and productivity metrics</p>
+              </div>
+            </li>
+          </ul>
+        )
+      },
+      technical: {
+        title: 'Technical',
+        content: (
+          <div className="space-y-4">
+            <div className="p-4 bg-ink-950/5 dark:bg-paper-50/5 rounded-lg font-mono text-sm">
+              <p className="text-frame-green"># Enterprise Stack</p>
+              <p>• SAML/OIDC authentication</p>
+              <p>• REST/GraphQL APIs</p>
+              <p>• WebSocket real-time sync</p>
+              <p>• Multi-tenant architecture</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">TypeScript</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">PostgreSQL</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Redis</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Kubernetes</span>
+            </div>
+          </div>
+        )
+      }
+    }
+  },
+  MyOS: {
+    title: 'MyOS',
+    icon: User,
+    description: 'Personal AI companion and life management system',
+    status: 'Coming Soon',
+    statusColor: 'text-blue-600',
+    tabs: {
+      overview: {
+        title: 'Overview',
+        content: (
+          <div className="space-y-4">
+            <p className="text-base body-text">
+              MyOS is your personal operating system that learns, adapts, and grows with you. Managing everything 
+              from health and finances to learning and creativity.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <User className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Personal AI</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Your own AI that knows you</p>
+              </div>
+              <div className="p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+                <Cpu className="w-8 h-8 mb-2 text-frame-green" />
+                <h4 className="font-semibold mb-1">Life Dashboard</h4>
+                <p className="text-sm text-ink-600 dark:text-paper-400">All aspects of your life in one place</p>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      features: {
+        title: 'Features',
+        content: (
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Health Tracking</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Comprehensive health and wellness monitoring</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Financial Assistant</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Smart budgeting and investment advice</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Learning Companion</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Personalized education and skill development</p>
+              </div>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="text-frame-green mt-1">•</span>
+              <div>
+                <p className="font-semibold">Memory Palace</p>
+                <p className="text-sm text-ink-600 dark:text-paper-400">Never forget important moments and information</p>
+              </div>
+            </li>
+          </ul>
+        )
+      },
+      technical: {
+        title: 'Technical',
+        content: (
+          <div className="space-y-4">
+            <div className="p-4 bg-ink-950/5 dark:bg-paper-50/5 rounded-lg font-mono text-sm">
+              <p className="text-frame-green"># Privacy First</p>
+              <p>• Local-first architecture</p>
+              <p>• End-to-end encryption</p>
+              <p>• Self-sovereign identity</p>
+              <p>• Data portability</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Swift</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">Kotlin</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">React Native</span>
+              <span className="px-3 py-1 bg-paper-200 dark:bg-ink-700 rounded-full text-xs">SQLite</span>
+            </div>
+          </div>
+        )
+      }
+    }
+  }
 }
 
-const panes: Pane[] = [
-  {
-    id: 'webos',
-    title: 'WebOS',
-    subtitle: 'Universal web framework',
-    description: 'The universal framework for interacting with web, Web3, and metaverses concurrently in parallel. Built for the next generation of internet experiences.',
-    icon: <Globe className="w-6 h-6" />,
-    features: [
-      'Cross-platform compatibility across all devices',
-      'Native Web3 and blockchain integration',
-      'Metaverse-ready with VR/AR support',
-      'Real-time synchronization engine'
-    ],
-    technical: [
-      'WebAssembly runtime for performance',
-      'Distributed state management',
-      'P2P networking capabilities',
-      'Zero-knowledge proof integration'
-    ],
-    status: 'coming-soon',
-    color: '#4F46E5',
-    gradient: 'from-indigo-500 to-purple-600'
-  },
-  {
-    id: 'homeos',
-    title: 'HomeOS',
-    subtitle: 'Smart home platform',
-    description: 'Intelligent platform for smart home management and automation. Connect, control, and orchestrate your entire living space.',
-    icon: <Home className="w-6 h-6" />,
-    features: [
-      'Universal device orchestration',
-      'AI-powered energy optimization',
-      'Advanced security monitoring',
-      'Natural language voice control'
-    ],
-    technical: [
-      'Matter/Thread protocol support',
-      'Local-first architecture',
-      'ML-based predictive automation',
-      'End-to-end encryption'
-    ],
-    status: 'coming-soon',
-    color: '#F59E0B',
-    gradient: 'from-amber-500 to-orange-600'
-  },
-  {
-    id: 'agentos',
-    title: 'AgentOS',
-    subtitle: 'Adaptive agent platform',
-    description: 'Our flagship OS, powered by Frame. The adaptive agent platform for building, deploying, and managing AI agents at scale.',
-    icon: <Grid3X3 className="w-6 h-6" />,
-    features: [
-      'Multi-agent orchestration system',
-      'Advanced NLP with GPT-4 integration',
-      'Multi-modal AI capabilities',
-      'Extensive plugin ecosystem',
-      'Real-time adaptive learning'
-    ],
-    technical: [
-      'Kubernetes-native deployment',
-      'Vector database integration',
-      'Streaming inference pipeline',
-      'Distributed training support',
-      'AutoML capabilities'
-    ],
-    status: 'live',
-    url: 'https://agentos.sh',
-    github: 'https://github.com/framersai/agentos',
-    npm: 'https://npmjs.com/package/@framers/agentos',
-    color: '#00C896',
-    gradient: 'from-emerald-500 to-teal-600'
-  },
-  {
-    id: 'safeos',
-    title: 'SafeOS',
-    subtitle: 'Digital vault & identity',
-    description: 'Your digital vault for storage, backup, firewall protection, and identity monitoring. Military-grade security for your digital life.',
-    icon: <Shield className="w-6 h-6" />,
-    features: [
-      'Zero-knowledge encryption',
-      'Decentralized identity management',
-      'Automated secure backups',
-      'Real-time threat detection'
-    ],
-    technical: [
-      'Post-quantum cryptography',
-      'Hardware security module support',
-      'Distributed ledger backup',
-      'Biometric authentication'
-    ],
-    status: 'coming-soon',
-    color: '#8B5CF6',
-    gradient: 'from-purple-500 to-indigo-600'
-  },
-  {
-    id: 'workos',
-    title: 'WorkOS',
-    subtitle: 'Project & CRM platform',
-    description: 'Comprehensive platform for work management, projects, and CRM. Transform how teams collaborate and deliver.',
-    icon: <Briefcase className="w-6 h-6" />,
-    features: [
-      'AI-powered task automation',
-      'Real-time team collaboration',
-      'Intelligent client management',
-      'Advanced analytics dashboard'
-    ],
-    technical: [
-      'GraphQL API architecture',
-      'Event-driven microservices',
-      'Time-series data analytics',
-      'Workflow automation engine'
-    ],
-    status: 'coming-soon',
-    color: '#EC4899',
-    gradient: 'from-pink-500 to-rose-600'
-  },
-  {
-    id: 'myos',
-    title: 'MyOS',
-    subtitle: 'Universal dashboard',
-    description: 'The dashboard that manages all OSes—your personal command center for the entire Frame ecosystem.',
-    icon: <Grid3X3 className="w-6 h-6" />,
-    features: [
-      'Unified control interface',
-      'Cross-OS synchronization',
-      'Personal analytics suite',
-      'Custom workflow builder'
-    ],
-    technical: [
-      'Federation protocol support',
-      'Real-time data streaming',
-      'Custom widget framework',
-      'OAuth2/SAML integration'
-    ],
-    status: 'coming-soon',
-    color: '#6B7280',
-    gradient: 'from-gray-500 to-slate-600'
-  }
-]
-
 export default function WindowFrame() {
-  const [selectedPane, setSelectedPane] = useState<string | null>(null)
-  const [hoveredPane, setHoveredPane] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'overview' | 'features' | 'technical'>('overview')
+  const [selectedOS, setSelectedOS] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState('overview')
 
-  const selectedPaneData = panes.find(p => p.id === selectedPane)
+  const handlePaneClick = (os: string) => {
+    setSelectedOS(os)
+    setActiveTab('overview')
+  }
+
+  const handleClose = () => {
+    setSelectedOS(null)
+  }
+
+  // Handle Escape key
+  const handleEscape = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape' && selectedOS) {
+      handleClose()
+    }
+  }
 
   return (
     <>
-      {/* Main Window Frame - Intricate Design */}
-      <div className="relative w-full max-w-6xl mx-auto perspective-1000">
-        <div className="relative bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 rounded-2xl shadow-paper-lifted overflow-hidden">
-          {/* Window Title Bar */}
-          <div className="h-12 bg-gradient-to-r from-paper-200/50 to-paper-100/50 dark:from-ink-800/50 dark:to-ink-900/50 backdrop-blur-sm flex items-center px-4 border-b border-ink-200/10 dark:border-paper-200/10">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-400 shadow-sm"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-400 shadow-sm"></div>
-              <div className="w-3 h-3 rounded-full bg-green-400 shadow-sm"></div>
-            </div>
-            <span className="ml-4 text-xs font-mono text-ink-500 dark:text-paper-500">frame://operating-systems</span>
-          </div>
-
-          {/* Window Panes Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink-200/10 dark:bg-paper-200/10 p-px">
-            {panes.map((pane, index) => (
-              <motion.div
-                key={pane.id}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.5, type: 'spring' }}
-                className="relative group"
-                onMouseEnter={() => setHoveredPane(pane.id)}
-                onMouseLeave={() => setHoveredPane(null)}
-              >
-                <div
-                  className={`
-                    relative h-48 sm:h-56 lg:h-64 bg-gradient-to-br ${pane.gradient} 
-                    cursor-pointer overflow-hidden transition-all duration-500
-                    ${hoveredPane === pane.id ? 'scale-[1.02] z-10' : ''}
-                  `}
-                  onClick={() => setSelectedPane(pane.id)}
-                >
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <pattern id={`pattern-${pane.id}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                          <circle cx="20" cy="20" r="1" fill="white" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill={`url(#pattern-${pane.id})`} />
-                    </svg>
-                  </div>
-
-                  {/* Glass Effect Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-
-                  {/* Content */}
-                  <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 text-white">
-                    <motion.div
-                      initial={{ scale: 1 }}
-                      animate={{ scale: hoveredPane === pane.id ? 1.1 : 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="mb-3"
-                    >
-                      {pane.icon}
-                    </motion.div>
-                    
-                    <h3 className="text-responsive-xl font-bold mb-1 text-center">
-                      {pane.title}
-                    </h3>
-                    <p className="text-responsive-sm opacity-90 text-center">
-                      {pane.subtitle}
-                    </p>
-
-                    {/* Status Badge */}
-                    <div className="mt-4">
-                      {pane.status === 'live' ? (
-                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold flex items-center gap-1">
-                          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                          Live Now
-                        </span>
-                      ) : (
-                        <span className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs opacity-75">
-                          Coming Soon
-                        </span>
+      <div className="relative max-w-4xl mx-auto" onKeyDown={handleEscape}>
+        {/* Main Window Frame - Exact match to logo */}
+        <div className="relative group">
+          <svg
+            viewBox="0 0 400 300"
+            className="w-full h-auto filter drop-shadow-2xl"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="frame-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{ stopColor: '#00C896', stopOpacity: 1 }} />
+                <stop offset="50%" style={{ stopColor: '#00B688', stopOpacity: 1 }} />
+                <stop offset="100%" style={{ stopColor: '#00A67C', stopOpacity: 1 }} />
+              </linearGradient>
+              <filter id="frame-shadow">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+                <feOffset dx="0" dy="4" result="offsetblur"/>
+                <feFlood floodColor="#000000" floodOpacity="0.2"/>
+                <feComposite in2="offsetblur" operator="in"/>
+                <feMerge>
+                  <feMergeNode/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            
+            {/* Outer frame with gradient */}
+            <rect x="20" y="20" width="360" height="260" rx="8" ry="8" 
+                  fill="none" stroke="url(#frame-gradient)" strokeWidth="4" filter="url(#frame-shadow)"/>
+            
+            {/* Inner dividers - matching logo exactly */}
+            <line x1="20" y1="115" x2="380" y2="115" stroke="url(#frame-gradient)" strokeWidth="3"/>
+            <line x1="20" y1="185" x2="380" y2="185" stroke="url(#frame-gradient)" strokeWidth="3"/>
+            <line x1="146" y1="20" x2="146" y2="280" stroke="url(#frame-gradient)" strokeWidth="3"/>
+            <line x1="254" y1="20" x2="254" y2="280" stroke="url(#frame-gradient)" strokeWidth="3"/>
+            
+            {/* Interactive panes */}
+            {Object.entries(osData).map(([ os, data], i) => {
+              const col = i % 3
+              const row = Math.floor(i / 3)
+              const x = 24 + col * 128
+              const y = 24 + row * 90
+              const Icon = data.icon
+              
+              return (
+                <g key={os} className="cursor-pointer" onClick={() => handlePaneClick(os)}>
+                  <rect x={x} y={y} width="118" height="82" fill="transparent" 
+                        className="hover:fill-white hover:fill-opacity-5 transition-all"/>
+                  <foreignObject x={x} y={y} width="118" height="82">
+                    <div className="h-full flex flex-col items-center justify-center p-2 group/pane">
+                      <Icon className="w-8 h-8 text-ink-600 dark:text-paper-300 group-hover/pane:text-frame-green transition-colors mb-1" />
+                      <p className="text-xs font-semibold text-ink-800 dark:text-paper-200" style={{ fontSize: 'clamp(0.65rem, 1.2vw, 0.75rem)' }}>
+                        {data.title}
+                      </p>
+                      <p className={`text-xs ${data.statusColor} opacity-70`} style={{ fontSize: 'clamp(0.5rem, 1vw, 0.625rem)' }}>
+                        {data.status}
+                      </p>
+                      {data.status === 'Live' && (
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mt-1" />
                       )}
                     </div>
-                  </div>
-
-                  {/* Hover Effect */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: hoveredPane === pane.id ? 1 : 0 }}
-                    className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"
-                  />
-
-                  {/* Click Indicator */}
-                  {hoveredPane === pane.id && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </motion.div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  </foreignObject>
+                </g>
+              )
+            })}
+          </svg>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-4 -left-4 w-24 h-24 bg-frame-green/10 rounded-full blur-2xl"></div>
-        <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-frame-green/10 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Detailed Pane Modal */}
+      {/* Modal */}
       <AnimatePresence>
-        {selectedPane && selectedPaneData && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedPane(null)}
-          >
+        {selectedOS && osData[selectedOS] && (
+          <>
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', duration: 0.5 }}
-              className="relative max-w-4xl w-full bg-paper-50 dark:bg-ink-950 rounded-2xl shadow-paper-lifted overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              onClick={handleClose}
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', duration: 0.3 }}
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl paper-card-lifted z-50 overflow-hidden"
             >
-              {/* Modal Header */}
-              <div className={`h-32 bg-gradient-to-br ${selectedPaneData.gradient} relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-black/20"></div>
-                <button
-                  onClick={() => setSelectedPane(null)}
-                  className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
-                >
-                  <X className="w-5 h-5 text-white" />
-                </button>
-                <div className="relative z-10 h-full flex items-center px-8">
-                  <div className="text-white">
-                    <div className="mb-2">{selectedPaneData.icon}</div>
-                    <h2 className="text-3xl font-display font-bold">{selectedPaneData.title}</h2>
-                    <p className="text-lg opacity-90">{selectedPaneData.subtitle}</p>
+              {/* Header */}
+              <div className="p-6 pb-0">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    {React.createElement(osData[selectedOS].icon, { className: "w-8 h-8 text-frame-green" })}
+                    <div>
+                      <h3 className="text-2xl font-bold heading-display">{osData[selectedOS].title}</h3>
+                      <p className="text-sm text-ink-600 dark:text-paper-400">{osData[selectedOS].description}</p>
+                    </div>
                   </div>
+                  <button
+                    onClick={handleClose}
+                    className="p-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-colors"
+                    aria-label="Close"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Tabs */}
+                <div className="flex gap-1 border-b border-ink-200/10 dark:border-paper-200/10">
+                  {Object.keys(osData[selectedOS].tabs).map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-4 py-2 text-sm font-medium transition-all relative ${
+                        activeTab === tab
+                          ? 'text-frame-green'
+                          : 'text-ink-600 dark:text-paper-400 hover:text-ink-900 dark:hover:text-paper-200'
+                      }`}
+                    >
+                      {osData[selectedOS].tabs[tab].title}
+                      {activeTab === tab && (
+                        <motion.div
+                          layoutId="activeTab"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-frame-green"
+                        />
+                      )}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              {/* Tab Navigation */}
-              <div className="flex border-b border-ink-200/10 dark:border-paper-200/10 bg-paper-100/50 dark:bg-ink-900/50">
-                {(['overview', 'features', 'technical'] as const).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`
-                      flex-1 px-6 py-3 text-sm font-medium capitalize transition-all duration-300
-                      ${activeTab === tab 
-                        ? 'text-frame-green border-b-2 border-frame-green bg-white/50 dark:bg-black/20' 
-                        : 'text-ink-600 dark:text-paper-400 hover:text-ink-900 dark:hover:text-paper-200'
-                      }
-                    `}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab Content */}
-              <div className="p-8">
+              {/* Content */}
+              <div className="p-6">
                 <AnimatePresence mode="wait">
-                  {activeTab === 'overview' && (
-                    <motion.div
-                      key="overview"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <p className="text-lg text-ink-700 dark:text-paper-200 leading-relaxed mb-6">
-                        {selectedPaneData.description}
-                      </p>
-                      
-                      {selectedPaneData.status === 'live' && (
-                        <div className="flex flex-wrap gap-3">
-                          {selectedPaneData.url && (
-                            <a
-                              href={selectedPaneData.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 bg-frame-green text-white rounded-lg hover:bg-frame-green-dark transition-colors"
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                              Visit {selectedPaneData.title}
-                            </a>
-                          )}
-                          {selectedPaneData.github && (
-                            <a
-                              href={selectedPaneData.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 bg-ink-900 dark:bg-paper-100 text-white dark:text-ink-900 rounded-lg hover:opacity-90 transition-opacity"
-                            >
-                              <Github className="w-4 h-4" />
-                              GitHub
-                            </a>
-                          )}
-                          {selectedPaneData.npm && (
-                            <a
-                              href={selectedPaneData.npm}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                            >
-                              <Package className="w-4 h-4" />
-                              NPM
-                            </a>
-                          )}
-                        </div>
-                      )}
-                    </motion.div>
-                  )}
-
-                  {activeTab === 'features' && (
-                    <motion.div
-                      key="features"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.3 }}
-                      className="space-y-3"
-                    >
-                      {selectedPaneData.features.map((feature, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          className="flex items-start gap-3 p-3 bg-paper-100/50 dark:bg-ink-900/50 rounded-lg"
-                        >
-                          <span className="text-frame-green mt-1">✓</span>
-                          <span className="text-ink-700 dark:text-paper-200">{feature}</span>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-
-                  {activeTab === 'technical' && (
-                    <motion.div
-                      key="technical"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.3 }}
-                      className="space-y-3"
-                    >
-                      {selectedPaneData.technical.map((tech, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          className="flex items-start gap-3 p-3 bg-paper-100/50 dark:bg-ink-900/50 rounded-lg font-mono text-sm"
-                        >
-                          <span className="text-frame-green">→</span>
-                          <span className="text-ink-700 dark:text-paper-200">{tech}</span>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {osData[selectedOS].tabs[activeTab].content}
+                  </motion.div>
                 </AnimatePresence>
               </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
