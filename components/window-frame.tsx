@@ -661,7 +661,10 @@ export default function WindowFrame() {
               <div className="p-6 pb-0">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    {React.createElement(osData[selectedOS].icon, { className: "w-8 h-8 text-frame-green" })}
+                    {(() => {
+                      const IconComponent = osData[selectedOS].icon
+                      return <IconComponent className="w-8 h-8 text-frame-green" />
+                    })()}
                     <div>
                       <h3 className="text-2xl font-bold heading-display">{osData[selectedOS].title}</h3>
                       <p className="text-sm text-ink-600 dark:text-paper-400">{osData[selectedOS].description}</p>
