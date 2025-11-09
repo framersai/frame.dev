@@ -39,6 +39,12 @@ export default function AboutPage() {
               in building in public and empowering developers worldwide to contribute to and build upon 
               our work.
             </p>
+            <p className="text-lg">
+              Every operating system we publish ships with a fully functional Community Edition that is free 
+              for personal use forever. Enterprise and Teams editions add multi-tenant controls, fine-grained 
+              RBAC, and advanced collaboration features for organizations, but the core capabilities are always 
+              accessible to the community.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
               <div className="paper-card p-6">
                 <h3 className="text-xl font-semibold mb-3 text-frame-green">Community Edition</h3>

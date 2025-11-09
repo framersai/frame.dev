@@ -20,16 +20,16 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-20">
             {/* Logo - Using no-subtitle version, bigger and clickable */}
             <Link href="/" className="flex items-center group">
-              <svg 
-                width="200" 
-                height="60" 
-                viewBox="0 0 800 200" 
+              <svg
+                width="260"
+                height="78"
+                viewBox="0 0 800 240"
                 className="group-hover:scale-105 transition-transform duration-300"
               >
-                <image 
-                  href="/frame-logo-no-subtitle.svg" 
-                  width="800" 
-                  height="200"
+                <image
+                  href="/frame-logo-no-subtitle.svg"
+                  width="800"
+                  height="240"
                 />
               </svg>
             </Link>

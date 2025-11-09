@@ -12,8 +12,7 @@ export default function Footer() {
     >
       {/* OpenStrand Section */}
       <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-4 mb-4">
-          <span className="text-3xl text-frame-green">∞</span>
+        <div className="flex items-center justify-center mb-4">
           <div className="relative">
             <svg height="48" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
               <defs>
@@ -34,7 +33,6 @@ export default function Footer() {
               <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
             </svg>
           </div>
-          <span className="text-3xl text-frame-green">∞</span>
         </div>
         <p className="text-sm text-ink-600 dark:text-paper-400">
           Powered by OpenStrand • The backbone of all Frame operating systems

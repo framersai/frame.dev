@@ -129,52 +129,56 @@ export default function WindowFrame() {
   return (
     <>
       <div className="relative max-w-5xl mx-auto px-4">
-        {/* Main Window Frame - Exact match to logo with refined elegant design */}
+        {/* Main Window Frame - refined to match branding */}
         <div className="relative group">
-          <div 
-            className="relative bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 rounded-2xl overflow-hidden"
-            style={{
-              boxShadow: `
-                0 0 0 3px #00C896,
-                0 10px 40px -10px rgba(0, 200, 150, 0.3),
-                0 20px 60px -20px rgba(0, 0, 0, 0.2)
-              `
-            }}
-          >
-            {/* Window panes grid - 3x2 like the logo */}
-            <div className="grid grid-cols-3 grid-rows-2">
-              {Object.entries(osData).map(([os, data], i) => {
-                const isAgentOS = os === 'AgentOS'
-                const isHovered = hoveredPane === os
-                
-                return (
-                  <motion.div
-                    key={os}
-                    className={`
-                      relative aspect-[4/3] border-2 border-frame-green
-                      ${i % 3 !== 2 ? 'border-r-0' : ''}
-                      ${i < 3 ? 'border-b-0' : ''}
-                      ${data.placeholder && os !== 'AgentOS' ? 'cursor-not-allowed' : 'cursor-pointer'}
-                      bg-gradient-to-br from-white/50 to-white/30 dark:from-ink-800/50 dark:to-ink-900/50
-                      hover:from-frame-green/5 hover:to-frame-green/10
-                      transition-all duration-300
-                    `}
-                    onClick={() => handlePaneClick(os as OSName)}
-                    onMouseEnter={() => setHoveredPane(os as OSName)}
-                    onMouseLeave={() => setHoveredPane(null)}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                  >
-                    <div className="h-full flex flex-col items-center justify-center p-6 relative">
-                      {/* Logo or placeholder SVG */}
+          {/* Outer glow */}
+          <div className="absolute inset-0 blur-3xl bg-frame-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          {/* Outer frame */}
+          <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
+            <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
+              {/* Inner border highlight & dividers */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-[1px] rounded-[21px] border border-white/60 dark:border-frame-green/25" />
+                <div className="absolute top-0 bottom-0 left-1/3 w-[2px] bg-gradient-to-b from-frame-green/20 via-frame-green/40 to-frame-green/20 dark:from-frame-green/10 dark:via-frame-green/30 dark:to-frame-green/10" />
+                <div className="absolute top-0 bottom-0 left-2/3 w-[2px] bg-gradient-to-b from-frame-green/20 via-frame-green/40 to-frame-green/20 dark:from-frame-green/10 dark:via-frame-green/30 dark:to-frame-green/10" />
+                <div className="absolute left-0 right-0 top-1/2 h-[2px] bg-gradient-to-r from-frame-green/20 via-frame-green/40 to-frame-green/20 dark:from-frame-green/10 dark:via-frame-green/30 dark:to-frame-green/10" />
+              </div>
+
+              {/* Window panes */}
+              <div className="grid grid-cols-3 grid-rows-2 relative">
+                {Object.entries(osData).map(([os, data]) => {
+                  const isAgentOS = os === 'AgentOS'
+                  const isHovered = hoveredPane === os
+
+                  return (
+                    <motion.button
+                      type="button"
+                      key={os}
+                      className={`
+                        relative aspect-[4/3] flex flex-col items-center justify-center p-6 transition-all duration-300
+                        ${data.placeholder && os !== 'AgentOS' ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'}
+                        bg-gradient-to-br from-white/60 to-white/20 dark:from-ink-900/60 dark:to-ink-800/20
+                        hover:from-frame-green/15 hover:to-frame-green/10 focus:outline-none focus:ring-2 focus:ring-frame-green/60
+                      `}
+                      onClick={() => handlePaneClick(os as OSName)}
+                      onMouseEnter={() => setHoveredPane(os as OSName)}
+                      onMouseLeave={() => setHoveredPane(null)}
+                      whileHover={{ scale: data.placeholder && os !== 'AgentOS' ? 1 : 1.015 }}
+                      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                      disabled={data.placeholder && os !== 'AgentOS'}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                      {/* Logo or placeholder */}
                       {isAgentOS ? (
                         <div className="mb-3">
-                          <Image 
-                            src="/agentos-logo.png" 
-                            alt="AgentOS" 
-                            width={120} 
-                            height={40}
-                            className="object-contain"
+                          <Image
+                            src="/agentos-logo.png"
+                            alt="AgentOS"
+                            width={140}
+                            height={42}
+                            className="object-contain drop-shadow-lg"
                           />
                         </div>
                       ) : data.placeholder ? (
@@ -184,43 +188,45 @@ export default function WindowFrame() {
                       ) : (
                         <data.icon className="w-12 h-12 text-frame-green mb-3" />
                       )}
-                      
-                      {/* Title and status */}
+
+                      {/* Title & status */}
                       {!isAgentOS && (
-                        <h3 className="text-lg font-bold text-ink-800 dark:text-paper-200 mb-1">
+                        <h3 className="text-lg font-semibold text-ink-800 dark:text-paper-100 mb-1 tracking-tight">
                           {data.title}
                         </h3>
                       )}
-                      <p className={`text-xs ${data.statusColor} font-medium`}>
+                      <p className={`text-xs ${data.statusColor} font-medium uppercase tracking-wide`}>
                         {data.status}
                       </p>
-                      
+
                       {/* Live indicator */}
                       {data.status === 'Live' && (
-                        <div className="absolute top-4 right-4">
-                          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                        <div className="absolute top-4 right-4 flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.6)]" />
+                          <span className="text-xs text-green-500 font-medium">Live</span>
                         </div>
                       )}
-                      
-                      {/* Hover overlay with description */}
+
+                      {/* Hover description */}
                       <AnimatePresence>
-                        {isHovered && (
+                        {isHovered && !data.placeholder && (
                           <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute inset-1 rounded-lg bg-gradient-to-t from-frame-green/90 via-frame-green/50 to-transparent backdrop-blur-sm flex items-end p-4"
                           >
-                            <p className="text-white text-sm">
+                            <p className="text-sm text-white leading-snug">
                               {data.description}
                             </p>
                           </motion.div>
                         )}
                       </AnimatePresence>
-                    </div>
-                  </motion.div>
-                )
-              })}
+                    </motion.button>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>

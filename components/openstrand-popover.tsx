@@ -34,12 +34,12 @@ const pages = [
           </div>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <a 
             href="https://openstrand.ai" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex-1 btn-primary flex items-center justify-center gap-2"
+            className="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2 text-sm"
           >
             <Download className="w-5 h-5" />
             Get Community Edition
@@ -48,7 +48,7 @@ const pages = [
             href="https://openstrand.ai/signup" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex-1 btn-secondary flex items-center justify-center gap-2"
+            className="btn-secondary inline-flex items-center justify-center gap-2 px-5 py-2 text-sm"
           >
             Sign Up Now
           </a>
@@ -189,23 +189,27 @@ export default function OpenStrandPopover() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/30 z-40"
+              className="fixed inset-0 bg-black/35 z-40 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Modal - Fixed to center */}
+            {/* Modal - centered via flex wrapper */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: 'spring', duration: 0.3 }}
-              className="fixed inset-0 m-auto w-full max-w-3xl h-fit max-h-[90vh] paper-card-lifted z-50 overflow-hidden"
-              style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none"
             >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ type: 'spring', duration: 0.3 }}
+                className="pointer-events-auto w-full max-w-3xl h-fit max-h-[90vh] paper-card-lifted overflow-hidden relative"
+              >
               {/* Header with logo */}
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-3xl text-frame-green">∞</span>
+                <div className="flex items-center justify-center">
                   <div className="relative h-16">
                     <svg height="64" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
                       <defs>
@@ -226,7 +230,6 @@ export default function OpenStrandPopover() {
                       <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
                     </svg>
                   </div>
-                  <span className="text-3xl text-frame-green">∞</span>
                 </div>
               </div>
 
@@ -290,14 +293,15 @@ export default function OpenStrandPopover() {
                 </button>
               </div>
 
-              {/* Close button */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 p-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-colors"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
+                {/* Close button */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="absolute top-4 right-4 p-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </motion.div>
             </motion.div>
           </>
         )}
