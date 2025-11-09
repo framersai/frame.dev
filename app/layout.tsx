@@ -15,22 +15,40 @@ const crimson = Crimson_Text({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://frame.dev'),
   title: 'Frame - Denoising the web',
   description: 'The OS for your life. A window to organize, simplify, and enhance your digital existence.',
+  applicationName: 'Frame',
   keywords: ['Frame', 'OS', 'AgentOS', 'WebOS', 'HomeOS', 'SafeOS', 'WorkOS', 'MyOS', 'Framers'],
   authors: [{ name: 'Framers', url: 'https://frame.dev' }],
+  creator: 'Framers',
+  publisher: 'Framers',
   openGraph: {
     title: 'Frame - Denoising the web',
     description: 'The OS for your life',
     url: 'https://frame.dev',
     siteName: 'Frame',
     type: 'website',
+    images: ['/og-image.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Frame - Denoising the web',
     description: 'The OS for your life',
     creator: '@framersai',
+    images: ['/og-image.png'],
+  },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: ['/icon.svg'],
+    apple: '/icon.svg',
+  },
+  category: 'technology',
+  alternates: {
+    canonical: '/',
+  },
+  other: {
+    contact: 'team@frame.dev',
   },
 }
 
