@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import WindowFrame from '@/components/window-frame'
 import PageLayout from '@/components/page-layout'
@@ -7,6 +8,13 @@ import OpenStrandPopover from '@/components/openstrand-popover'
 import VCABanner from '@/components/vca-banner'
 
 export default function HomePage() {
+  const [headingRevealed, setHeadingRevealed] = useState(false)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setHeadingRevealed(true), 200)
+    return () => clearTimeout(timeout)
+  }, [])
+
   return (
     <PageLayout>
       {/* VCA Banner - Bottom right */}
@@ -26,7 +34,14 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Denoising the web
+            <motion.span
+              className={`hero-heading ${headingRevealed ? 'is-revealed' : ''}`}
+              initial={{ opacity: 0, filter: 'blur(14px)', clipPath: 'inset(0 100% 0 0)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Denoising the web
+            </motion.span>
           </motion.h1>
           <motion.div 
             className="text-2xl md:text-3xl"

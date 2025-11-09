@@ -65,8 +65,8 @@ const osData: Record<string, OSDefinition> = {
   AgentOS: {
     title: 'AgentOS',
     icon: Bot,
-    description: 'Production-ready runtime for AI agents',
-    longDescription: 'AgentOS provides a complete runtime environment for deploying, managing, and orchestrating AI agents at scale. Built with TypeScript for maximum developer productivity.',
+    description: 'Adaptive AI agency runtime & orchestration layer',
+    longDescription: 'AgentOS is the adaptive intelligence runtime that powers Framers agencies. It fuses policy-aware agent coordination, multi-provider cognition, and telemetry-backed governance into one deployable TypeScript stack. Designed for long-lived automation, it balances autonomous execution with human-in-the-loop checkpoints, live session streaming, and fine-grained safety guardrails.',
     status: 'Live',
     statusColor: 'text-green-600',
     logo: '/agentos-logo.png',
@@ -75,7 +75,13 @@ const osData: Record<string, OSDefinition> = {
       npm: 'https://npmjs.com/package/@framers/agentos',
       website: 'https://agentos.sh'
     },
-    features: ['Multi-Provider Support', 'Extension System', 'Guardrails', 'Observability']
+    features: [
+      'Adaptive multi-agent graph with programmable agencies & roles',
+      'Real-time session bus, artifact registry, and audit timeline',
+      'Provider abstraction for OpenAI, Anthropic, Google, local LLMs',
+      'Guardrail framework with extension packs for PII, policy, and risk',
+      'Observability hooks: live streams, structured logs, metric adapters'
+    ]
   },
   SafeOS: {
     title: 'SafeOS',
@@ -171,23 +177,29 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className="relative aspect-[4/3] flex flex-col items-center justify-center p-6 transition-all duration-300 bg-gradient-to-br from-white/60 to-white/20 dark:from-ink-900/60 dark:to-ink-800/20 hover:from-frame-green/15 hover:to-frame-green/10 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer"
+                      className="relative aspect-[4/3] flex flex-col items-center justify-center p-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px]"
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
-                      whileHover={{ scale: 1.015 }}
-                      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+                      whileHover={{ scale: 1.02, boxShadow: '0 32px 55px -40px rgba(0, 200, 150, 0.55)' }}
+                      transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+                      style={{
+                        background: isAgentOS
+                          ? 'linear-gradient(165deg, rgba(0, 200, 150, 0.18) 0%, rgba(0, 167, 124, 0.12) 45%, rgba(255, 255, 255, 0.85) 100%)'
+                          : 'linear-gradient(155deg, rgba(255, 255, 255, 0.82) 0%, rgba(243, 248, 254, 0.76) 55%, rgba(235, 243, 252, 0.7) 100%)',
+                        backdropFilter: 'blur(12px)'
+                      }}
                     >
                       {isAgentOS ? (
                         <div className="mb-4 flex items-center justify-center w-full">
-                          <Image src="/agentos-logo.png" alt="AgentOS" width={168} height={50} className="object-contain drop-shadow-xl" />
+                          <Image src="/agentos-logo.png" alt="AgentOS" width={188} height={56} className="object-contain drop-shadow-[0_18px_28px_rgba(0,167,124,0.3)]" />
                         </div>
                       ) : data.placeholder ? (
-                        <div className="mb-3 text-ink-400 dark:text-ink-600">
+                        <div className="mb-4 text-ink-400 dark:text-ink-600 opacity-80">
                           {data.customSvg}
                         </div>
                       ) : (
-                        <data.icon className="w-12 h-12 text-frame-green mb-3" />
+                        <data.icon className="w-14 h-14 text-frame-green mb-4 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
                       )}
 
                       {!isAgentOS && (

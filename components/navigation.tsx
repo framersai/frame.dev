@@ -125,10 +125,18 @@ export default function Navigation() {
           >
             <div className="flex flex-col h-full pt-24 px-6">
               <div className="space-y-6">
-                <Link href="/about" className="block text-lg font-medium text-ink-900 dark:text-paper-50 hover:text-frame-green transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <Link 
+                  href="/about" 
+                  className={`block text-lg font-medium transition-colors ${pathname === '/about' ? 'text-frame-green' : 'text-ink-900 dark:text-paper-50 hover:text-frame-green'}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   About
                 </Link>
-                <Link href="/blog" className="block text-lg font-medium text-ink-900 dark:text-paper-50 hover:text-frame-green transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <Link 
+                  href="/blog" 
+                  className={`block text-lg font-medium transition-colors ${pathname?.startsWith('/blog') ? 'text-frame-green' : 'text-ink-900 dark:text-paper-50 hover:text-frame-green'}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   Blog
                 </Link>
                 <a href="https://agentos.sh" className="block text-lg font-bold text-frame-green" target="_blank" rel="noopener noreferrer">

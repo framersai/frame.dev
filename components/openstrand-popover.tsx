@@ -12,31 +12,32 @@ const pages = [
     content: (
       <div className="space-y-6">
         <p className="text-base body-text">
-          OpenStrand is the backbone technology powering all Frame operating systems. A revolutionary 
-          distributed architecture that enables seamless interoperability between different OS layers.
+          OpenStrand is the knowledge operating system that underpins every Frame surface. It is a
+          TypeScript-first monorepo that ships a Fastify + Prisma API, a Next.js application, and shared SDKs. 
+          Teams deploy it to own their data fabric, orchestrate AI-native knowledge work, and sync structured & unstructured strands across devices.
         </p>
         
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
             <Layers className="w-10 h-10 mx-auto mb-2 text-frame-green" />
-            <p className="text-sm font-semibold">Modular</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Plug & play architecture</p>
+            <p className="text-sm font-semibold">TypeScript everywhere</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Fastify API, Next.js UI, and SDKs in one workspace</p>
           </div>
           <div className="text-center p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
             <GitBranch className="w-10 h-10 mx-auto mb-2 text-frame-green" />
-            <p className="text-sm font-semibold">Distributed</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Decentralized by design</p>
+            <p className="text-sm font-semibold">Local-first knowledge graph</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Prisma schema targets PostgreSQL or embedded PGlite</p>
           </div>
           <div className="text-center p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
             <Box className="w-10 h-10 mx-auto mb-2 text-frame-green" />
-            <p className="text-sm font-semibold">Extensible</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Infinite possibilities</p>
+            <p className="text-sm font-semibold">Automation ready</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Scripts & SDK bootstrap local, self-hosted, or cloud builds</p>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-3">
           <a 
-            href="https://openstrand.ai" 
+            href="https://openstrand.ai"
             target="_blank" 
             rel="noopener noreferrer"
             className="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2 text-sm"
@@ -61,51 +62,44 @@ const pages = [
     title: 'Architecture',
     content: (
       <div className="space-y-6">
-        <div className="relative h-64 bg-gradient-to-br from-frame-green/10 to-frame-green-dark/10 rounded-lg p-6">
-          <svg className="w-full h-full" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            {/* Core */}
-            <circle cx="200" cy="100" r="35" fill="#00C896" opacity="0.8"/>
-            <text x="200" y="105" textAnchor="middle" className="text-sm font-bold fill-white">Core</text>
-            
-            {/* Orbiting Systems */}
-            {['WebOS', 'HomeOS', 'AgentOS', 'SafeOS', 'WorkOS', 'MyOS'].map((os, i) => {
-              const angle = (i * 60) * Math.PI / 180
-              const x = 200 + 90 * Math.cos(angle)
-              const y = 100 + 90 * Math.sin(angle)
-              return (
-                <g key={os}>
-                  <circle cx={x} cy={y} r="25" fill="#00C896" opacity="0.4"/>
-                  <text x={x} y={y + 4} textAnchor="middle" className="text-xs fill-ink-900 dark:fill-paper-50">{os}</text>
-                  <line x1="200" y1="100" x2={x} y2={y} stroke="#00C896" strokeWidth="2" opacity="0.3">
-                    <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite" />
-                  </line>
-                </g>
-              )
-            })}
-          </svg>
+        <div className="space-y-4">
+          <p className="text-sm body-text">
+            The OpenStrand slip-box is modelled as recursive strands linked by typed edges. Each strand carries content, 
+            provenance, authorship, and visibility metadata; every relationship is captured through `StrandLinkType` 
+            (<code className="font-mono text-xs">STRUCTURAL</code>, <code className="font-mono text-xs">CONCEPTUAL</code>, 
+            <code className="font-mono text-xs">PLACEHOLDER</code>, etc.). Hierarchies guarantee a single structural parent per scope, 
+            while still allowing cross-scope reuse, citations, and derivations.
+          </p>
+          <p className="text-sm body-text">
+            Integrity is enforced by <code className="font-mono text-xs">StrandHierarchy</code> and <code className="font-mono text-xs">StrandVisibilityCache</code>. 
+            Structure mutations travel through approval queues, background cascades, and optional Slack/email webhooks—keeping PKMS workflows auditable.
+          </p>
         </div>
-        
-        <div className="space-y-3">
-          <div className="flex items-start gap-3 p-3 bg-paper-100 dark:bg-ink-800 rounded-lg">
-            <span className="text-frame-green text-lg">∞</span>
-            <div>
-              <p className="font-semibold text-sm">Event-driven message passing</p>
-              <p className="text-xs text-ink-600 dark:text-paper-400">Real-time communication between OS layers</p>
-            </div>
+
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
+            <p className="font-semibold text-sm mb-1">Collaborative strands</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400">
+              Authorship, co-authoring, provenance, link justification, and approval states are first-class fields.
+            </p>
           </div>
-          <div className="flex items-start gap-3 p-3 bg-paper-100 dark:bg-ink-800 rounded-lg">
-            <span className="text-frame-green text-lg">∞</span>
-            <div>
-              <p className="font-semibold text-sm">Federated state management</p>
-              <p className="text-xs text-ink-600 dark:text-paper-400">Distributed consensus protocol</p>
-            </div>
+          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
+            <p className="font-semibold text-sm mb-1">Local ↔ Cloud symmetry</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400">
+              PGlite fallback for offline builds, PostgreSQL for team deployments, same Prisma schema powering both.
+            </p>
           </div>
-          <div className="flex items-start gap-3 p-3 bg-paper-100 dark:bg-ink-800 rounded-lg">
-            <span className="text-frame-green text-lg">∞</span>
-            <div>
-              <p className="font-semibold text-sm">Zero-trust security model</p>
-              <p className="text-xs text-ink-600 dark:text-paper-400">End-to-end encryption by default</p>
-            </div>
+          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
+            <p className="font-semibold text-sm mb-1">Automation-first scripts</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400">
+              `start-local.sh` bootstraps the workspace, sets env flags, and runs API + App with workspace-aware installs.
+            </p>
+          </div>
+          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
+            <p className="font-semibold text-sm mb-1">Open documentation</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400">
+              Architecture, intelligent data pipeline, i18n system, packaging and deployment guides live in `docs/`.
+            </p>
           </div>
         </div>
       </div>
@@ -133,6 +127,16 @@ const pages = [
             <div className="flex-1">
               <p className="font-semibold">NPM Packages</p>
               <p className="text-sm text-ink-500 dark:text-paper-500">@framers/openstrand</p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-ink-400" />
+          </a>
+
+          <a href="https://openstrand.ai/docs" target="_blank" rel="noopener noreferrer"
+             className="flex items-center gap-3 p-4 bg-paper-100 dark:bg-ink-800 rounded-lg hover:bg-paper-200 dark:hover:bg-ink-700 transition-all group">
+            <Layers className="w-6 h-6 text-frame-green group-hover:text-frame-green-dark" />
+            <div className="flex-1">
+              <p className="font-semibold">Documentation Hub</p>
+              <p className="text-sm text-ink-500 dark:text-paper-500">Architecture, pipelines, packaging, deployment</p>
             </div>
             <ExternalLink className="w-4 h-4 text-ink-400" />
           </a>
@@ -223,7 +227,7 @@ export default function OpenStrandPopover() {
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
                 <div className="flex items-center justify-center">
                   <div className="relative h-16">
-                    <svg height="64" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                    <svg height="64" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
                       <defs>
                         <linearGradient id="strand" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" style={{ stopColor: '#00C896', stopOpacity: 1 }} />
@@ -238,8 +242,10 @@ export default function OpenStrandPopover() {
                         <circle cx="40" cy="0" r="3" fill="#00C896"/>
                         <circle cx="60" cy="0" r="3" fill="#00C896"/>
                         <circle cx="80" cy="0" r="3" fill="#00C896"/>
+                        <circle cx="100" cy="0" r="3" fill="#00C896" opacity="0.6"/>
+                        <circle cx="120" cy="0" r="3" fill="#00C896" opacity="0.4"/>
                       </g>
-                      <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
+                      <text x="140" y="35" fontFamily="Inter, sans-serif" fontSize="22" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
                     </svg>
                   </div>
                 </div>
