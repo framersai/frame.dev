@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight, Github, Package, ExternalLink, Layers, GitBranch, Box, Download } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Github, Package, ExternalLink, Layers, GitBranch, Box, Download, X } from 'lucide-react'
 
 const pages = [
   {
