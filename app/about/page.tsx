@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import PageLayout from '@/components/page-layout'
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-32 pb-20">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <PageLayout>
+      <div className="container mx-auto px-4 max-w-4xl pt-20 pb-20">
         <h1 className="text-5xl font-bold mb-12 heading-gradient">About Frame</h1>
         
         {/* Mission */}
@@ -140,6 +140,6 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
-    </div>
+    </PageLayout>
   )
 }

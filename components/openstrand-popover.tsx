@@ -184,22 +184,23 @@ export default function OpenStrandPopover() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop - Less blur, more visible */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/30 z-40"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Modal */}
+            {/* Modal - Fixed to center */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ type: 'spring', duration: 0.3 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl paper-card-lifted z-50 overflow-hidden"
+              className="fixed inset-0 m-auto w-full max-w-3xl h-fit max-h-[90vh] paper-card-lifted z-50 overflow-hidden"
+              style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
             >
               {/* Header with logo */}
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
@@ -222,7 +223,7 @@ export default function OpenStrandPopover() {
                         <circle cx="60" cy="0" r="3" fill="#00C896"/>
                         <circle cx="80" cy="0" r="3" fill="#00C896"/>
                       </g>
-                      <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="24" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
+                      <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
                     </svg>
                   </div>
                   <span className="text-3xl text-frame-green">∞</span>

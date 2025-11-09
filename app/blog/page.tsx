@@ -1,90 +1,138 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
+import PageLayout from '@/components/page-layout'
 import Link from 'next/link'
+import { Calendar, Clock, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Blog - Frame',
-  description: 'Thoughts on AI, infrastructure, and the future of computing',
+  description: 'Latest updates and insights from the Frame team',
 }
+
+const posts = [
+  {
+    slug: 'introducing-frame',
+    title: 'Introducing Frame: The OS for Your Life',
+    excerpt: 'Today we\'re excited to announce Frame, a revolutionary suite of operating systems designed to organize, simplify, and enhance every aspect of your digital existence.',
+    date: '2025-01-09',
+    readTime: '5 min read',
+    author: 'Frame Team',
+    featured: true
+  },
+  {
+    slug: 'agentos-launch',
+    title: 'AgentOS is Now Live',
+    excerpt: 'Our production-ready runtime for AI agents is now available. Deploy, manage, and orchestrate AI agents at scale with TypeScript.',
+    date: '2025-01-08',
+    readTime: '3 min read',
+    author: 'Engineering Team'
+  },
+  {
+    slug: 'openstrand-architecture',
+    title: 'Understanding OpenStrand Architecture',
+    excerpt: 'Deep dive into the distributed architecture powering all Frame operating systems and enabling seamless interoperability.',
+    date: '2025-01-07',
+    readTime: '8 min read',
+    author: 'Technical Team'
+  }
+]
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen paper-bg">
-      <div className="container mx-auto px-4 py-24 max-w-4xl">
-        <nav className="mb-8 flex items-center gap-2 text-sm">
-          <Link href="/" className="text-ink-600 dark:text-paper-400 hover:text-frame-green transition-colors">
-            Frame
-          </Link>
-          <span className="text-ink-400">/</span>
-          <span className="text-ink-800 dark:text-paper-200">Blog</span>
-        </nav>
-
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold ink-text mb-4">
-            Blog
-          </h1>
-          <p className="text-lg text-ink-600 dark:text-paper-300">
-            Thoughts on AI, infrastructure, and the future of computing
-          </p>
-        </div>
-
-        {/* Coming Soon State */}
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center p-12 bg-paper-100 dark:bg-ink-900 rounded-lg shadow-lg animate-paper-fold">
-              <div className="mb-6">
-                <svg className="w-16 h-16 mx-auto text-frame-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-serif font-bold ink-text mb-3">
-                Coming Soon
+    <PageLayout>
+      <div className="container mx-auto px-4 max-w-4xl pt-20 pb-20">
+        <h1 className="text-5xl font-bold mb-12 heading-gradient">Blog</h1>
+        
+        {/* Featured Post */}
+        {posts.filter(p => p.featured).map(post => (
+          <div key={post.slug} className="mb-12">
+            <div className="paper-card-lifted p-8 bg-gradient-to-br from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
+              <span className="inline-block px-3 py-1 bg-frame-green text-white text-xs font-semibold rounded-full mb-4">
+                Featured
+              </span>
+              <h2 className="text-3xl font-bold mb-4 heading-display">
+                <Link href={`/blog/${post.slug}`} className="hover:text-frame-green transition-colors">
+                  {post.title}
+                </Link>
               </h2>
-              <p className="text-ink-600 dark:text-paper-300 mb-6">
-                We're preparing thoughtful content about the intersection of AI and human agency.
+              <p className="text-lg body-text mb-4">
+                {post.excerpt}
               </p>
-              
-              {/* Newsletter Signup */}
-              <div className="mt-8 p-6 bg-white dark:bg-ink-950 rounded-md">
-                <h3 className="text-lg font-medium mb-3">Stay Updated</h3>
-                <p className="text-sm text-ink-600 dark:text-paper-400 mb-4">
-                  Subscribe to our newsletter for updates on new posts and Frame ecosystem developments.
-                </p>
-                <div className="flex gap-2">
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="flex-1 px-4 py-2 rounded-md border border-ink-300 dark:border-ink-700 bg-white dark:bg-ink-900 text-ink-900 dark:text-paper-100 placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-frame-green"
-                    disabled
-                  />
-                  <span
-                    className="btn-primary opacity-50 cursor-not-allowed inline-flex items-center justify-center"
-                  >
-                    Subscribe
-                  </span>
-                </div>
-                <p className="text-xs text-ink-500 dark:text-paper-500 mt-2">
-                  Newsletter coming soon
-                </p>
+              <div className="flex items-center gap-4 text-sm text-ink-600 dark:text-paper-400">
+                <span className="flex items-center gap-1">
+                  <Calendar className="w-4 h-4" />
+                  {new Date(post.date).toLocaleDateString('en-US', { 
+                    month: 'long', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                  })}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  {post.readTime}
+                </span>
+                <span>By {post.author}</span>
               </div>
+              <Link 
+                href={`/blog/${post.slug}`} 
+                className="inline-flex items-center gap-2 mt-6 text-frame-green font-semibold hover:underline"
+              >
+                Read more
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
+        ))}
 
-          {/* Placeholder Blog Posts (blurred) */}
-          <div className="opacity-20 blur-sm pointer-events-none">
-            {[1, 2, 3].map((i) => (
-              <article key={i} className="mb-8 p-6 bg-paper-100 dark:bg-ink-900 rounded-lg">
-                <div className="h-4 bg-ink-300 dark:bg-ink-700 rounded w-3/4 mb-3"></div>
-                <div className="h-3 bg-ink-200 dark:bg-ink-800 rounded w-1/2 mb-4"></div>
-                <div className="space-y-2">
-                  <div className="h-2 bg-ink-100 dark:bg-ink-800 rounded"></div>
-                  <div className="h-2 bg-ink-100 dark:bg-ink-800 rounded w-5/6"></div>
-                  <div className="h-2 bg-ink-100 dark:bg-ink-800 rounded w-4/6"></div>
-                </div>
-              </article>
-            ))}
+        {/* Other Posts */}
+        <div className="space-y-8">
+          {posts.filter(p => !p.featured).map(post => (
+            <article key={post.slug} className="paper-card p-6">
+              <h2 className="text-2xl font-bold mb-3">
+                <Link href={`/blog/${post.slug}`} className="hover:text-frame-green transition-colors">
+                  {post.title}
+                </Link>
+              </h2>
+              <p className="body-text mb-4">
+                {post.excerpt}
+              </p>
+              <div className="flex items-center gap-4 text-sm text-ink-600 dark:text-paper-400">
+                <span className="flex items-center gap-1">
+                  <Calendar className="w-4 h-4" />
+                  {new Date(post.date).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  {post.readTime}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Newsletter Section */}
+        <div className="mt-16 paper-card p-8 bg-gradient-to-br from-frame-green/5 to-frame-green-dark/5">
+          <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
+          <p className="body-text mb-6">
+            Get the latest updates on Frame development, new OS releases, and insights from our team.
+          </p>
+          <div className="flex gap-3">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              className="flex-1 px-4 py-2 rounded-lg border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 focus:outline-none focus:ring-2 focus:ring-frame-green"
+            />
+            <button className="btn-primary">
+              Subscribe
+            </button>
           </div>
+          <p className="text-xs text-ink-500 dark:text-paper-500 mt-3">
+            We respect your privacy. Unsubscribe at any time.
+          </p>
         </div>
       </div>
-    </div>
+    </PageLayout>
   )
 }

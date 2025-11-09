@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import Image from 'next/image'
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -19,18 +18,20 @@ export default function Navigation() {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            {/* Logo - Using ACTUAL Frame logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-40 h-15">
-                <Image 
-                  src="/frame-logo.png" 
-                  alt="Frame" 
-                  width={160}
-                  height={60}
-                  className="object-contain group-hover:scale-105 transition-transform duration-300"
-                  priority
+            {/* Logo - Using no-subtitle version, bigger and clickable */}
+            <Link href="/" className="flex items-center group">
+              <svg 
+                width="200" 
+                height="60" 
+                viewBox="0 0 800 200" 
+                className="group-hover:scale-105 transition-transform duration-300"
+              >
+                <image 
+                  href="/frame-logo-no-subtitle.svg" 
+                  width="800" 
+                  height="200"
                 />
-              </div>
+              </svg>
             </Link>
 
             {/* Desktop Navigation */}
