@@ -49,21 +49,19 @@ export default function BlogPage() {
                 <p className="text-sm text-ink-600 dark:text-paper-400 mb-4">
                   Subscribe to our newsletter for updates on new posts and Frame ecosystem developments.
                 </p>
-                <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                <div className="flex gap-2">
                   <input
                     type="email"
                     placeholder="your@email.com"
                     className="flex-1 px-4 py-2 rounded-md border border-ink-300 dark:border-ink-700 bg-white dark:bg-ink-900 text-ink-900 dark:text-paper-100 placeholder-ink-400 dark:placeholder-ink-500 focus:outline-none focus:ring-2 focus:ring-frame-green"
                     disabled
                   />
-                  <button
-                    type="submit"
-                    className="btn-primary opacity-50 cursor-not-allowed"
-                    disabled
+                  <span
+                    className="btn-primary opacity-50 cursor-not-allowed inline-flex items-center justify-center"
                   >
                     Subscribe
-                  </button>
-                </form>
+                  </span>
+                </div>
                 <p className="text-xs text-ink-500 dark:text-paper-500 mt-2">
                   Newsletter coming soon
                 </p>
