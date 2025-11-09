@@ -62,6 +62,9 @@ export default function HomePage() {
             <p className="text-sm text-ink-600 dark:text-paper-400">
               Powered by OpenStrand • The backbone of all Frame operating systems
             </p>
+            <p className="text-xs text-ink-500 dark:text-paper-500 mt-2">
+              All Frame projects are open source • MIT & Apache 2.0 licensed • Community & Enterprise editions available
+            </p>
           </div>
 
           {/* Links Grid */}

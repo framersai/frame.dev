@@ -64,6 +64,31 @@ export default function AboutPage() {
               At the foundation of our ecosystem lies OpenStrand—the backbone technology that powers all our OS sites. It represents our commitment to open infrastructure, allowing anyone to build upon and extend our work.
             </p>
 
+            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Open Source Commitment</h2>
+            <p>
+              All Frame projects are open source with community or full editions available under MIT or Apache 2.0 licenses. We believe in transparency, collaboration, and the power of open development.
+            </p>
+            <div className="mt-4 p-4 bg-paper-100 dark:bg-ink-900 rounded-lg">
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-frame-green">•</span>
+                  <span><strong>MIT License:</strong> Most Frame projects including WebOS, HomeOS, SafeOS, WorkOS, MyOS</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-frame-green">•</span>
+                  <span><strong>Apache 2.0:</strong> AgentOS core platform for maximum flexibility</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-frame-green">•</span>
+                  <span><strong>Community Editions:</strong> Full-featured versions for personal and educational use</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-frame-green">•</span>
+                  <span><strong>Enterprise Support:</strong> Available through Manic Agency LLC</span>
+                </li>
+              </ul>
+            </div>
+
             <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Our Philosophy</h2>
             <p>
               We believe in minimalism without sacrifice, elegance without pretense, and functionality without complexity. Every line of code, every design decision, every interaction is crafted with intention—to create systems that feel as natural as paper and ink, yet as powerful as the future demands.
