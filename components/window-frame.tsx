@@ -179,8 +179,8 @@ export default function WindowFrame() {
                       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     >
                       {isAgentOS ? (
-                        <div className="mb-3">
-                          <Image src="/agentos-logo.png" alt="AgentOS" width={140} height={42} className="object-contain drop-shadow-lg" />
+                        <div className="mb-4 flex items-center justify-center w-full">
+                          <Image src="/agentos-logo.png" alt="AgentOS" width={168} height={50} className="object-contain drop-shadow-xl" />
                         </div>
                       ) : data.placeholder ? (
                         <div className="mb-3 text-ink-400 dark:text-ink-600">
