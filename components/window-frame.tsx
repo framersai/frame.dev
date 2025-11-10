@@ -197,7 +197,7 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 hover:ring-amber-300/30 dark:hover:ring-amber-300/20 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_44px_-26px_rgba(0,0,0,0.85)] bg-gradient-to-br from-white/95 ${accentViaClassLight} to-paper-200/80 dark:from-ink-900/96 ${accentViaClassDark} dark:to-ink-950/98`}
+                      className={`group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 hover:ring-amber-300/30 dark:hover:ring-amber-300/20 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_44px_-26px_rgba(0,0,0,0.85)] bg-transparent`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
@@ -206,6 +206,9 @@ export default function WindowFrame() {
                       style={{ transformOrigin: 'bottom center', transformStyle: 'preserve-3d' }}
                       transition={{ type: 'spring', stiffness: 240, damping: 18 }}
                     >
+                      {/* Base angled pane gradient (light/dark), simulating top-left sunlight */}
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 dark:hidden" style={{ backgroundImage: `linear-gradient(35deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 30%, ${overlayTintLight[idx % overlayTintLight.length]} 62%, rgba(240,243,247,0.92) 100%)` }} />
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 hidden dark:block" style={{ backgroundImage: `linear-gradient(35deg, rgba(23,25,29,0.98) 0%, rgba(18,20,24,0.96) 35%, ${overlayTintDark[idx % overlayTintDark.length]} 68%, rgba(10,12,14,0.98) 100%)` }} />
                       {/* Refractive highlight overlays */}
                       <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen opacity-80 dark:hidden transition-opacity duration-300" style={{ backgroundImage: lightOverlayImage }} />
                       <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block opacity-70 transition-opacity duration-300" style={{ backgroundImage: darkOverlayImage }} />
@@ -232,9 +235,6 @@ export default function WindowFrame() {
                               </span>
                             </span>
                           </div>
-                          <div className="mt-1 text-[10px] sm:text-[11px] tracking-[0.5px] text-ink-500 dark:text-paper-400 text-center">
-                            <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
-                          </div>
                         </div>
                       ) : data.placeholder ? (
                         <div className="mb-4 text-ink-400 dark:text-ink-600 opacity-80">
@@ -243,15 +243,28 @@ export default function WindowFrame() {
                       ) : (
                         <data.icon className="w-14 h-14 text-frame-green mb-4 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
                       )}
-
                       {!isAgentOS && (
                         <h3 className="text-lg font-semibold text-ink-800 dark:text-paper-100 mb-1 tracking-tight">
                           {data.title}
                         </h3>
                       )}
-                      <p className={`text-xs ${data.statusColor} font-medium uppercase tracking-wide`}>
-                        {data.status}
-                      </p>
+
+                      {/* Flexible spacer pushes desc/status to bottom for consistency */}
+                      <div className="flex-1" />
+
+                      {/* Description/tagline moved near bottom, above status */}
+                      <div className="w-full text-center px-2">
+                        <p className="text-[11px] sm:text-[12px] text-ink-600 dark:text-paper-400 leading-snug">
+                          {isAgentOS ? (
+                            <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
+                          ) : (
+                            <span>{(data as any).descriptionShort ?? data.description}</span>
+                          )}
+                        </p>
+                        <p className={`mt-2 text-xs ${data.statusColor} font-medium uppercase tracking-wide`}>
+                          {data.status}
+                        </p>
+                      </div>
 
                       {data.status === 'Live' && (
                         <div className="absolute top-4 right-4">
@@ -259,18 +272,6 @@ export default function WindowFrame() {
                         </div>
                       )}
 
-                      <AnimatePresence>
-                        {isHovered && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4"
-                          >
-                            <p className="text-white text-sm">{data.description}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
                     </motion.button>
                   )
                 })}
