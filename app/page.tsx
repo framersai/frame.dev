@@ -21,24 +21,25 @@ export default function HomePage() {
       <VCABanner />
 
       {/* Hero Section */}
-      <div className="container mx-auto px-4 pt-20 pb-12">
+      <div className="container mx-auto px-4 pt-20 pb-20">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20 md:mb-24"
         >
           <motion.h1 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight heading-display mb-6 md:mb-8"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] md:leading-[1.1] font-display font-black tracking-tight heading-display mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.span
               className={`hero-heading ${headingRevealed ? 'is-revealed' : ''}`}
-              initial={{ opacity: 0, filter: 'blur(14px)', clipPath: 'inset(0 100% 0 0)' }}
-              animate={{ opacity: 1, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              style={{ willChange: 'transform, filter, clip-path' }}
+              initial={{ opacity: 0, y: 8, filter: 'blur(16px)', clipPath: 'inset(0 100% 0 0)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)', clipPath: 'inset(0 0% 0 0)' }}
+              transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1] }}
             >
               Denoising the web
             </motion.span>
