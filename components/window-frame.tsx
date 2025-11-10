@@ -177,18 +177,16 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className="relative aspect-[4/3] flex flex-col items-center justify-center p-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px]"
+                      className={`relative aspect-[4/3] flex flex-col items-center justify-center p-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ${
+                        isAgentOS 
+                          ? 'bg-gradient-to-br from-frame-green/15 via-paper-100/90 to-white dark:from-frame-green/25 dark:via-ink-800/95 dark:to-ink-900/95' 
+                          : 'bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-800/95 dark:via-ink-850/90 dark:to-ink-900/95'
+                      }`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
                       whileHover={{ scale: 1.02, boxShadow: '0 32px 55px -40px rgba(0, 200, 150, 0.55)' }}
                       transition={{ type: 'spring', stiffness: 240, damping: 22 }}
-                      style={{
-                        background: isAgentOS
-                          ? 'linear-gradient(165deg, rgba(0, 200, 150, 0.18) 0%, rgba(0, 167, 124, 0.12) 45%, rgba(255, 255, 255, 0.85) 100%)'
-                          : 'linear-gradient(155deg, rgba(255, 255, 255, 0.82) 0%, rgba(243, 248, 254, 0.76) 55%, rgba(235, 243, 252, 0.7) 100%)',
-                        backdropFilter: 'blur(12px)'
-                      }}
                     >
                       {isAgentOS ? (
                         <div className="mb-4 flex items-center justify-center w-full">
@@ -250,14 +248,14 @@ export default function WindowFrame() {
               onClick={() => setSelectedOS(null)}
             />
             
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: 'spring', duration: 0.3 }}
-              className="fixed inset-0 m-auto w-full max-w-2xl h-fit max-h-[80vh] paper-card-lifted z-50 overflow-auto"
-              style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
-            >
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: 'spring', duration: 0.3 }}
+                className="pointer-events-auto w-full max-w-2xl max-h-[85vh] overflow-auto rounded-lg border border-ink-200/30 bg-paper-50/95 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/95 dark:shadow-black/60 backdrop-blur-md"
+              >
               <div className="p-6">
                 <div className="flex items-start justify-between mb-6">
                   <div>
@@ -328,7 +326,8 @@ export default function WindowFrame() {
                   )}
                 </div>
               </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
