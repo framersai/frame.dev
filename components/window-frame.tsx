@@ -156,8 +156,7 @@ export default function WindowFrame() {
     <>
       <div className="relative max-w-5xl mx-auto px-4">
         {/* Main Window Frame */}
-        <div className="relative group">
-          <div className="absolute inset-0 blur-3xl bg-frame-green/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="relative">
 
           <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
             <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
@@ -207,31 +206,20 @@ export default function WindowFrame() {
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
-                      whileHover={{ y: -6, rotateX: -2, boxShadow: '0 32px 72px -44px rgba(251,191,36,0.35)' }}
-                      whileTap={{ y: -2, rotateX: -1 }}
-                      style={{ transformOrigin: 'bottom center', transformStyle: 'preserve-3d' }}
-                      transition={{ type: 'spring', stiffness: 240, damping: 18 }}
                     >
                       {/* Base angled pane gradient (light/dark), simulating global light from top-right */}
                       <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 dark:hidden" style={{ backgroundImage: `linear-gradient(315deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 28%, ${overlayTintLight[idx % overlayTintLight.length]} 65%, rgba(240,243,247,0.92) 100%)` }} />
                       <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 hidden dark:block" style={{ backgroundImage: `linear-gradient(315deg, rgba(23,25,29,0.98) 0%, rgba(18,20,24,0.96) 32%, ${overlayTintDark[idx % overlayTintDark.length]} 68%, rgba(10,12,14,0.98) 100%)` }} />
                       {/* Refractive highlight overlays */}
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen opacity-80 dark:hidden transition-opacity duration-300" style={{ backgroundImage: lightOverlayImage }} />
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block opacity-70 transition-opacity duration-300" style={{ backgroundImage: darkOverlayImage }} />
-                      {/* Hinge shadow on left edge when hovering (book-open feel) */}
-                      <div className="absolute left-0 top-0 h-full w-3 rounded-l-[18px] opacity-0 group-hover:opacity-80 transition-opacity duration-300 bg-gradient-to-r from-black/25 via-black/10 to-transparent dark:from-black/55 dark:via-black/28" />
-                      {/* Warm glow near top-left on hover */}
-                      <div className="absolute -top-1 -left-1 h-16 w-24 rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-300" style={{ background: 'radial-gradient(60% 60% at 30% 30%, rgba(251,191,36,0.25), rgba(0,0,0,0))' }} />
+                      <div className={`absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen dark:hidden transition-opacity duration-300`} style={{ backgroundImage: lightOverlayImage, opacity: (osData[os as OSName].status === 'Live' ? 0.55 : 0.8) }} />
+                      <div className={`absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block transition-opacity duration-300`} style={{ backgroundImage: darkOverlayImage, opacity: (osData[os as OSName].status === 'Live' ? 0.5 : 0.75) }} />
+                      {/* Subtle hover: only adjust gradient visibility */}
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-white/60 dark:bg-white/30" />
                       {isAgentOS ? (
                         <div className="mb-3 flex flex-col items-center">
                           <Image src="/agentos-icon.svg" alt="AgentOS" width={40} height={40} className="object-contain mb-1" />
                           <div className="min-h-[1.25rem]">
-                            <motion.h3
-                              initial={{ opacity: 0, y: 6 }}
-                              animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
-                              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                              className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-50 tracking-tight"
-                            >
+                            <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-50 tracking-tight">
                               Agent
                               <span
                                 className="ml-0.5"
@@ -244,7 +232,7 @@ export default function WindowFrame() {
                               >
                                 OS
                               </span>
-                            </motion.h3>
+                            </h3>
                           </div>
                         </div>
                       ) : data.placeholder ? (
@@ -254,16 +242,7 @@ export default function WindowFrame() {
                       ) : (
                         <div className="mb-3 flex flex-col items-center">
                           <data.icon className="w-11 h-11 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
-                          <div className="min-h-[1.25rem]">
-                            <motion.h3
-                              initial={{ opacity: 0, y: 6 }}
-                              animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
-                              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                              className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight"
-                            >
-                              {data.title}
-                            </motion.h3>
-                          </div>
+                          <div className="min-h-[1.25rem]"><h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight">{data.title}</h3></div>
                         </div>
                       )}
                       {/* Top-right status dot */}
