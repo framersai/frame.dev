@@ -11,6 +11,33 @@ const pages = [
     title: 'Built on OpenStrand',
     content: (
       <div className="space-y-6">
+        <div className="text-center">
+          <span className="text-xl sm:text-2xl font-semibold tracking-tight">
+            <span
+              style={{
+                background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              O
+            </span>
+            pen
+            <span
+              className="ml-0.5"
+              style={{
+                background: 'linear-gradient(135deg, #10B981, #22C55E, #A7F3D0)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              S
+            </span>
+            trand
+          </span>
+        </div>
         <p className="text-base body-text">
           OpenStrand is a modern personal knowledge management system (PKMS) that combines the power of AI with local-first data ownership. 
           Build your second brain with knowledge graph visualization, multi-format import (20+ formats), and block-level organization—while keeping complete control of your information.
@@ -114,7 +141,23 @@ const pages = [
              className="flex items-center gap-3 p-4 bg-paper-100 dark:bg-ink-800 rounded-lg hover:bg-paper-200 dark:hover:bg-ink-700 transition-all group">
             <Github className="w-6 h-6 text-ink-600 dark:text-paper-300 group-hover:text-frame-green" />
             <div className="flex-1">
-              <p className="font-semibold">OpenStrand Core</p>
+              <p className="font-semibold">
+                <span
+                  style={{
+                    background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}
+                >O</span>pen<span
+                  style={{
+                    background: 'linear-gradient(135deg, #10B981, #22C55E, #A7F3D0)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}
+                >S</span>trand Core
+              </p>
               <p className="text-sm text-ink-500 dark:text-paper-500">github.com/framersai/openstrand</p>
             </div>
             <ExternalLink className="w-4 h-4 text-ink-400" />
