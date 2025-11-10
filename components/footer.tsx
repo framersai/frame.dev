@@ -62,6 +62,7 @@ export default function Footer() {
               <li><a href="/legal/privacy" className="nav-link">Privacy</a></li>
               <li><a href="/legal/terms" className="nav-link">Terms</a></li>
               <li><a href="https://github.com/framersai/frame.dev/blob/main/LICENSE" className="nav-link" target="_blank" rel="noopener noreferrer">MIT License</a></li>
+              <li><a href="https://www.apache.org/licenses/LICENSE-2.0" className="nav-link" target="_blank" rel="noopener noreferrer">Apache 2.0 License</a></li>
             </ul>
           </div>
         </div>
