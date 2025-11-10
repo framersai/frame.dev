@@ -162,16 +162,16 @@ export default function WindowFrame() {
           <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
             <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
               {/* Wood-like left frame accent */}
-              <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-5 sm:w-6 bg-gradient-to-b from-ink-900/12 via-ink-900/10 to-ink-900/6 dark:from-black/20 dark:via-black/18 dark:to-black/10 shadow-[inset_-10px_0_18px_rgba(0,0,0,0.35)]" />
+              <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-5 sm:w-7 bg-gradient-to-b from-ink-900/12 via-ink-900/10 to-ink-900/6 dark:from-black/20 dark:via-black/18 dark:to-black/10 shadow-[inset_-10px_0_18px_rgba(0,0,0,0.35)]" />
               <div className="absolute inset-0 pointer-events-none z-10">
                 <div className="absolute inset-[1px] rounded-[21px] border border-white/60 dark:border-frame-green/25" />
                 {/* Shadow dividers for realistic depth */}
-                <div className="absolute top-0 bottom-0 left-1/3 w-[10px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/12 to-black/0 dark:from-white/0 dark:via-white/6 dark:to-white/0 blur-[2px]" />
-                <div className="absolute top-0 bottom-0 left-2/3 w-[10px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/12 to-black/0 dark:from-white/0 dark:via-white/6 dark:to-white/0 blur-[2px]" />
-                <div className="absolute left-0 right-0 top-1/2 h-[10px] -translate-y-1/2 bg-gradient-to-r from-black/0 via-black/10 to-black/0 dark:from-white/0 dark:via-white/5 dark:to-white/0 blur-[2px]" />
+                <div className="absolute top-0 bottom-0 left-1/3 w-[14px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/16 to-black/0 dark:from-white/0 dark:via-white/8 dark:to-white/0 blur-[3px]" />
+                <div className="absolute top-0 bottom-0 left-2/3 w-[14px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/16 to-black/0 dark:from-white/0 dark:via-white/8 dark:to-white/0 blur-[3px]" />
+                <div className="absolute left-0 right-0 top-1/2 h-[14px] -translate-y-1/2 bg-gradient-to-r from-black/0 via-black/14 to-black/0 dark:from-white/0 dark:via-white/7 dark:to-white/0 blur-[3px]" />
               </div>
 
-              <div className="relative grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
+              <div className="relative pl-6 sm:pl-8 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
                 {Object.entries(osData).map(([os, data]) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
@@ -180,7 +180,7 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`relative aspect-[3/4] min-h-[260px] sm:min-h-[240px] flex flex-col items-center justify-center p-6 sm:p-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ${
+                      className={`relative aspect-[3/4] min-h-[300px] sm:min-h-[260px] flex flex-col items-center justify-center p-4 sm:p-7 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/5 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_12px_30px_-14px_rgba(0,0,0,0.7)] ${
                         isAgentOS 
                           ? 'bg-gradient-to-br from-frame-green/15 via-paper-100/90 to-white dark:from-frame-green/25 dark:via-ink-800/95 dark:to-ink-900/95' 
                           : 'bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-800/95 dark:via-ink-850/90 dark:to-ink-900/95'
@@ -193,9 +193,9 @@ export default function WindowFrame() {
                     >
                       {isAgentOS ? (
                         <div className="mb-2 flex items-center justify-center w-full">
-                          <div className="flex items-center gap-2 max-w-full">
+                          <div className="flex items-center gap-2 max-w-full flex-wrap justify-center">
                             <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain flex-shrink-0" />
-                            <span className="text-[18px] sm:text-xl font-semibold text-ink-900 dark:text-paper-50 leading-none whitespace-nowrap">
+                            <span className="text-[18px] sm:text-xl font-semibold text-ink-900 dark:text-paper-50 leading-none">
                               Agent
                               <span
                                 className="ml-0.5"
@@ -210,7 +210,7 @@ export default function WindowFrame() {
                               </span>
                             </span>
                           </div>
-                          <div className="mt-1 text-[10px] sm:text-[11px] tracking-[0.5px] text-ink-500 dark:text-paper-400">
+                          <div className="mt-1 text-[10px] sm:text-[11px] tracking-[0.5px] text-ink-500 dark:text-paper-400 text-center">
                             <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
                           </div>
                         </div>
