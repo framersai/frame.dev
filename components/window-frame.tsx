@@ -178,7 +178,13 @@ export default function WindowFrame() {
                 <div className="absolute right-0 top-0 h-full w-6 bg-gradient-to-l from-white/5 to-transparent dark:from-white/4" />
               </div>
 
-              <div className="relative pl-7 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
+              {/* Global light field overlay (doesn't touch frame) */}
+              <div className="pointer-events-none absolute inset-2 sm:inset-3 z-[2] rounded-[18px]">
+                <div className="dark:hidden absolute inset-0" style={{ backgroundImage: 'radial-gradient(80% 80% at 85% 10%, rgba(253,230,138,0.12) 0%, rgba(253,230,138,0.04) 50%, rgba(255,255,255,0) 100%), linear-gradient(315deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)' }} />
+                <div className="hidden dark:block absolute inset-0" style={{ backgroundImage: 'radial-gradient(80% 80% at 85% 10%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%), linear-gradient(315deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)' }} />
+              </div>
+
+              <div className="relative z-10 pl-7 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
                 {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
@@ -189,7 +195,7 @@ export default function WindowFrame() {
                   const accentViaClassDark = paneAccentViaDark[idx % paneAccentViaDark.length]
                   // Refractive overlay tints
                   const overlayTintLight = ['rgba(56,189,248,0.18)','rgba(167,139,250,0.18)','rgba(251,191,36,0.16)','rgba(244,114,182,0.18)','rgba(52,211,153,0.18)','rgba(99,102,241,0.18)']
-                  const overlayTintDark = ['rgba(56,189,248,0.12)','rgba(167,139,250,0.12)','rgba(251,191,36,0.10)','rgba(244,114,182,0.12)','rgba(52,211,153,0.12)','rgba(99,102,241,0.12)']
+                  const overlayTintDark = ['rgba(255,255,255,0.10)','rgba(255,255,255,0.12)','rgba(255,255,255,0.11)','rgba(255,255,255,0.09)','rgba(255,255,255,0.10)','rgba(255,255,255,0.11)']
                   const lightOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintLight[idx % overlayTintLight.length]} 0%, rgba(255,255,255,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 28%, rgba(255,255,255,0) 55%)`
                   const darkOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintDark[idx % overlayTintDark.length]} 0%, rgba(0,0,0,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0) 55%)`
  
@@ -206,9 +212,9 @@ export default function WindowFrame() {
                       style={{ transformOrigin: 'bottom center', transformStyle: 'preserve-3d' }}
                       transition={{ type: 'spring', stiffness: 240, damping: 18 }}
                     >
-                      {/* Base angled pane gradient (light/dark), simulating top-left sunlight */}
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 dark:hidden" style={{ backgroundImage: `linear-gradient(35deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 30%, ${overlayTintLight[idx % overlayTintLight.length]} 62%, rgba(240,243,247,0.92) 100%)` }} />
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 hidden dark:block" style={{ backgroundImage: `linear-gradient(35deg, rgba(23,25,29,0.98) 0%, rgba(18,20,24,0.96) 35%, ${overlayTintDark[idx % overlayTintDark.length]} 68%, rgba(10,12,14,0.98) 100%)` }} />
+                      {/* Base angled pane gradient (light/dark), simulating global light from top-right */}
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 dark:hidden" style={{ backgroundImage: `linear-gradient(315deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 28%, ${overlayTintLight[idx % overlayTintLight.length]} 65%, rgba(240,243,247,0.92) 100%)` }} />
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 hidden dark:block" style={{ backgroundImage: `linear-gradient(315deg, rgba(23,25,29,0.98) 0%, rgba(18,20,24,0.96) 32%, ${overlayTintDark[idx % overlayTintDark.length]} 68%, rgba(10,12,14,0.98) 100%)` }} />
                       {/* Refractive highlight overlays */}
                       <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen opacity-80 dark:hidden transition-opacity duration-300" style={{ backgroundImage: lightOverlayImage }} />
                       <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block opacity-70 transition-opacity duration-300" style={{ backgroundImage: darkOverlayImage }} />
@@ -217,36 +223,40 @@ export default function WindowFrame() {
                       {/* Warm glow near top-left on hover */}
                       <div className="absolute -top-1 -left-1 h-16 w-24 rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-300" style={{ background: 'radial-gradient(60% 60% at 30% 30%, rgba(251,191,36,0.25), rgba(0,0,0,0))' }} />
                       {isAgentOS ? (
-                        <div className="mb-2 flex items-center justify-center w-full">
-                          <div className="flex items-center gap-2 max-w-full flex-wrap justify-center">
-                            <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain flex-shrink-0" />
-                            <span className="text-[18px] sm:text-xl font-semibold text-ink-900 dark:text-paper-50 leading-none">
-                              Agent
-                              <span
-                                className="ml-0.5"
-                                style={{
-                                  background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
-                                  WebkitBackgroundClip: 'text',
-                                  backgroundClip: 'text',
-                                  WebkitTextFillColor: 'transparent'
-                                }}
-                              >
-                                OS
-                              </span>
+                        <div className="mb-3 flex flex-col items-center">
+                          <Image src="/agentos-icon.svg" alt="AgentOS" width={40} height={40} className="object-contain mb-1" />
+                          <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-50 tracking-tight">
+                            Agent
+                            <span
+                              className="ml-0.5"
+                              style={{
+                                background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                                WebkitBackgroundClip: 'text',
+                                backgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent'
+                              }}
+                            >
+                              OS
                             </span>
-                          </div>
+                          </h3>
                         </div>
                       ) : data.placeholder ? (
                         <div className="mb-4 text-ink-400 dark:text-ink-600 opacity-80">
                           {data.customSvg}
                         </div>
                       ) : (
-                        <data.icon className="w-14 h-14 text-frame-green mb-4 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
+                        <div className="mb-3 flex flex-col items-center">
+                          <data.icon className="w-10 h-10 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
+                          <h3 className="text-base sm:text-lg font-semibold text-ink-800 dark:text-paper-100 tracking-tight">
+                            {data.title}
+                          </h3>
+                        </div>
                       )}
-                      {!isAgentOS && (
-                        <h3 className="text-lg font-semibold text-ink-800 dark:text-paper-100 mb-1 tracking-tight">
-                          {data.title}
-                        </h3>
+                      {/* Top-right status dot */}
+                      {data.status === 'Live' ? (
+                        <div className="absolute top-4 right-4"><div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" /></div>
+                      ) : (
+                        <div className="absolute top-4 right-4"><div className="w-3 h-3 bg-amber-400 rounded-full" /></div>
                       )}
 
                       {/* Flexible spacer pushes desc/status to bottom for consistency */}
@@ -261,16 +271,13 @@ export default function WindowFrame() {
                             <span>{(data as any).descriptionShort ?? data.description}</span>
                           )}
                         </p>
-                        <p className={`mt-2 text-xs ${data.statusColor} font-medium uppercase tracking-wide`}>
-                          {data.status}
-                        </p>
-                      </div>
-
-                      {data.status === 'Live' && (
-                        <div className="absolute top-4 right-4">
-                          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                        <div className="mt-2 flex items-center justify-center">
+                          <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] sm:text-xs bg-ink-900/5 dark:bg-white/5">
+                            <span className={`${data.status === 'Live' ? 'bg-emerald-500' : 'bg-amber-400'} h-2 w-2 rounded-full`} />
+                            <span className="text-ink-700 dark:text-paper-300">{data.status}</span>
+                          </span>
                         </div>
-                      )}
+                      </div>
 
                     </motion.button>
                   )
