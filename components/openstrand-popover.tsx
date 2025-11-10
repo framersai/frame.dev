@@ -270,7 +270,7 @@ export default function OpenStrandPopover() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ type: 'spring', duration: 0.25 }}
-                className="pointer-events-auto w-screen h-screen sm:w-full sm:h-fit sm:max-w-3xl sm:max-h-[90vh] overflow-auto relative rounded-none sm:rounded-lg border border-ink-200/30 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md"
+                className="pointer-events-auto w-screen h-screen sm:w-full sm:h-fit sm:max-w-3xl sm:max-h-[90vh] overflow-hidden relative rounded-none sm:rounded-lg border border-ink-200/30 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md flex flex-col"
               >
               {/* Header with logo */}
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
@@ -283,7 +283,7 @@ export default function OpenStrandPopover() {
               </div>
 
               {/* Content Pages */}
-              <div className="p-6 sm:p-8 min-h-[420px] sm:min-h-[480px]">
+              <div className="p-6 sm:p-8 flex-1 min-h-0 overflow-y-auto">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentPage}
