@@ -179,21 +179,34 @@ export default function WindowFrame() {
               </div>
 
               <div className="relative pl-7 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
-                {Object.entries(osData).map(([os, data]) => {
+                {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
-
+                  // Per-pane accent classes (light and dark)
+                  const paneAccentViaLight = ['via-sky-50/70','via-violet-50/70','via-amber-50/65','via-rose-50/65','via-emerald-50/70','via-indigo-50/65']
+                  const paneAccentViaDark = ['dark:via-emerald-900/22','dark:via-indigo-900/22','dark:via-amber-900/20','dark:via-rose-900/20','dark:via-teal-900/22','dark:via-sky-900/22']
+                  const accentViaClassLight = paneAccentViaLight[idx % paneAccentViaLight.length]
+                  const accentViaClassDark = paneAccentViaDark[idx % paneAccentViaDark.length]
+                  // Refractive overlay tints
+                  const overlayTintLight = ['rgba(56,189,248,0.18)','rgba(167,139,250,0.18)','rgba(251,191,36,0.16)','rgba(244,114,182,0.18)','rgba(52,211,153,0.18)','rgba(99,102,241,0.18)']
+                  const overlayTintDark = ['rgba(56,189,248,0.12)','rgba(167,139,250,0.12)','rgba(251,191,36,0.10)','rgba(244,114,182,0.12)','rgba(52,211,153,0.12)','rgba(99,102,241,0.12)']
+                  const lightOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintLight[idx % overlayTintLight.length]} 0%, rgba(255,255,255,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 28%, rgba(255,255,255,0) 55%)`
+                  const darkOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintDark[idx % overlayTintDark.length]} 0%, rgba(0,0,0,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0) 55%)`
+ 
                   return (
                     <motion.button
                       type="button"
                       key={os}
-                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.85)] bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-ink-950/98`}
+                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.85)] bg-gradient-to-br from-white/95 ${accentViaClassLight} to-paper-200/80 dark:from-ink-900/96 ${accentViaClassDark} dark:to-ink-950/98`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
                       whileHover={{ scale: 1.02, boxShadow: '0 32px 55px -40px rgba(0, 200, 150, 0.55)' }}
                       transition={{ type: 'spring', stiffness: 240, damping: 22 }}
                     >
+                      {/* Refractive highlight overlays */}
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen opacity-80 dark:hidden" style={{ backgroundImage: lightOverlayImage }} />
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block opacity-70" style={{ backgroundImage: darkOverlayImage }} />
                       {isAgentOS ? (
                         <div className="mb-2 flex items-center justify-center w-full">
                           <div className="flex items-center gap-2 max-w-full flex-wrap justify-center">
