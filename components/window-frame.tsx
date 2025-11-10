@@ -161,17 +161,21 @@ export default function WindowFrame() {
 
           <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
             <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
-              {/* Wood-like left frame accent */}
-              <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-5 sm:w-7 bg-gradient-to-b from-ink-900/12 via-ink-900/10 to-ink-900/6 dark:from-black/20 dark:via-black/18 dark:to-black/10 shadow-[inset_-10px_0_18px_rgba(0,0,0,0.35)]" />
+              {/* Wood-like left frame accent (subtle) */}
+              <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-5 sm:w-6 bg-gradient-to-b from-ink-900/8 via-ink-900/6 to-ink-900/4 dark:from-black/14 dark:via-black/12 dark:to-black/8 shadow-[inset_-6px_0_14px_rgba(0,0,0,0.25)]" />
+              {/* Inner edge highlight to separate frame and panes */}
+              <div className="pointer-events-none absolute left-5 sm:left-6 top-0 z-20 h-full w-px bg-white/30 dark:bg-white/15" />
               <div className="absolute inset-0 pointer-events-none z-10">
                 <div className="absolute inset-[1px] rounded-[21px] border border-white/60 dark:border-frame-green/25" />
                 {/* Shadow dividers for realistic depth (softer, with warm accent on dark) */}
-                <div className="absolute top-0 bottom-0 left-1/3 w-[14px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/14 to-black/0 dark:from-black/0 dark:via-black/20 dark:to-black/0 blur-[3px]" />
-                <div className="absolute top-0 bottom-0 left-1/3 w-px -translate-x-1/2 bg-gradient-to-b from-amber-200/0 via-amber-200/10 to-amber-200/0 opacity-40" />
-                <div className="absolute top-0 bottom-0 left-2/3 w-[14px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/14 to-black/0 dark:from-black/0 dark:via-black/20 dark:to-black/0 blur-[3px]" />
-                <div className="absolute top-0 bottom-0 left-2/3 w-px -translate-x-1/2 bg-gradient-to-b from-amber-200/0 via-amber-200/10 to-amber-200/0 opacity-40" />
-                <div className="absolute left-0 right-0 top-1/2 h-[14px] -translate-y-1/2 bg-gradient-to-r from-black/0 via-black/12 to-black/0 dark:from-black/0 dark:via-black/18 dark:to-black/0 blur-[3px]" />
-                <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-amber-200/0 via-amber-200/10 to-amber-200/0 opacity-30" />
+                <div className="absolute top-0 bottom-0 left-1/3 w-[12px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/12 to-black/0 dark:from-black/0 dark:via-black/16 dark:to-black/0 blur-[3px]" />
+                <div className="absolute top-0 bottom-0 left-1/3 w-px -translate-x-1/2 bg-gradient-to-b from-amber-200/0 via-amber-200/8 to-amber-200/0 opacity-20" />
+                <div className="absolute top-0 bottom-0 left-2/3 w-[12px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/12 to-black/0 dark:from-black/0 dark:via-black/16 dark:to-black/0 blur-[3px]" />
+                <div className="absolute top-0 bottom-0 left-2/3 w-px -translate-x-1/2 bg-gradient-to-b from-amber-200/0 via-amber-200/8 to-amber-200/0 opacity-20" />
+                <div className="absolute left-0 right-0 top-1/2 h-[12px] -translate-y-1/2 bg-gradient-to-r from-black/0 via-black/10 to-black/0 dark:from-black/0 dark:via-black/14 dark:to-black/0 blur-[3px]" />
+                <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-amber-200/0 via-amber-200/8 to-amber-200/0 opacity-20" />
+                {/* Ambient right-side soft glow to balance dark frame */}
+                <div className="absolute right-0 top-0 h-full w-6 bg-gradient-to-l from-white/5 to-transparent dark:from-white/4" />
               </div>
 
               <div className="relative pl-7 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
@@ -183,11 +187,7 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/6 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.85)] ${
-                        isAgentOS 
-                          ? 'bg-gradient-to-br from-frame-green/10 via-white/85 to-white/95 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-ink-950/98' 
-                          : 'bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-ink-950/98'
-                      }`}
+                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.85)] bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-ink-950/98`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
