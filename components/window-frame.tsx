@@ -183,10 +183,10 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.8)] ${
+                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/6 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.85)] ${
                         isAgentOS 
-                          ? 'bg-gradient-to-br from-frame-green/15 via-paper-100/90 to-white dark:from-ink-800/92 dark:via-ink-850/88 dark:to-ink-900/94' 
-                          : 'bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-800/90 dark:via-ink-850/88 dark:to-ink-900/94'
+                          ? 'bg-gradient-to-br from-frame-green/10 via-white/85 to-white/95 dark:from-ink-900/96 dark:via-ink-900/92 dark:to-ink-950/98' 
+                          : 'bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-900/94 dark:via-ink-900/90 dark:to-ink-950/98'
                       }`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
