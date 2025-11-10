@@ -161,6 +161,8 @@ export default function WindowFrame() {
 
           <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
             <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
+              {/* Wood-like left frame accent */}
+              <div className="pointer-events-none absolute left-0 top-0 h-full w-5 sm:w-6 bg-gradient-to-b from-ink-900/15 via-ink-900/10 to-ink-900/5 dark:from-black/25 dark:via-black/20 dark:to-black/10 shadow-[inset_-10px_0_18px_rgba(0,0,0,0.35)]" />
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-[1px] rounded-[21px] border border-white/60 dark:border-frame-green/25" />
                 <div className="absolute top-0 bottom-0 left-1/3 w-[2px] bg-gradient-to-b from-frame-green/20 via-frame-green/40 to-frame-green/20" />
@@ -168,7 +170,7 @@ export default function WindowFrame() {
                 <div className="absolute left-0 right-0 top-1/2 h-[2px] bg-gradient-to-r from-frame-green/20 via-frame-green/40 to-frame-green/20" />
               </div>
 
-              <div className="grid grid-cols-3 grid-rows-2 relative">
+              <div className="relative grid grid-cols-1 grid-rows-6 gap-3 sm:grid-cols-3 sm:grid-rows-2">
                 {Object.entries(osData).map(([os, data]) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
@@ -177,7 +179,7 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`relative aspect-[4/3] flex flex-col items-center justify-center p-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ${
+                      className={`relative sm:aspect-[4/3] aspect-[3/4] min-h-[220px] flex flex-col items-center justify-center p-6 sm:p-8 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ${
                         isAgentOS 
                           ? 'bg-gradient-to-br from-frame-green/15 via-paper-100/90 to-white dark:from-frame-green/25 dark:via-ink-800/95 dark:to-ink-900/95' 
                           : 'bg-gradient-to-br from-white/90 via-paper-100/85 to-paper-200/80 dark:from-ink-800/95 dark:via-ink-850/90 dark:to-ink-900/95'
@@ -190,9 +192,9 @@ export default function WindowFrame() {
                     >
                       {isAgentOS ? (
                         <div className="mb-2 flex items-center justify-center w-full">
-                          <div className="flex items-center gap-2">
-                            <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain" />
-                            <span className="text-xl font-semibold text-ink-900 dark:text-paper-50 leading-none">
+                          <div className="flex items-center gap-2 max-w-full">
+                            <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain flex-shrink-0" />
+                            <span className="text-[18px] sm:text-xl font-semibold text-ink-900 dark:text-paper-50 leading-none whitespace-nowrap">
                               Agent
                               <span
                                 className="ml-0.5"
@@ -207,7 +209,7 @@ export default function WindowFrame() {
                               </span>
                             </span>
                           </div>
-                          <div className="mt-1 text-[11px] tracking-[0.5px] text-ink-500 dark:text-paper-400">
+                          <div className="mt-1 text-[10px] sm:text-[11px] tracking-[0.5px] text-ink-500 dark:text-paper-400">
                             <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
                           </div>
                         </div>
