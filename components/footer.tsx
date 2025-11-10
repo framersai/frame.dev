@@ -14,26 +14,10 @@ export default function Footer() {
       {/* OpenStrand Section */}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center mb-4">
-          <div className="relative">
-            <svg height="48" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="footer-strand" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{ stopColor: '#00C896', stopOpacity: 1 }} />
-                  <stop offset="100%" style={{ stopColor: '#00A67C', stopOpacity: 1 }} />
-                </linearGradient>
-              </defs>
-              <g transform="translate(10, 30)">
-                <path d="M0,0 Q10,-15 20,0 T40,0 T60,0 T80,0" stroke="url(#footer-strand)" strokeWidth="3" fill="none"/>
-                <path d="M0,0 Q10,15 20,0 T40,0 T60,0 T80,0" stroke="url(#footer-strand)" strokeWidth="3" fill="none" opacity="0.6"/>
-                <circle cx="0" cy="0" r="3" fill="#00C896"/>
-                <circle cx="20" cy="0" r="3" fill="#00C896"/>
-                <circle cx="40" cy="0" r="3" fill="#00C896"/>
-                <circle cx="60" cy="0" r="3" fill="#00C896"/>
-                <circle cx="80" cy="0" r="3" fill="#00C896"/>
-              </g>
-              <text x="100" y="35" fontFamily="Inter, sans-serif" fontSize="18" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
-            </svg>
-          </div>
+          <a href="https://openstrand.ai" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+            <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-8 w-auto dark:hidden" />
+            <img src="/openstrand-logo-gradient.svg" alt="OpenStrand" className="hidden h-8 w-auto dark:block" />
+          </a>
         </div>
         <p className="text-sm text-ink-600 dark:text-paper-400">
           Powered by OpenStrand • The backbone of all Frame operating systems

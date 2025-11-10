@@ -139,6 +139,13 @@ const pages = [
             </div>
             <ExternalLink className="w-4 h-4 text-ink-400" />
           </a>
+          <div className="flex items-center gap-3 p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
+            <a href="https://openstrand.ai" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-6 w-auto dark:hidden" />
+              <img src="/openstrand-logo-mono.svg" alt="OpenStrand" className="hidden h-6 w-auto dark:block" />
+            </a>
+            <div className="text-sm text-ink-600 dark:text-paper-400">AI-native knowledge infrastructure</div>
+          </div>
         </div>
         
         <div className="p-4 bg-gradient-to-r from-frame-green/10 to-frame-green-dark/10 rounded-lg">
@@ -225,28 +232,10 @@ export default function OpenStrandPopover() {
               {/* Header with logo */}
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
                 <div className="flex items-center justify-center">
-                  <div className="relative h-16 w-full max-w-xs">
-                    <svg height="64" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-                      <defs>
-                        <linearGradient id="strand" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style={{ stopColor: '#00C896', stopOpacity: 1 }} />
-                          <stop offset="100%" style={{ stopColor: '#00A67C', stopOpacity: 1 }} />
-                        </linearGradient>
-                      </defs>
-                      <g transform="translate(10, 30)">
-                        <path d="M0,0 Q10,-15 20,0 T40,0 T60,0 T80,0" stroke="url(#strand)" strokeWidth="3" fill="none"/>
-                        <path d="M0,0 Q10,15 20,0 T40,0 T60,0 T80,0" stroke="url(#strand)" strokeWidth="3" fill="none" opacity="0.6"/>
-                        <circle cx="0" cy="0" r="3" fill="#00C896"/>
-                        <circle cx="20" cy="0" r="3" fill="#00C896"/>
-                        <circle cx="40" cy="0" r="3" fill="#00C896"/>
-                        <circle cx="60" cy="0" r="3" fill="#00C896"/>
-                        <circle cx="80" cy="0" r="3" fill="#00C896"/>
-                        <circle cx="100" cy="0" r="3" fill="#00C896" opacity="0.6"/>
-                        <circle cx="120" cy="0" r="3" fill="#00C896" opacity="0.4"/>
-                      </g>
-                      <text x="140" y="35" fontFamily="Inter, sans-serif" fontSize="22" fontWeight="600" className="fill-ink-900 dark:fill-paper-50">OpenStrand</text>
-                    </svg>
-                  </div>
+                  <a href="https://openstrand.ai" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                    <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-10 w-auto dark:hidden" />
+                    <img src="/openstrand-logo-gradient.svg" alt="OpenStrand" className="hidden h-10 w-auto dark:block" />
+                  </a>
                 </div>
               </div>
 
