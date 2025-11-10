@@ -189,12 +189,12 @@ export default function WindowFrame() {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
                   // Per-pane accent classes (light and dark)
-                  const paneAccentViaLight = ['via-sky-50/70','via-violet-50/70','via-amber-50/65','via-rose-50/65','via-emerald-50/70','via-indigo-50/65']
+                  const paneAccentViaLight = ['via-amber-50/70','via-amber-50/70','via-amber-50/70','via-amber-50/70','via-amber-50/70','via-amber-50/70']
                   const paneAccentViaDark = ['dark:via-emerald-900/22','dark:via-indigo-900/22','dark:via-amber-900/20','dark:via-rose-900/20','dark:via-teal-900/22','dark:via-sky-900/22']
                   const accentViaClassLight = paneAccentViaLight[idx % paneAccentViaLight.length]
                   const accentViaClassDark = paneAccentViaDark[idx % paneAccentViaDark.length]
                   // Refractive overlay tints
-                  const overlayTintLight = ['rgba(56,189,248,0.18)','rgba(167,139,250,0.18)','rgba(251,191,36,0.16)','rgba(244,114,182,0.18)','rgba(52,211,153,0.18)','rgba(99,102,241,0.18)']
+                  const overlayTintLight = ['rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)']
                   const overlayTintDark = ['rgba(255,255,255,0.10)','rgba(255,255,255,0.12)','rgba(255,255,255,0.11)','rgba(255,255,255,0.09)','rgba(255,255,255,0.10)','rgba(255,255,255,0.11)']
                   const lightOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintLight[idx % overlayTintLight.length]} 0%, rgba(255,255,255,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 28%, rgba(255,255,255,0) 55%)`
                   const darkOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintDark[idx % overlayTintDark.length]} 0%, rgba(0,0,0,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0) 55%)`
@@ -225,7 +225,7 @@ export default function WindowFrame() {
                       {isAgentOS ? (
                         <div className="mb-3 flex flex-col items-center">
                           <Image src="/agentos-icon.svg" alt="AgentOS" width={40} height={40} className="object-contain mb-1" />
-                          <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-50 tracking-tight">
+                          <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight">
                             Agent
                             <span
                               className="ml-0.5"
@@ -246,8 +246,8 @@ export default function WindowFrame() {
                         </div>
                       ) : (
                         <div className="mb-3 flex flex-col items-center">
-                          <data.icon className="w-10 h-10 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
-                          <h3 className="text-base sm:text-lg font-semibold text-ink-800 dark:text-paper-100 tracking-tight">
+                          <data.icon className="w-11 h-11 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
+                          <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight">
                             {data.title}
                           </h3>
                         </div>
@@ -264,7 +264,7 @@ export default function WindowFrame() {
 
                       {/* Description/tagline moved near bottom, above status */}
                       <div className="w-full text-center px-2">
-                        <p className="text-[11px] sm:text-[12px] text-ink-600 dark:text-paper-400 leading-snug">
+                        <p className="text-[11px] sm:text-[12px] text-ink-800 dark:text-paper-300 leading-snug">
                           {isAgentOS ? (
                             <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
                           ) : (
@@ -272,9 +272,9 @@ export default function WindowFrame() {
                           )}
                         </p>
                         <div className="mt-2 flex items-center justify-center">
-                          <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] sm:text-xs bg-ink-900/5 dark:bg-white/5">
-                            <span className={`${data.status === 'Live' ? 'bg-emerald-500' : 'bg-amber-400'} h-2 w-2 rounded-full`} />
-                            <span className="text-ink-700 dark:text-paper-300">{data.status}</span>
+                          <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] sm:text-xs bg-white/70 backdrop-blur-[1px] dark:bg-black/30">
+                            <span className={`${data.status === 'Live' ? 'bg-emerald-500' : 'bg-amber-400'} h-2 w-2 rounded-full ring-1 ring-black/10 dark:ring-white/10`} />
+                            <span className="text-ink-900 dark:text-paper-100">{data.status}</span>
                           </span>
                         </div>
                       </div>
