@@ -213,14 +213,14 @@ export default function OpenStrandPopover() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none"
+              className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-6 pointer-events-none"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ type: 'spring', duration: 0.3 }}
-                className="pointer-events-auto w-full max-w-3xl h-fit max-h-[90vh] paper-card-lifted overflow-hidden relative"
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ type: 'spring', duration: 0.25 }}
+                className="pointer-events-auto w-screen h-screen sm:w-full sm:h-fit sm:max-w-3xl sm:max-h-[90vh] overflow-auto relative rounded-none sm:rounded-lg border border-ink-200/30 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md"
               >
               {/* Header with logo */}
               <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">

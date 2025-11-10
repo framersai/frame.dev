@@ -189,8 +189,27 @@ export default function WindowFrame() {
                       transition={{ type: 'spring', stiffness: 240, damping: 22 }}
                     >
                       {isAgentOS ? (
-                        <div className="mb-4 flex items-center justify-center w-full">
-                          <Image src="/agentos-logo.png" alt="AgentOS" width={188} height={56} className="object-contain drop-shadow-[0_18px_28px_rgba(0,167,124,0.3)]" />
+                        <div className="mb-2 flex items-center justify-center w-full">
+                          <div className="flex items-center gap-2">
+                            <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain" />
+                            <span className="text-xl font-semibold text-ink-900 dark:text-paper-50 leading-none">
+                              Agent
+                              <span
+                                className="ml-0.5"
+                                style={{
+                                  background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                                  WebkitBackgroundClip: 'text',
+                                  backgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent'
+                                }}
+                              >
+                                OS
+                              </span>
+                            </span>
+                          </div>
+                          <div className="mt-1 text-[11px] tracking-[0.5px] text-ink-500 dark:text-paper-400">
+                            <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
+                          </div>
                         </div>
                       ) : data.placeholder ? (
                         <div className="mb-4 text-ink-400 dark:text-ink-600 opacity-80">
@@ -254,19 +273,29 @@ export default function WindowFrame() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ type: 'spring', duration: 0.3 }}
-                className="pointer-events-auto w-full max-w-2xl max-h-[85vh] overflow-auto rounded-lg border border-ink-200/30 bg-paper-50/95 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/95 dark:shadow-black/60 backdrop-blur-md"
+                className="pointer-events-auto w-screen h-screen sm:w-full sm:h-fit sm:max-w-2xl sm:max-h-[85vh] overflow-auto rounded-none sm:rounded-lg border border-ink-200/30 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md"
               >
               <div className="p-6">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    {osData[selectedOS].logo ? (
-                      <Image 
-                        src={osData[selectedOS].logo!} 
-                        alt={osData[selectedOS].title} 
-                        width={200} 
-                        height={60}
-                        className="object-contain mb-3"
-                      />
+                    {selectedOS === 'AgentOS' ? (
+                      <div className="flex items-center gap-2">
+                        <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain" />
+                        <span className="text-2xl font-semibold text-ink-900 dark:text-paper-50 leading-none">
+                          Agent
+                          <span
+                            className="ml-0.5"
+                            style={{
+                              background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                              WebkitBackgroundClip: 'text',
+                              backgroundClip: 'text',
+                              WebkitTextFillColor: 'transparent'
+                            }}
+                          >
+                            OS
+                          </span>
+                        </span>
+                      </div>
                     ) : (
                       <h2 className="text-3xl font-bold mb-2 heading-display">{osData[selectedOS].title}</h2>
                     )}
