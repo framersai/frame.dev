@@ -197,16 +197,22 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.25)] dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.85)] bg-gradient-to-br from-white/95 ${accentViaClassLight} to-paper-200/80 dark:from-ink-900/96 ${accentViaClassDark} dark:to-ink-950/98`}
+                      className={`group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 hover:ring-amber-300/30 dark:hover:ring-amber-300/20 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_44px_-26px_rgba(0,0,0,0.85)] bg-gradient-to-br from-white/95 ${accentViaClassLight} to-paper-200/80 dark:from-ink-900/96 ${accentViaClassDark} dark:to-ink-950/98`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
-                      whileHover={{ scale: 1.02, boxShadow: '0 32px 55px -40px rgba(0, 200, 150, 0.55)' }}
-                      transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+                      whileHover={{ y: -6, rotateX: -2, boxShadow: '0 32px 72px -44px rgba(251,191,36,0.35)' }}
+                      whileTap={{ y: -2, rotateX: -1 }}
+                      style={{ transformOrigin: 'bottom center', transformStyle: 'preserve-3d' }}
+                      transition={{ type: 'spring', stiffness: 240, damping: 18 }}
                     >
                       {/* Refractive highlight overlays */}
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen opacity-80 dark:hidden" style={{ backgroundImage: lightOverlayImage }} />
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block opacity-70" style={{ backgroundImage: darkOverlayImage }} />
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen opacity-80 dark:hidden transition-opacity duration-300" style={{ backgroundImage: lightOverlayImage }} />
+                      <div className="absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block opacity-70 transition-opacity duration-300" style={{ backgroundImage: darkOverlayImage }} />
+                      {/* Hinge shadow on left edge when hovering (book-open feel) */}
+                      <div className="absolute left-0 top-0 h-full w-3 rounded-l-[18px] opacity-0 group-hover:opacity-80 transition-opacity duration-300 bg-gradient-to-r from-black/25 via-black/10 to-transparent dark:from-black/55 dark:via-black/28" />
+                      {/* Warm glow near top-left on hover */}
+                      <div className="absolute -top-1 -left-1 h-16 w-24 rounded-full blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-300" style={{ background: 'radial-gradient(60% 60% at 30% 30%, rgba(251,191,36,0.25), rgba(0,0,0,0))' }} />
                       {isAgentOS ? (
                         <div className="mb-2 flex items-center justify-center w-full">
                           <div className="flex items-center gap-2 max-w-full flex-wrap justify-center">
