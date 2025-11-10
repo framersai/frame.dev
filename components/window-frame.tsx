@@ -236,13 +236,20 @@ export default function WindowFrame() {
                           </div>
                         </div>
                       ) : data.placeholder ? (
-                        <div className="mb-4 text-ink-400 dark:text-ink-600 opacity-80">
-                          {data.customSvg}
+                        <div className="mb-3 flex flex-col items-center">
+                          <div className="mb-1 text-ink-400 dark:text-ink-600 opacity-80">
+                            {data.customSvg}
+                          </div>
+                          <div className="min-h-[1.25rem]">
+                            <h3 className={`text-base sm:text-lg font-semibold tracking-tight text-ink-900 dark:text-paper-100 ${data.status === 'Live' ? '' : 'opacity-90'}`}>
+                              {data.title}
+                            </h3>
+                          </div>
                         </div>
                       ) : (
                         <div className="mb-3 flex flex-col items-center">
                           <data.icon className="w-11 h-11 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
-                          <div className="min-h-[1.25rem]"><h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight">{data.title}</h3></div>
+                          <div className="min-h-[1.25rem]"><h3 className={`text-base sm:text-lg font-semibold tracking-tight text-ink-900 dark:text-paper-100 ${data.status === 'Live' ? '' : 'opacity-90'}`}>{data.title}</h3></div>
                         </div>
                       )}
                       {/* Top-right status dot */}
