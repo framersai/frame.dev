@@ -154,11 +154,11 @@ export default function WindowFrame() {
 
   return (
     <>
-      <div className="relative max-w-5xl mx-auto px-4">
+      <div className="relative w-full max-w-full sm:max-w-5xl mx-0 sm:mx-auto px-0 sm:px-4">
         {/* Main Window Frame */}
         <div className="relative">
 
-          <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
+          <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[5px] sm:p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
             <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
               {/* Wood-like left frame accent (subtle) */}
               <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-5 sm:w-6 bg-gradient-to-b from-ink-900/8 via-ink-900/6 to-ink-900/4 dark:from-black/14 dark:via-black/12 dark:to-black/8 shadow-[inset_-6px_0_14px_rgba(0,0,0,0.25)]" />
@@ -183,7 +183,7 @@ export default function WindowFrame() {
                 <div className="hidden dark:block absolute inset-0" style={{ backgroundImage: 'radial-gradient(80% 80% at 85% 10%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%), linear-gradient(315deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)' }} />
               </div>
 
-              <div className="relative z-10 pl-7 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
+              <div className="relative z-10 pl-5 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
                 {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
@@ -202,7 +202,7 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className={`group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 hover:ring-amber-300/30 dark:hover:ring-amber-300/20 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_44px_-26px_rgba(0,0,0,0.85)] bg-transparent`}
+                      className={`group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center p-3 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 hover:ring-amber-300/30 dark:hover:ring-amber-300/20 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_44px_-26px_rgba(0,0,0,0.85)] bg-transparent`}
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
@@ -300,15 +300,15 @@ export default function WindowFrame() {
               onClick={() => setSelectedOS(null)}
             />
             
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ type: 'spring', duration: 0.3 }}
-                className="pointer-events-auto w-screen h-screen sm:w-full sm:h-fit sm:max-w-2xl sm:max-h-[85vh] overflow-auto rounded-none sm:rounded-lg border border-ink-200/30 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md"
+                className="pointer-events-auto w-screen h-[100dvh] sm:w-full sm:h-fit sm:max-w-2xl sm:max-h-[85vh] overflow-hidden rounded-none sm:rounded-lg border-[5px] sm:border border-ink-200/40 dark:border-white/15 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md flex flex-col"
               >
-              <div className="p-6">
+              <div className="p-3 sm:p-6 flex-1 min-h-0 overflow-y-auto">
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     {selectedOS === 'AgentOS' ? (

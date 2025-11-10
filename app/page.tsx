@@ -21,12 +21,12 @@ export default function HomePage() {
       <VCABanner />
 
       {/* Hero Section */}
-      <div className="container mx-auto px-4 pt-12 pb-10">
+      <div className="container mx-auto px-0 sm:px-4 pt-8 pb-8 sm:pt-12 sm:pb-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-10 md:mb-14 overflow-visible"
+          className="text-center mb-8 md:mb-14 overflow-visible"
         >
           <motion.h1 
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] leading-[1.18] md:leading-[1.2] font-display font-black tracking-tight heading-display mb-6 md:mb-8 overflow-visible"

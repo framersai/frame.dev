@@ -270,10 +270,10 @@ export default function OpenStrandPopover() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ type: 'spring', duration: 0.25 }}
-                className="pointer-events-auto w-screen h-screen sm:w-full sm:h-fit sm:max-w-3xl sm:max-h-[90vh] overflow-hidden relative rounded-none sm:rounded-lg border border-ink-200/30 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md flex flex-col"
+                className="pointer-events-auto w-screen h-[100dvh] sm:w-full sm:h-fit sm:max-w-3xl sm:max-h-[90vh] overflow-hidden relative rounded-none sm:rounded-lg border-[5px] sm:border border-ink-200/40 dark:border-white/15 bg-paper-50/90 shadow-2xl shadow-black/30 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md flex flex-col"
               >
               {/* Header with logo */}
-              <div className="p-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
+              <div className="p-3 sm:p-6 pb-3 sm:pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
                 <div className="flex items-center justify-center">
                   <a href="https://openstrand.ai" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                     <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-10 w-auto dark:hidden" />
@@ -283,7 +283,7 @@ export default function OpenStrandPopover() {
               </div>
 
               {/* Content Pages */}
-              <div className="p-6 sm:p-8 flex-1 min-h-0 overflow-y-auto">
+              <div className="p-3 sm:p-8 flex-1 min-h-0 overflow-y-auto">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentPage}
@@ -301,7 +301,7 @@ export default function OpenStrandPopover() {
               </div>
 
               {/* Navigation */}
-              <div className="flex items-center justify-between px-8 pb-6">
+              <div className="flex items-center justify-between px-4 sm:px-8 pb-4 sm:pb-6">
                 <button
                   onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
                   disabled={currentPage === 0}
