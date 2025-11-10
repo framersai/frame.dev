@@ -29,7 +29,7 @@ export default function HomePage() {
           className="text-center mb-16"
         >
           <motion.h1 
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight heading-display mb-8"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight heading-display mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}

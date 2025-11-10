@@ -251,7 +251,7 @@ export default function OpenStrandPopover() {
               </div>
 
               {/* Content Pages */}
-              <div className="p-8 min-h-[400px]">
+              <div className="p-6 sm:p-8 min-h-[420px] sm:min-h-[480px]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentPage}
@@ -260,7 +260,7 @@ export default function OpenStrandPopover() {
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <h3 className="text-2xl font-bold mb-6 heading-display">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 heading-display">
                       {pages[currentPage].title}
                     </h3>
                     {pages[currentPage].content}
