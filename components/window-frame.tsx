@@ -225,20 +225,27 @@ export default function WindowFrame() {
                       {isAgentOS ? (
                         <div className="mb-3 flex flex-col items-center">
                           <Image src="/agentos-icon.svg" alt="AgentOS" width={40} height={40} className="object-contain mb-1" />
-                          <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight">
-                            Agent
-                            <span
-                              className="ml-0.5"
-                              style={{
-                                background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
-                                WebkitBackgroundClip: 'text',
-                                backgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent'
-                              }}
+                          <div className="min-h-[1.25rem]">
+                            <motion.h3
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+                              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                              className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-50 tracking-tight"
                             >
-                              OS
-                            </span>
-                          </h3>
+                              Agent
+                              <span
+                                className="ml-0.5"
+                                style={{
+                                  background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                                  WebkitBackgroundClip: 'text',
+                                  backgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent'
+                                }}
+                              >
+                                OS
+                              </span>
+                            </motion.h3>
+                          </div>
                         </div>
                       ) : data.placeholder ? (
                         <div className="mb-4 text-ink-400 dark:text-ink-600 opacity-80">
@@ -247,9 +254,16 @@ export default function WindowFrame() {
                       ) : (
                         <div className="mb-3 flex flex-col items-center">
                           <data.icon className="w-11 h-11 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
-                          <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight">
-                            {data.title}
-                          </h3>
+                          <div className="min-h-[1.25rem]">
+                            <motion.h3
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+                              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                              className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-100 tracking-tight"
+                            >
+                              {data.title}
+                            </motion.h3>
+                          </div>
                         </div>
                       )}
                       {/* Top-right status dot */}
