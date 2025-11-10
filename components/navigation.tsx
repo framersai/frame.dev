@@ -49,6 +49,15 @@ export default function Navigation() {
                 )}
               </Link>
               <Link 
+                href="/faq" 
+                className={`nav-link relative ${pathname === '/faq' ? 'text-frame-green' : ''}`}
+              >
+                FAQ
+                {pathname === '/faq' && (
+                  <motion.div layoutId="activeNavLink" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-frame-green" />
+                )}
+              </Link>
+              <Link 
                 href="/blog" 
                 className={`nav-link relative ${pathname?.startsWith('/blog') ? 'text-frame-green' : ''}`}
               >
@@ -138,6 +147,13 @@ export default function Navigation() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Blog
+                </Link>
+                <Link 
+                  href="/faq" 
+                  className={`block text-lg font-medium transition-colors ${pathname === '/faq' ? 'text-frame-green' : 'text-ink-900 dark:text-paper-50 hover:text-frame-green'}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  FAQ
                 </Link>
                 <a href="https://agentos.sh" className="block text-lg font-bold text-frame-green" target="_blank" rel="noopener noreferrer">
                   AgentOS

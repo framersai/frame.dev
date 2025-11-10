@@ -43,6 +43,7 @@ export default function Footer() {
             <h3 className="font-bold text-sm mb-3 text-ink-500 dark:text-paper-500 uppercase tracking-wider">Company</h3>
             <ul className="space-y-2 text-sm">
               <li><a href="/about" className="nav-link">About</a></li>
+              <li><a href="/faq" className="nav-link">FAQ</a></li>
               <li><a href="/blog" className="nav-link">Blog</a></li>
               <li><a href="mailto:team@frame.dev" className="nav-link">Contact</a></li>
             </ul>
