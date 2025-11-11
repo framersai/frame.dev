@@ -23,7 +23,7 @@ export default function HomePage() {
     return () => clearTimeout(timeout)
   }, [])
 
-  // Noise animation effect
+  // Subtle noise animation effect
   useEffect(() => {
     if (!canvasRef.current || !isDenoising) return
 
@@ -34,74 +34,79 @@ export default function HomePage() {
     // Set canvas size
     const updateCanvasSize = () => {
       canvas.width = window.innerWidth
-      canvas.height = 200
+      canvas.height = 150
     }
     updateCanvasSize()
     window.addEventListener('resize', updateCanvasSize)
 
-    let currentNoise = 100
+    let currentNoise = 60 // Start at 60% for subtlety
     const targetNoise = 0
-    const animationDuration = 3000 // 3 seconds
+    const animationDuration = 2500 // 2.5 seconds for smoother feel
     const startTime = Date.now()
 
     const drawNoise = () => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / animationDuration, 1)
 
-      // Easing function for smooth denoising
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-      currentNoise = 100 * (1 - easeOutQuart)
+      // Smoother easing function
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+      currentNoise = 60 * (1 - easeOutCubic)
       setNoiseLevel(currentNoise)
 
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       if (currentNoise > 0.5) {
-        // Create noise pattern
+        // Create subtle noise pattern
         const imageData = ctx.createImageData(canvas.width, canvas.height)
         const data = imageData.data
 
-        for (let i = 0; i < data.length; i += 4) {
-          const noise = Math.random() * currentNoise
-          const shouldShowNoise = Math.random() * 100 < currentNoise
+        // Less dense noise
+        for (let i = 0; i < data.length; i += 8) { // Skip more pixels for subtlety
+          const noise = Math.random() * currentNoise * 0.6
+          const shouldShowNoise = Math.random() * 100 < currentNoise * 0.4
 
           if (shouldShowNoise) {
-            // Create colored noise with green tint
-            data[i] = noise * 0.3     // Red
-            data[i + 1] = noise * 0.8 // Green (more green for theme)
-            data[i + 2] = noise * 0.3 // Blue
-            data[i + 3] = noise * 2.5 // Alpha (fading out)
+            // Subtle monochrome noise with slight green tint
+            data[i] = noise * 0.2     // Red
+            data[i + 1] = noise * 0.3 // Green (subtle tint)
+            data[i + 2] = noise * 0.2 // Blue
+            data[i + 3] = noise * 1.5 // Alpha (more transparent)
           }
         }
 
         ctx.putImageData(imageData, 0, 0)
 
-        // Add scan lines effect
-        ctx.strokeStyle = `rgba(34, 139, 34, ${currentNoise / 400})`
-        ctx.lineWidth = 1
-        for (let y = 0; y < canvas.height; y += 4) {
-          if (Math.random() > 0.5) {
-            ctx.beginPath()
-            ctx.moveTo(0, y)
-            ctx.lineTo(canvas.width, y)
-            ctx.stroke()
+        // Subtle scan lines
+        if (currentNoise > 20) {
+          ctx.strokeStyle = `rgba(34, 139, 34, ${currentNoise / 600})`
+          ctx.lineWidth = 0.5
+          for (let y = 0; y < canvas.height; y += 8) {
+            if (Math.random() > 0.7) {
+              ctx.beginPath()
+              ctx.moveTo(0, y)
+              ctx.lineTo(canvas.width, y)
+              ctx.stroke()
+            }
           }
         }
 
-        // Add interference waves
-        ctx.strokeStyle = `rgba(34, 139, 34, ${currentNoise / 300})`
-        ctx.lineWidth = 2
-        ctx.beginPath()
-        const waveOffset = (Date.now() / 10) % canvas.width
-        for (let x = 0; x < canvas.width; x += 5) {
-          const y = canvas.height / 2 + Math.sin((x + waveOffset) * 0.02) * currentNoise * 0.5
-          if (x === 0) {
-            ctx.moveTo(x, y)
-          } else {
-            ctx.lineTo(x, y)
+        // Subtle wave distortion
+        if (currentNoise > 10) {
+          ctx.strokeStyle = `rgba(34, 139, 34, ${currentNoise / 500})`
+          ctx.lineWidth = 1
+          ctx.beginPath()
+          const waveOffset = (Date.now() / 20) % canvas.width
+          for (let x = 0; x < canvas.width; x += 10) {
+            const y = canvas.height / 2 + Math.sin((x + waveOffset) * 0.01) * currentNoise * 0.2
+            if (x === 0) {
+              ctx.moveTo(x, y)
+            } else {
+              ctx.lineTo(x, y)
+            }
           }
+          ctx.stroke()
         }
-        ctx.stroke()
       }
 
       if (progress < 1) {
@@ -122,16 +127,16 @@ export default function HomePage() {
     }
   }, [isDenoising])
 
-  // Text reveal animation synchronized with denoising
+  // Subtle text reveal animation
   useEffect(() => {
     if (isDenoising) {
       controls.start({
-        filter: ['blur(8px) saturate(0.5)', 'blur(4px) saturate(0.7)', 'blur(2px) saturate(0.85)', 'blur(0px) saturate(1)'],
-        opacity: [0.3, 0.6, 0.8, 1],
-        letterSpacing: ['0.3em', '0.15em', '0.05em', '0em'],
+        filter: ['blur(4px) saturate(0.7)', 'blur(2px) saturate(0.85)', 'blur(1px) saturate(0.95)', 'blur(0px) saturate(1)'],
+        opacity: [0.6, 0.75, 0.9, 1],
+        letterSpacing: ['0.1em', '0.05em', '0.02em', '0em'],
         transition: {
-          duration: 3,
-          ease: [0.16, 1, 0.3, 1],
+          duration: 2.5,
+          ease: [0.22, 1, 0.36, 1],
         }
       })
     }
@@ -170,64 +175,30 @@ export default function HomePage() {
           >
             <motion.span
               className={`hero-heading ${headingRevealed ? 'is-revealed' : ''} relative inline-block`}
-              style={{ willChange: 'transform, filter, clip-path' }}
+              style={{ willChange: 'transform, filter' }}
               animate={controls}
               initial={{
-                opacity: 0.3,
-                filter: 'blur(8px) saturate(0.5)',
-                letterSpacing: '0.3em'
+                opacity: 0.6,
+                filter: 'blur(4px) saturate(0.7)',
+                letterSpacing: '0.1em'
               }}
             >
-              {/* Glitch effect layers */}
-              {noiseLevel > 20 && (
-                <>
-                  <span
-                    className="absolute inset-0 text-frame-green opacity-50"
-                    style={{
-                      transform: `translate(${Math.random() * 2}px, ${Math.random() * 2}px)`,
-                      clipPath: `inset(${Math.random() * 30}% 0 ${Math.random() * 30}% 0)`,
-                    }}
-                  >
-                    Denoising the web
-                  </span>
-                  <span
-                    className="absolute inset-0 text-red-500 opacity-30"
-                    style={{
-                      transform: `translate(${-Math.random() * 2}px, ${-Math.random() * 2}px)`,
-                      clipPath: `inset(${Math.random() * 30}% 0 ${Math.random() * 30}% 0)`,
-                    }}
-                  >
-                    Denoising the web
-                  </span>
-                </>
+              {/* Subtle glitch effect */}
+              {noiseLevel > 30 && (
+                <span
+                  className="absolute inset-0 text-frame-green opacity-20"
+                  style={{
+                    transform: `translate(${Math.sin(Date.now() / 200)}px, 0)`,
+                    filter: 'blur(1px)',
+                  }}
+                >
+                  Denoising the web
+                </span>
               )}
 
-              {/* Main text */}
+              {/* Main text - simpler animation */}
               <span className="relative z-10 block pb-1">
-                {/* Character by character animation */}
-                {'Denoising the web'.split('').map((char, i) => (
-                  <motion.span
-                    key={i}
-                    className="inline-block"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        delay: 0.5 + i * 0.05,
-                        duration: 0.5,
-                        ease: [0.16, 1, 0.3, 1]
-                      }
-                    }}
-                    style={{
-                      textShadow: noiseLevel > 0
-                        ? `0 0 ${noiseLevel / 10}px rgba(34, 139, 34, ${noiseLevel / 200})`
-                        : 'none'
-                    }}
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </motion.span>
-                ))}
+                Denoising the web
               </span>
             </motion.span>
           </motion.h1>

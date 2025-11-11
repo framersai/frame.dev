@@ -173,13 +173,33 @@ export default function WindowFrame() {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [selectedOS])
 
-  // Get sunlight color and intensity based on time
+  // Enhanced sunlight/moonlight effects with yellow tint
   const getSunlightEffect = () => {
     const effects = {
-      morning: { color: 'rgba(255, 200, 100, 0.15)', intensity: 0.7, angle: '135deg' },
-      noon: { color: 'rgba(255, 230, 150, 0.12)', intensity: 1, angle: '120deg' },
-      evening: { color: 'rgba(255, 150, 50, 0.18)', intensity: 0.6, angle: '45deg' },
-      night: { color: 'rgba(150, 180, 255, 0.08)', intensity: 0.3, angle: '315deg' }
+      morning: {
+        color: 'rgba(255, 220, 130, 0.25)',  // Warm golden yellow
+        intensity: 0.8,
+        angle: '135deg',
+        secondary: 'rgba(255, 200, 100, 0.1)'
+      },
+      noon: {
+        color: 'rgba(255, 245, 180, 0.2)',   // Bright yellow sunlight
+        intensity: 1,
+        angle: '120deg',
+        secondary: 'rgba(255, 230, 150, 0.08)'
+      },
+      evening: {
+        color: 'rgba(255, 180, 80, 0.28)',   // Sunset orange-yellow
+        intensity: 0.7,
+        angle: '45deg',
+        secondary: 'rgba(255, 150, 50, 0.12)'
+      },
+      night: {
+        color: 'rgba(200, 210, 255, 0.12)',  // Moonlight with subtle yellow
+        intensity: 0.4,
+        angle: '315deg',
+        secondary: 'rgba(255, 250, 200, 0.04)' // Faint yellow even at night
+      }
     }
     return effects[timeOfDay]
   }
@@ -205,33 +225,49 @@ export default function WindowFrame() {
                 <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
               </div>
 
-              {/* Sunlight overlay effect */}
+              {/* Enhanced sunlight overlay with multiple layers */}
               <div
-                className="pointer-events-none absolute inset-0 z-[5] opacity-60"
+                className="pointer-events-none absolute inset-0 z-[5]"
                 style={{
-                  background: `linear-gradient(${sunlight.angle}, ${sunlight.color} 0%, transparent 60%)`,
-                  opacity: sunlight.intensity
+                  background: `
+                    linear-gradient(${sunlight.angle}, ${sunlight.color} 0%, transparent 50%),
+                    linear-gradient(${parseInt(sunlight.angle) + 90}deg, ${sunlight.secondary} 0%, transparent 40%)
+                  `,
+                  opacity: sunlight.intensity,
+                  mixBlendMode: 'soft-light'
                 }}
               />
 
-              {/* Window pane dividers with shadows */}
+              {/* Additional light refraction from top-left */}
+              <div
+                className="pointer-events-none absolute inset-0 z-[4]"
+                style={{
+                  background: `radial-gradient(circle at 15% 15%, ${sunlight.color} 0%, transparent 35%)`,
+                  opacity: sunlight.intensity * 0.6,
+                  mixBlendMode: 'screen'
+                }}
+              />
+
+              {/* Refined window pane dividers */}
               <div className="absolute inset-0 pointer-events-none z-10">
-                {/* Vertical dividers */}
-                <div className="absolute top-0 bottom-0 left-1/3 w-[2px] bg-gradient-to-b from-black/20 via-black/30 to-black/20 dark:from-black/30 dark:via-black/40 dark:to-black/30">
-                  <div className="absolute inset-0 bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                {/* Vertical dividers - perfectly aligned */}
+                <div className="absolute top-0 bottom-0 left-[33.333%] w-[1.5px] bg-gradient-to-b from-black/15 via-black/25 to-black/15 dark:from-black/25 dark:via-black/35 dark:to-black/25">
+                  <div className="absolute inset-0 bg-gradient-to-b from-amber-800/10 via-amber-800/5 to-amber-800/10" />
                 </div>
-                <div className="absolute top-0 bottom-0 left-1/3 w-[20px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/5 to-transparent blur-sm" />
 
-                <div className="absolute top-0 bottom-0 left-2/3 w-[2px] bg-gradient-to-b from-black/20 via-black/30 to-black/20 dark:from-black/30 dark:via-black/40 dark:to-black/30">
-                  <div className="absolute inset-0 bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                <div className="absolute top-0 bottom-0 left-[66.666%] w-[1.5px] bg-gradient-to-b from-black/15 via-black/25 to-black/15 dark:from-black/25 dark:via-black/35 dark:to-black/25">
+                  <div className="absolute inset-0 bg-gradient-to-b from-amber-800/10 via-amber-800/5 to-amber-800/10" />
                 </div>
-                <div className="absolute top-0 bottom-0 left-2/3 w-[20px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/5 to-transparent blur-sm" />
 
-                {/* Horizontal divider */}
-                <div className="absolute left-0 right-0 top-1/2 h-[2px] bg-gradient-to-r from-black/20 via-black/30 to-black/20 dark:from-black/30 dark:via-black/40 dark:to-black/30">
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                {/* Horizontal divider - perfectly centered */}
+                <div className="absolute left-0 right-0 top-[50%] h-[1.5px] bg-gradient-to-r from-black/15 via-black/25 to-black/15 dark:from-black/25 dark:via-black/35 dark:to-black/25">
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-800/10 via-amber-800/5 to-amber-800/10" />
                 </div>
-                <div className="absolute left-0 right-0 top-1/2 h-[20px] -translate-y-1/2 bg-gradient-to-b from-transparent via-black/5 to-transparent blur-sm" />
+
+                {/* Subtle shadow lines for depth */}
+                <div className="absolute top-0 bottom-0 left-[33.333%] w-[8px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/3 to-transparent" />
+                <div className="absolute top-0 bottom-0 left-[66.666%] w-[8px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/3 to-transparent" />
+                <div className="absolute left-0 right-0 top-[50%] h-[8px] -translate-y-1/2 bg-gradient-to-b from-transparent via-black/3 to-transparent" />
               </div>
 
               <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-2">
@@ -248,43 +284,74 @@ export default function WindowFrame() {
                     <motion.button
                       type="button"
                       key={os}
-                      className="group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center p-4 sm:p-6 transition-all duration-500 focus:outline-none cursor-pointer rounded-[20px] overflow-hidden"
+                      className="group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-6 transition-all duration-500 focus:outline-none cursor-pointer rounded-[16px] overflow-hidden"
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
-                      whileHover={{ scale: 1.02, z: 50 }}
-                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: idx * 0.1 }}
+                      whileHover={{
+                        scale: 1.03,
+                        rotateY: 5,
+                        rotateX: -2,
+                        z: 100
+                      }}
+                      whileTap={{ scale: 0.97 }}
                       style={{
                         transformStyle: 'preserve-3d',
-                        perspective: '1000px'
+                        perspective: '1200px',
+                        transformOrigin: 'center center'
                       }}
                     >
-                      {/* Glass pane background */}
+                      {/* Premium glass pane background */}
                       <motion.div
-                        className="absolute inset-0 rounded-[20px]"
+                        className="absolute inset-0 rounded-[16px]"
                         initial={false}
                         animate={{
                           background: isHovered
-                            ? 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 50%, rgba(240,245,250,0.98) 100%)'
-                            : 'linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 50%, rgba(240,245,250,0.92) 100%)'
+                            ? 'linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(252,253,255,0.94) 50%, rgba(248,250,253,0.96) 100%)'
+                            : 'linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(252,253,255,0.86) 50%, rgba(248,250,253,0.90) 100%)'
                         }}
                         transition={{ duration: 0.3 }}
                         style={{
                           boxShadow: isHovered
-                            ? '0 20px 40px -10px rgba(0,0,0,0.2), inset 0 2px 10px rgba(255,255,255,0.8)'
-                            : '0 10px 30px -15px rgba(0,0,0,0.15), inset 0 1px 4px rgba(255,255,255,0.5)'
+                            ? '0 12px 24px -8px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9)'
+                            : '0 8px 16px -8px rgba(0,0,0,0.08), inset 0 1px 3px rgba(255,255,255,0.7)',
+                          backdropFilter: 'blur(10px)'
                         }}
                       />
 
                       {/* Dark mode glass background */}
-                      <div className="absolute inset-0 rounded-[20px] dark:block hidden"
+                      <div className="absolute inset-0 rounded-[16px] dark:block hidden"
                         style={{
                           background: isHovered
-                            ? 'linear-gradient(135deg, rgba(10,12,16,0.95) 0%, rgba(15,17,21,0.92) 50%, rgba(8,10,14,0.95) 100%)'
-                            : 'linear-gradient(135deg, rgba(10,12,16,0.88) 0%, rgba(15,17,21,0.85) 50%, rgba(8,10,14,0.88) 100%)',
+                            ? 'linear-gradient(135deg, rgba(10,12,16,0.93) 0%, rgba(15,17,21,0.90) 50%, rgba(8,10,14,0.93) 100%)'
+                            : 'linear-gradient(135deg, rgba(10,12,16,0.86) 0%, rgba(15,17,21,0.82) 50%, rgba(8,10,14,0.86) 100%)',
                           boxShadow: isHovered
-                            ? '0 20px 40px -10px rgba(0,0,0,0.5), inset 0 2px 10px rgba(255,255,255,0.1)'
-                            : '0 10px 30px -15px rgba(0,0,0,0.3), inset 0 1px 4px rgba(255,255,255,0.05)'
+                            ? '0 12px 24px -8px rgba(0,0,0,0.4), inset 0 2px 8px rgba(255,255,255,0.08)'
+                            : '0 8px 16px -8px rgba(0,0,0,0.25), inset 0 1px 3px rgba(255,255,255,0.04)',
+                          backdropFilter: 'blur(10px)'
+                        }}
+                      />
+
+                      {/* Vanishing gradient overlay */}
+                      <div className="absolute inset-0 rounded-[16px] pointer-events-none z-[15]"
+                        style={{
+                          background: `
+                            linear-gradient(to right,
+                              rgba(255,255,255,0) 0%,
+                              rgba(255,255,255,0) 5%,
+                              rgba(255,255,255,0) 95%,
+                              rgba(255,255,255,0.3) 100%
+                            ),
+                            linear-gradient(to bottom,
+                              rgba(255,255,255,0) 0%,
+                              rgba(255,255,255,0) 85%,
+                              rgba(255,255,255,0.2) 100%
+                            )
+                          `,
+                          mixBlendMode: 'soft-light'
                         }}
                       />
 
@@ -312,24 +379,43 @@ export default function WindowFrame() {
                         }}
                       />
 
-                      {/* Sparkle effects for live OS */}
-                      {data.status === 'Live' && (
-                        <div className="absolute top-3 right-3 z-30">
+                      {/* Status indicator dot */}
+                      <div className="absolute top-3 right-3 z-30">
+                        <div className="relative">
                           <motion.div
+                            className={`w-3 h-3 rounded-full ${
+                              data.status === 'Live'
+                                ? 'bg-green-500'
+                                : data.status === 'Coming Soon'
+                                ? 'bg-amber-500'
+                                : 'bg-blue-500'
+                            }`}
                             animate={{
-                              scale: [1, 1.2, 1],
-                              rotate: [0, 180, 360]
+                              scale: data.status === 'Live' ? [1, 1.2, 1] : 1,
+                              opacity: data.status === 'Live' ? [0.8, 1, 0.8] : 0.6
                             }}
                             transition={{
-                              duration: 3,
+                              duration: 2,
                               repeat: Infinity,
-                              ease: "linear"
+                              ease: "easeInOut"
                             }}
-                          >
-                            <Sparkles className="w-4 h-4 text-frame-green opacity-60" />
-                          </motion.div>
+                          />
+                          {data.status === 'Live' && (
+                            <motion.div
+                              className="absolute inset-0 w-3 h-3 rounded-full bg-green-500"
+                              animate={{
+                                scale: [1, 2, 2],
+                                opacity: [0.5, 0, 0]
+                              }}
+                              transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeOut"
+                              }}
+                            />
+                          )}
                         </div>
-                      )}
+                      </div>
 
                       {/* Content */}
                       <div className="relative z-10 flex flex-col items-center justify-center h-full">
@@ -423,18 +509,19 @@ export default function WindowFrame() {
               onClick={() => setSelectedOS(null)}
             />
 
-            {/* Modal */}
+            {/* Premium Modal - Consistent height */}
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotateX: -10 }}
-                animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-                exit={{ opacity: 0, scale: 0.9, rotateX: 10 }}
-                transition={{ type: 'spring', duration: 0.5, bounce: 0.3 }}
-                className="pointer-events-auto w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl bg-gradient-to-br from-paper-50 via-white to-paper-100 dark:from-ink-900 dark:via-ink-950 dark:to-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] dark:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] flex flex-col"
+                initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
+                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl flex flex-col"
                 style={{
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.1)'
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(252,253,255,0.96) 50%, rgba(248,250,253,0.98) 100%)',
+                  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05)',
+                  backdropFilter: 'blur(20px) saturate(1.5)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
                 }}
               >
                 {/* Header with gradient */}
