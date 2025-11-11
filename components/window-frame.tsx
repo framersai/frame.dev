@@ -35,36 +35,36 @@ type LightingPreset = {
 
 const LIGHT_MODE_LIGHTING: Record<'morning' | 'noon' | 'evening' | 'night', LightingPreset> = {
   morning: {
-    color: 'rgba(255, 230, 150, 0.3)',
-    intensity: 0.9,
+    color: 'rgba(255, 220, 100, 0.5)', // Warmer, more golden morning light
+    intensity: 1.1,
     angle: '135deg',
-    secondary: 'rgba(255, 220, 100, 0.15)'
+    secondary: 'rgba(255, 200, 50, 0.25)'
   },
   noon: {
-    color: 'rgba(255, 250, 200, 0.25)',
-    intensity: 1,
+    color: 'rgba(255, 245, 150, 0.45)', // Bright yellow sunlight
+    intensity: 1.2,
     angle: '120deg',
-    secondary: 'rgba(255, 245, 180, 0.12)'
+    secondary: 'rgba(255, 235, 100, 0.22)'
   },
   evening: {
-    color: 'rgba(255, 200, 100, 0.35)',
-    intensity: 0.8,
+    color: 'rgba(255, 180, 60, 0.55)', // Deep orange sunset
+    intensity: 1.0,
     angle: '45deg',
-    secondary: 'rgba(255, 180, 80, 0.18)'
+    secondary: 'rgba(255, 150, 40, 0.28)'
   },
   night: {
-    color: 'rgba(255, 240, 180, 0.15)',
-    intensity: 0.5,
+    color: 'rgba(255, 235, 140, 0.25)', // Warm indoor lighting
+    intensity: 0.7,
     angle: '270deg',
-    secondary: 'rgba(255, 230, 150, 0.08)'
+    secondary: 'rgba(255, 220, 100, 0.12)'
   }
 }
 
 const DARK_MODE_LIGHTING: LightingPreset = {
-  color: 'rgba(180, 200, 255, 0.15)',
-  intensity: 0.5,
+  color: 'rgba(150, 180, 255, 0.35)', // Cool blue moonlight with more visibility
+  intensity: 0.8,
   angle: '315deg',
-  secondary: 'rgba(200, 220, 255, 0.08)'
+  secondary: 'rgba(180, 200, 255, 0.18)' // Stronger secondary moonlight
 }
 
 const DEFAULT_LIGHTING = LIGHT_MODE_LIGHTING.noon
@@ -297,64 +297,87 @@ export default function WindowFrame() {
                   const refractionIntensity = 1 - (row * 0.3 + col * 0.2)
 
                   return (
-                    <div key={os} className="relative p-3 sm:p-4">
+                    <div key={os} className="relative">
                       <button
                         type="button"
-                        className="group relative w-full h-full min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer rounded-xl overflow-hidden border border-ink-100/60 dark:border-white/10"
+                        className="group relative w-full h-full min-h-[320px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer overflow-hidden border-t border-l border-ink-200/80 dark:border-white/15 shadow-[inset_1px_1px_0_rgba(255,255,255,0.5)] dark:shadow-[inset_1px_1px_0_rgba(255,255,255,0.1)]"
                         onClick={() => setSelectedOS(os as OSName)}
                         onMouseEnter={() => setHoveredPane(os as OSName)}
                         onMouseLeave={() => setHoveredPane(null)}
                       >
                         <motion.div
-                          className="absolute inset-0 rounded-xl"
+                          className="absolute inset-0"
                           initial={false}
                           animate={{
                             background: isHovered
-                              ? 'linear-gradient(135deg, rgba(255,255,255,0.995) 0%, rgba(252,253,255,0.99) 50%, rgba(248,250,253,0.995) 100%)'
-                              : 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(252,253,255,0.965) 50%, rgba(248,250,253,0.98) 100%)'
+                              ? 'linear-gradient(145deg, rgba(255,254,250,0.998) 0%, rgba(255,252,248,0.995) 30%, rgba(253,251,247,0.998) 60%, rgba(252,250,245,0.995) 100%)'
+                              : 'linear-gradient(145deg, rgba(255,254,250,0.985) 0%, rgba(255,252,248,0.975) 30%, rgba(253,251,247,0.985) 60%, rgba(252,250,245,0.975) 100%)'
                           }}
                           transition={{ duration: 0.3 }}
                           style={{
                             boxShadow: isHovered
-                              ? '0 14px 28px -10px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9)'
-                              : '0 10px 18px -10px rgba(0,0,0,0.08), inset 0 1px 3px rgba(255,255,255,0.7)',
-                            backdropFilter: 'blur(10px)'
+                              ? '0 20px 40px -15px rgba(0,0,0,0.15), inset 0 3px 12px rgba(255,255,255,0.95), inset 0 -2px 8px rgba(0,0,0,0.02)'
+                              : '0 12px 24px -12px rgba(0,0,0,0.1), inset 0 2px 6px rgba(255,255,255,0.8), inset 0 -1px 4px rgba(0,0,0,0.01)',
+                            backdropFilter: 'blur(12px)'
                           }}
                         />
 
                         <div
-                          className="absolute inset-0 rounded-xl hidden dark:block border border-white/5"
+                          className="absolute inset-0 hidden dark:block"
                           style={{
                             background: isHovered
-                              ? 'linear-gradient(135deg, rgba(12,14,18,0.98) 0%, rgba(16,18,24,0.95) 50%, rgba(10,12,16,0.98) 100%)'
-                              : 'linear-gradient(135deg, rgba(12,14,18,0.96) 0%, rgba(16,18,24,0.92) 50%, rgba(10,12,16,0.96) 100%)',
+                              ? 'linear-gradient(145deg, rgba(18,25,42,0.985) 0%, rgba(20,28,48,0.97) 30%, rgba(16,22,38,0.985) 60%, rgba(14,20,35,0.98) 100%)'
+                              : 'linear-gradient(145deg, rgba(18,25,42,0.97) 0%, rgba(20,28,48,0.95) 30%, rgba(16,22,38,0.97) 60%, rgba(14,20,35,0.96) 100%)',
                             boxShadow: isHovered
-                              ? '0 12px 24px -8px rgba(0,0,0,0.4), inset 0 2px 8px rgba(255,255,255,0.08)'
-                              : '0 8px 16px -8px rgba(0,0,0,0.25), inset 0 1px 3px rgba(255,255,255,0.04)',
-                            backdropFilter: 'blur(10px)'
+                              ? '0 16px 32px -10px rgba(0,0,0,0.5), inset 0 3px 10px rgba(150,180,255,0.18), inset 0 -2px 6px rgba(0,0,0,0.3)'
+                              : '0 10px 20px -8px rgba(0,0,0,0.35), inset 0 2px 5px rgba(150,180,255,0.1), inset 0 -1px 3px rgba(0,0,0,0.2)',
+                            backdropFilter: 'blur(12px)',
+                            borderTop: isHovered ? '1px solid rgba(150,180,255,0.15)' : '1px solid rgba(150,180,255,0.08)',
+                            borderLeft: isHovered ? '1px solid rgba(150,180,255,0.12)' : '1px solid rgba(150,180,255,0.06)'
                           }}
                         />
 
                         {data.status !== 'Live' && (
-                          <div className="absolute inset-0 rounded-lg pointer-events-none z-[20] bg-white/82 dark:bg-ink-900/82 backdrop-blur-sm border border-white/40 dark:border-white/10" />
+                          <div className="absolute inset-0 pointer-events-none z-[20] bg-white/50 dark:bg-ink-900/50 backdrop-blur-[2px] border border-white/20 dark:border-white/5" />
                         )}
 
                         <AnimatePresence>
                           {isHovered && (
-                            <motion.div
-                              className="absolute inset-0 rounded-xl pointer-events-none z-20"
-                              initial={{ x: '-100%', opacity: 0 }}
-                              animate={{ x: '100%', opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              transition={{ duration: 0.6, ease: 'easeInOut' }}
-                            >
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/10 skew-x-12" />
-                            </motion.div>
+                            <>
+                              {/* Primary shimmer */}
+                              <motion.div
+                                className="absolute inset-0 pointer-events-none z-20"
+                                initial={{ x: '-100%', opacity: 0 }}
+                                animate={{ x: '100%', opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{
+                                  duration: 0.6 + (idx * 0.1),
+                                  ease: [0.25, 0.1, 0.25, 1],
+                                  delay: idx * 0.05
+                                }}
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/12 skew-x-12" />
+                              </motion.div>
+                              {/* Secondary shimmer */}
+                              <motion.div
+                                className="absolute inset-0 pointer-events-none z-19"
+                                initial={{ x: '-150%', opacity: 0 }}
+                                animate={{ x: '150%', opacity: 0.7 }}
+                                exit={{ opacity: 0 }}
+                                transition={{
+                                  duration: 0.8 + (idx * 0.15),
+                                  ease: 'easeOut',
+                                  delay: 0.1 + (idx * 0.08)
+                                }}
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-frame-green/10 to-transparent skew-x-6" />
+                              </motion.div>
+                            </>
                           )}
                         </AnimatePresence>
 
                         <div
-                          className="absolute inset-0 rounded-xl pointer-events-none z-[3]"
+                          className="absolute inset-0 pointer-events-none z-[3]"
                           style={{
                             background: `radial-gradient(circle at 20% 20%, ${sunlight.color} 0%, transparent 50%)`,
                             opacity: sunlight.intensity * refractionIntensity * 0.5

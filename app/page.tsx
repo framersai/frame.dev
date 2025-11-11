@@ -19,11 +19,11 @@ export default function HomePage() {
     const timeout = setTimeout(() => {
       setHeadingRevealed(true)
       setIsDenoising(true)
-    }, 120)
+    }, 50) // Much faster start
     return () => clearTimeout(timeout)
   }, [])
 
-  // Subtle noise animation effect
+  // More interesting noise animation effect
   useEffect(() => {
     if (!canvasRef.current || !isDenoising) return
 
@@ -34,55 +34,64 @@ export default function HomePage() {
     // Set canvas size
     const updateCanvasSize = () => {
       canvas.width = window.innerWidth
-      canvas.height = 150
+      canvas.height = 200
     }
     updateCanvasSize()
     window.addEventListener('resize', updateCanvasSize)
 
-    let currentNoise = 60 // Start at 60% for subtlety
+    let currentNoise = 80 // Start higher for more dramatic effect
     const targetNoise = 0
-    const animationDuration = 1200 // Faster denoise reveal
+    const animationDuration = 800 // Faster denoise reveal
     const startTime = Date.now()
 
     const drawNoise = () => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / animationDuration, 1)
 
-      // Smoother easing function
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
-      currentNoise = 60 * (1 - easeOutCubic)
+      // More dramatic easing
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      currentNoise = 80 * (1 - easeOutQuart)
       setNoiseLevel(currentNoise)
 
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       if (currentNoise > 0.5) {
-        // Create subtle noise pattern
+        // Create more interesting noise pattern with particles
         const imageData = ctx.createImageData(canvas.width, canvas.height)
         const data = imageData.data
 
-        // Less dense noise
-        for (let i = 0; i < data.length; i += 8) { // Skip more pixels for subtlety
-          const noise = Math.random() * currentNoise * 0.6
-          const shouldShowNoise = Math.random() * 100 < currentNoise * 0.4
+        // More varied noise pattern
+        for (let i = 0; i < data.length; i += 4) {
+          const noise = Math.random() * currentNoise
+          const shouldShowNoise = Math.random() * 100 < currentNoise * 0.8
 
           if (shouldShowNoise) {
-            // Subtle monochrome noise with slight green tint
-            data[i] = noise * 0.2     // Red
-            data[i + 1] = noise * 0.3 // Green (subtle tint)
-            data[i + 2] = noise * 0.2 // Blue
-            data[i + 3] = noise * 1.5 // Alpha (more transparent)
+            // Create digital rain effect with green tint
+            const isGreenRain = Math.random() > 0.7
+            if (isGreenRain) {
+              data[i] = noise * 0.1     // Red
+              data[i + 1] = noise * 0.8 // Green (strong tint)
+              data[i + 2] = noise * 0.2 // Blue
+              data[i + 3] = noise * 2.5 // Alpha
+            } else {
+              // Regular static
+              data[i] = noise * 0.3
+              data[i + 1] = noise * 0.4
+              data[i + 2] = noise * 0.3
+              data[i + 3] = noise * 1.8
+            }
           }
         }
 
         ctx.putImageData(imageData, 0, 0)
 
-        // Subtle scan lines
-        if (currentNoise > 20) {
-          ctx.strokeStyle = `rgba(34, 139, 34, ${currentNoise / 600})`
-          ctx.lineWidth = 0.5
-          for (let y = 0; y < canvas.height; y += 8) {
-            if (Math.random() > 0.7) {
+        // Digital scan lines effect
+        if (currentNoise > 15) {
+          ctx.strokeStyle = `rgba(0, 248, 180, ${currentNoise / 300})`
+          ctx.lineWidth = 1
+          for (let y = 0; y < canvas.height; y += 4) {
+            if (Math.random() > 0.5) {
               ctx.beginPath()
               ctx.moveTo(0, y)
               ctx.lineTo(canvas.width, y)
@@ -91,21 +100,40 @@ export default function HomePage() {
           }
         }
 
-        // Subtle wave distortion
-        if (currentNoise > 10) {
-          ctx.strokeStyle = `rgba(34, 139, 34, ${currentNoise / 500})`
-          ctx.lineWidth = 1
-          ctx.beginPath()
-          const waveOffset = (Date.now() / 20) % canvas.width
-          for (let x = 0; x < canvas.width; x += 10) {
-            const y = canvas.height / 2 + Math.sin((x + waveOffset) * 0.01) * currentNoise * 0.2
-            if (x === 0) {
-              ctx.moveTo(x, y)
-            } else {
-              ctx.lineTo(x, y)
+        // Matrix-style falling characters
+        if (currentNoise > 25) {
+          ctx.font = '10px monospace'
+          ctx.fillStyle = `rgba(0, 248, 180, ${currentNoise / 150})`
+          for (let x = 0; x < canvas.width; x += 20) {
+            for (let y = 0; y < canvas.height; y += 20) {
+              if (Math.random() > 0.8) {
+                ctx.fillText(Math.random() > 0.5 ? '1' : '0', x, y)
+              }
             }
           }
-          ctx.stroke()
+        }
+
+        // Wave distortion with multiple waves
+        if (currentNoise > 10) {
+          ctx.strokeStyle = `rgba(0, 248, 180, ${currentNoise / 200})`
+          ctx.lineWidth = 2
+
+          for (let wave = 0; wave < 3; wave++) {
+            ctx.beginPath()
+            const waveOffset = (Date.now() / (10 + wave * 5)) % canvas.width
+            for (let x = 0; x < canvas.width; x += 5) {
+              const y = canvas.height / 2 +
+                       Math.sin((x + waveOffset) * 0.02) * currentNoise * 0.5 +
+                       Math.cos((x + waveOffset) * 0.01) * currentNoise * 0.3 +
+                       wave * 20
+              if (x === 0) {
+                ctx.moveTo(x, y)
+              } else {
+                ctx.lineTo(x, y)
+              }
+            }
+            ctx.stroke()
+          }
         }
       }
 
@@ -127,15 +155,15 @@ export default function HomePage() {
     }
   }, [isDenoising])
 
-  // Subtle text reveal animation
+  // Faster text reveal animation
   useEffect(() => {
     if (isDenoising) {
       controls.start({
-        filter: ['blur(4px) saturate(0.7)', 'blur(2px) saturate(0.85)', 'blur(1px) saturate(0.95)', 'blur(0px) saturate(1)'],
-        opacity: [0.6, 0.75, 0.9, 1],
-        letterSpacing: ['0.1em', '0.05em', '0.02em', '0em'],
+        filter: ['blur(8px) saturate(0)', 'blur(4px) saturate(0.5)', 'blur(2px) saturate(0.8)', 'blur(0px) saturate(1)'],
+        opacity: [0.3, 0.6, 0.85, 1],
+        letterSpacing: ['0.2em', '0.1em', '0.05em', '0em'],
         transition: {
-          duration: 2.5,
+          duration: 1.2,
           ease: [0.22, 1, 0.36, 1],
         }
       })
@@ -152,7 +180,7 @@ export default function HomePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-6 md:mb-10 overflow-visible relative"
         >
           {/* Noise overlay canvas */}
@@ -161,9 +189,9 @@ export default function HomePage() {
             className="absolute inset-0 pointer-events-none z-10"
             style={{
               mixBlendMode: 'screen',
-              opacity: 0.6,
+              opacity: 0.8,
               top: '-50px',
-              height: '200px',
+              height: '250px',
             }}
           />
 
@@ -171,32 +199,43 @@ export default function HomePage() {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[64px] leading-[1.18] md:leading-[1.2] font-display font-black tracking-tight heading-display mb-6 md:mb-8 overflow-visible relative"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <motion.span
               className={`hero-heading ${headingRevealed ? 'is-revealed' : ''} relative inline-block`}
               style={{ willChange: 'transform, filter' }}
               animate={controls}
               initial={{
-                opacity: 0.6,
-                filter: 'blur(4px) saturate(0.7)',
-                letterSpacing: '0.1em'
+                opacity: 0.3,
+                filter: 'blur(8px) saturate(0)',
+                letterSpacing: '0.2em'
               }}
             >
-              {/* Subtle glitch effect */}
+              {/* Glitch effect with more intensity */}
               {noiseLevel > 30 && (
-                <span
-                  className="absolute inset-0 text-frame-green opacity-20"
-                  style={{
-                    transform: `translate(${Math.sin(Date.now() / 200)}px, 0)`,
-                    filter: 'blur(1px)',
-                  }}
-                >
-                  Denoising the web
-                </span>
+                <>
+                  <span
+                    className="absolute inset-0 text-frame-green opacity-30"
+                    style={{
+                      transform: `translate(${Math.sin(Date.now() / 100) * 2}px, ${Math.cos(Date.now() / 150)}px)`,
+                      filter: 'blur(1px)',
+                    }}
+                  >
+                    Denoising the web
+                  </span>
+                  <span
+                    className="absolute inset-0 text-red-500 opacity-20"
+                    style={{
+                      transform: `translate(${-Math.sin(Date.now() / 100) * 2}px, 0)`,
+                      filter: 'blur(1px)',
+                    }}
+                  >
+                    Denoising the web
+                  </span>
+                </>
               )}
 
-              {/* Main text - simpler animation */}
+              {/* Main text */}
               <span className="relative z-10 block pb-1">
                 Denoising the web
               </span>
@@ -205,19 +244,19 @@ export default function HomePage() {
 
           <motion.div
             className="text-2xl md:text-3xl mt-6"
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 2.5 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
           >
             <OpenStrandPopover />
           </motion.div>
         </motion.div>
 
-        {/* Interactive Window Frame with delay for dramatic effect */}
+        {/* Interactive Window Frame with quick reveal */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+          initial={{ opacity: 0, scale: 0.98, filter: 'blur(4px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 1, delay: 3 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
           <WindowFrame />
         </motion.div>

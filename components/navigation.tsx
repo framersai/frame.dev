@@ -28,8 +28,8 @@ export default function Navigation() {
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-500 bg-gradient-to-r ${
           scrolled
-            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-ink-950/96 dark:via-ink-950/92 dark:to-ink-950/96'
-            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-ink-950/94 dark:via-ink-950/86 dark:to-ink-950/94'
+            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-ink-900/96 dark:via-ink-950/92 dark:to-ink-900/96'
+            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-ink-900/94 dark:via-ink-950/86 dark:to-ink-900/94'
         }`}
         style={{
           boxShadow: scrolled
@@ -225,11 +225,7 @@ export default function Navigation() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-y-0 right-0 w-full sm:w-80 bg-paper-50/98 dark:bg-ink-950/98 backdrop-blur-xl z-40 lg:hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(247,249,253,0.96) 100%)',
-              boxShadow: '-10px 0 30px -5px rgba(0,0,0,0.1)'
-            }}
+            className="fixed inset-y-0 right-0 w-full sm:w-80 bg-paper-50/98 dark:bg-ink-900/98 backdrop-blur-xl z-40 lg:hidden shadow-[-10px_0_30px_-5px_rgba(0,0,0,0.2)] dark:shadow-[-10px_0_30px_-5px_rgba(0,0,0,0.5)]"
           >
             <div className="flex flex-col h-full pt-24 px-6">
               <div className="space-y-5">
