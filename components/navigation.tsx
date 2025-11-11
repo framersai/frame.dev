@@ -28,8 +28,8 @@ export default function Navigation() {
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-500 bg-gradient-to-r ${
           scrolled
-            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-ink-950/96 dark:via-ink-950/92 dark:to-ink-950/96'
-            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-ink-950/94 dark:via-ink-950/86 dark:to-ink-950/94'
+            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-black/96 dark:via-ink-950/94 dark:to-black/96'
+            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-black/90 dark:via-ink-950/88 dark:to-black/90'
         }`}
         style={{
           boxShadow: scrolled
@@ -44,8 +44,8 @@ export default function Navigation() {
       >
         <div className="px-3 sm:px-6">
           <div className="relative mx-auto w-full max-w-6xl flex items-center justify-between h-20">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-paper-50/0 via-paper-50/20 to-paper-50/0 dark:from-ink-950/0 dark:via-ink-950/20 dark:to-ink-950/0" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-paper-50/0 via-paper-50/20 to-paper-50/0 dark:from-ink-950/0 dark:via-ink-950/20 dark:to-ink-950/0" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-paper-50/0 via-paper-50/20 to-paper-50/0 dark:from-black/0 dark:via-black/20 dark:to-black/0" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-paper-50/0 via-paper-50/20 to-paper-50/0 dark:from-black/0 dark:via-black/20 dark:to-black/0" />
             {/* Logo with subtle effects */}
             <Link href="/" className="flex items-center group relative z-10 pl-1 sm:pl-0">
               <div className="relative">

@@ -265,18 +265,13 @@ export default function OpenStrandPopover() {
             />
 
             {/* Premium Modal - Consistent styling */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none"
-            >
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.92, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: 20 }}
                 transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
-                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
+                className="pointer-events-auto relative w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
               >
               {/* Header with logo */}
               <div className="p-3 sm:p-6 pb-3 sm:pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
@@ -348,17 +343,17 @@ export default function OpenStrandPopover() {
                 </button>
               </div>
 
-              {/* Close button - Positioned inside modal */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-3 sm:top-6 right-3 sm:right-6 p-2 rounded-full bg-paper-100/90 dark:bg-ink-800/90 border border-ink-200/60 dark:border-white/10 text-ink-700 dark:text-paper-100 shadow-sm hover:bg-paper-100 dark:hover:bg-ink-700 hover:shadow-md hover:scale-105 transition-all z-50"
-                aria-label="Close (ESC)"
-                title="Press ESC to close"
-              >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
+                {/* Close button - Inside modal, no animation */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="absolute top-3 sm:top-6 right-3 sm:right-6 p-2 rounded-full bg-paper-100/90 dark:bg-ink-800/90 border border-ink-200/60 dark:border-white/10 text-ink-700 dark:text-paper-100 shadow-sm hover:bg-paper-100 dark:hover:bg-ink-700 hover:shadow-md transition-colors z-50"
+                  aria-label="Close (ESC)"
+                  title="Press ESC to close"
+                >
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
               </motion.div>
-            </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
