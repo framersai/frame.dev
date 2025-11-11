@@ -186,7 +186,7 @@ export default function Navigation() {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-gradient-to-br from-paper-100/95 to-paper-200/95 dark:from-ink-900/95 dark:to-ink-800/95 shadow-lg hover:shadow-xl transition-all relative z-10"
+              className="lg:hidden p-2 rounded-xl bg-gradient-to-br from-white/95 to-paper-50/95 dark:from-ink-900/95 dark:to-ink-800/95 shadow-lg hover:shadow-xl transition-all relative z-10"
               aria-label="Toggle menu"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -227,7 +227,7 @@ export default function Navigation() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-y-0 right-0 w-full sm:w-80 bg-paper-50/98 dark:bg-ink-900/98 backdrop-blur-xl z-40 lg:hidden shadow-[-10px_0_30px_-5px_rgba(0,0,0,0.2)] dark:shadow-[-10px_0_30px_-5px_rgba(0,0,0,0.5)]"
+            className="fixed inset-y-0 right-0 w-full sm:w-80 bg-white/98 dark:bg-ink-900/98 backdrop-blur-xl z-40 lg:hidden shadow-[-10px_0_30px_-5px_rgba(0,0,0,0.15)] dark:shadow-[-10px_0_30px_-5px_rgba(0,0,0,0.5)]"
           >
             <div className="flex flex-col h-full pt-24 px-6">
               <div className="space-y-5">
