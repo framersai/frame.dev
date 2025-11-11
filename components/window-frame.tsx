@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import type { ReactNode, ComponentType } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package } from 'lucide-react'
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion'
+import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 
 type OSIcon = ComponentType<{ className?: string }>
@@ -139,6 +139,28 @@ type OSName = keyof typeof osData
 export default function WindowFrame() {
   const [selectedOS, setSelectedOS] = useState<OSName | null>(null)
   const [hoveredPane, setHoveredPane] = useState<OSName | null>(null)
+  const [timeOfDay, setTimeOfDay] = useState<'morning' | 'noon' | 'evening' | 'night'>('noon')
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  // Handle mouse move for parallax effects
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
+
+  // Determine time of day for lighting
+  useEffect(() => {
+    const hour = new Date().getHours()
+    if (hour >= 5 && hour < 10) setTimeOfDay('morning')
+    else if (hour >= 10 && hour < 16) setTimeOfDay('noon')
+    else if (hour >= 16 && hour < 20) setTimeOfDay('evening')
+    else setTimeOfDay('night')
+  }, [])
 
   // ESC key to close modal
   useEffect(() => {
@@ -147,79 +169,178 @@ export default function WindowFrame() {
         setSelectedOS(null)
       }
     }
-
     window.addEventListener('keydown', handleEscape)
     return () => window.removeEventListener('keydown', handleEscape)
   }, [selectedOS])
 
+  // Get sunlight color and intensity based on time
+  const getSunlightEffect = () => {
+    const effects = {
+      morning: { color: 'rgba(255, 200, 100, 0.15)', intensity: 0.7, angle: '135deg' },
+      noon: { color: 'rgba(255, 230, 150, 0.12)', intensity: 1, angle: '120deg' },
+      evening: { color: 'rgba(255, 150, 50, 0.18)', intensity: 0.6, angle: '45deg' },
+      night: { color: 'rgba(150, 180, 255, 0.08)', intensity: 0.3, angle: '315deg' }
+    }
+    return effects[timeOfDay]
+  }
+
+  const sunlight = getSunlightEffect()
+
   return (
     <>
       <div className="relative w-full max-w-full sm:max-w-5xl mx-0 sm:mx-auto px-0 sm:px-4">
-        {/* Main Window Frame */}
+        {/* Main Window Frame with enhanced effects */}
         <div className="relative">
+          {/* Ambient glow behind frame */}
+          <div className="absolute inset-0 blur-3xl opacity-30">
+            <div className="absolute inset-0 bg-gradient-to-br from-frame-green/20 via-transparent to-frame-green/10" />
+          </div>
 
-          <div className="relative rounded-[28px] bg-gradient-to-br from-frame-green/25 via-white to-frame-green/10 dark:from-frame-green/20 dark:via-ink-900 dark:to-ink-950 p-[5px] sm:p-[6px] shadow-[0_30px_80px_-40px_rgba(0,200,150,0.6)]">
-            <div className="relative rounded-[22px] bg-gradient-to-br from-white to-paper-100 dark:from-ink-900 dark:to-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.2)] overflow-hidden">
-              {/* Wood-like left frame accent (subtle) */}
-              <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-5 sm:w-6 bg-gradient-to-b from-ink-900/8 via-ink-900/6 to-ink-900/4 dark:from-black/14 dark:via-black/12 dark:to-black/8 shadow-[inset_-6px_0_14px_rgba(0,0,0,0.25)]" />
-              {/* Inner edge highlight to separate frame and panes */}
-              <div className="pointer-events-none absolute left-5 sm:left-6 top-0 z-20 h-full w-px bg-white/30 dark:bg-white/15" />
+          <div className="relative rounded-[32px] bg-gradient-to-br from-frame-green/30 via-frame-green/15 to-frame-green/10 dark:from-frame-green/25 dark:via-frame-green/12 dark:to-frame-green/8 p-[6px] sm:p-[8px] shadow-[0_40px_100px_-30px_rgba(34,139,34,0.4)] dark:shadow-[0_40px_100px_-30px_rgba(34,139,34,0.3)]">
+            <div className="relative rounded-[26px] bg-gradient-to-br from-white/95 via-paper-50/90 to-paper-100/95 dark:from-ink-900/95 dark:via-ink-950/90 dark:to-black/95 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),inset_0_-2px_4px_rgba(0,0,0,0.15)] overflow-hidden backdrop-blur-xl">
+
+              {/* Enhanced wood frame with gradient */}
+              <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-7 sm:w-8 bg-gradient-to-r from-amber-900/15 via-amber-800/10 to-transparent dark:from-amber-900/20 dark:via-amber-800/15 dark:to-transparent">
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10" />
+                <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+              </div>
+
+              {/* Sunlight overlay effect */}
+              <div
+                className="pointer-events-none absolute inset-0 z-[5] opacity-60"
+                style={{
+                  background: `linear-gradient(${sunlight.angle}, ${sunlight.color} 0%, transparent 60%)`,
+                  opacity: sunlight.intensity
+                }}
+              />
+
+              {/* Window pane dividers with shadows */}
               <div className="absolute inset-0 pointer-events-none z-10">
-                <div className="absolute inset-[1px] rounded-[21px] border border-white/60 dark:border-frame-green/25" />
-                {/* Shadow dividers for realistic depth (softer, with warm accent on dark) */}
-                <div className="absolute top-0 bottom-0 left-1/3 w-[12px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/12 to-black/0 dark:from-black/0 dark:via-black/16 dark:to-black/0 blur-[3px]" />
-                <div className="absolute top-0 bottom-0 left-1/3 w-px -translate-x-1/2 bg-gradient-to-b from-amber-200/0 via-amber-200/8 to-amber-200/0 opacity-20" />
-                <div className="absolute top-0 bottom-0 left-2/3 w-[12px] -translate-x-1/2 bg-gradient-to-b from-black/0 via-black/12 to-black/0 dark:from-black/0 dark:via-black/16 dark:to-black/0 blur-[3px]" />
-                <div className="absolute top-0 bottom-0 left-2/3 w-px -translate-x-1/2 bg-gradient-to-b from-amber-200/0 via-amber-200/8 to-amber-200/0 opacity-20" />
-                <div className="absolute left-0 right-0 top-1/2 h-[12px] -translate-y-1/2 bg-gradient-to-r from-black/0 via-black/10 to-black/0 dark:from-black/0 dark:via-black/14 dark:to-black/0 blur-[3px]" />
-                <div className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-amber-200/0 via-amber-200/8 to-amber-200/0 opacity-20" />
-                {/* Ambient right-side soft glow to balance dark frame */}
-                <div className="absolute right-0 top-0 h-full w-6 bg-gradient-to-l from-white/5 to-transparent dark:from-white/4" />
+                {/* Vertical dividers */}
+                <div className="absolute top-0 bottom-0 left-1/3 w-[2px] bg-gradient-to-b from-black/20 via-black/30 to-black/20 dark:from-black/30 dark:via-black/40 dark:to-black/30">
+                  <div className="absolute inset-0 bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                </div>
+                <div className="absolute top-0 bottom-0 left-1/3 w-[20px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/5 to-transparent blur-sm" />
+
+                <div className="absolute top-0 bottom-0 left-2/3 w-[2px] bg-gradient-to-b from-black/20 via-black/30 to-black/20 dark:from-black/30 dark:via-black/40 dark:to-black/30">
+                  <div className="absolute inset-0 bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                </div>
+                <div className="absolute top-0 bottom-0 left-2/3 w-[20px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/5 to-transparent blur-sm" />
+
+                {/* Horizontal divider */}
+                <div className="absolute left-0 right-0 top-1/2 h-[2px] bg-gradient-to-r from-black/20 via-black/30 to-black/20 dark:from-black/30 dark:via-black/40 dark:to-black/30">
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                </div>
+                <div className="absolute left-0 right-0 top-1/2 h-[20px] -translate-y-1/2 bg-gradient-to-b from-transparent via-black/5 to-transparent blur-sm" />
               </div>
 
-              {/* Global light field overlay (doesn't touch frame) */}
-              <div className="pointer-events-none absolute inset-2 sm:inset-3 z-[2] rounded-[18px]">
-                <div className="dark:hidden absolute inset-0" style={{ backgroundImage: 'radial-gradient(80% 80% at 85% 10%, rgba(253,230,138,0.12) 0%, rgba(253,230,138,0.04) 50%, rgba(255,255,255,0) 100%), linear-gradient(315deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)' }} />
-                <div className="hidden dark:block absolute inset-0" style={{ backgroundImage: 'radial-gradient(80% 80% at 85% 10%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%), linear-gradient(315deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)' }} />
-              </div>
-
-              <div className="relative z-10 pl-5 sm:pl-9 grid grid-cols-2 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-2">
+              <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-2">
                 {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
-                  // Per-pane accent classes (light and dark)
-                  const paneAccentViaLight = ['via-amber-50/70','via-amber-50/70','via-amber-50/70','via-amber-50/70','via-amber-50/70','via-amber-50/70']
-                  const paneAccentViaDark = ['dark:via-emerald-900/22','dark:via-indigo-900/22','dark:via-amber-900/20','dark:via-rose-900/20','dark:via-teal-900/22','dark:via-sky-900/22']
-                  const accentViaClassLight = paneAccentViaLight[idx % paneAccentViaLight.length]
-                  const accentViaClassDark = paneAccentViaDark[idx % paneAccentViaDark.length]
-                  // Refractive overlay tints
-                  const overlayTintLight = ['rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)','rgba(253,230,138,0.20)']
-                  const overlayTintDark = ['rgba(255,255,255,0.10)','rgba(255,255,255,0.12)','rgba(255,255,255,0.11)','rgba(255,255,255,0.09)','rgba(255,255,255,0.10)','rgba(255,255,255,0.11)']
-                  const lightOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintLight[idx % overlayTintLight.length]} 0%, rgba(255,255,255,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0.08) 28%, rgba(255,255,255,0) 55%)`
-                  const darkOverlayImage = `radial-gradient(60% 60% at 20% 15%, ${overlayTintDark[idx % overlayTintDark.length]} 0%, rgba(0,0,0,0) 60%), linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0) 55%)`
- 
+
+                  // Calculate pane-specific sunlight refraction
+                  const row = Math.floor(idx / 3)
+                  const col = idx % 3
+                  const refractionIntensity = 1 - (row * 0.3 + col * 0.2)
+
                   return (
                     <motion.button
                       type="button"
                       key={os}
-                      className={`group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center p-3 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-frame-green/60 cursor-pointer rounded-[18px] ring-1 ring-black/5 dark:ring-white/8 hover:ring-amber-300/30 dark:hover:ring-amber-300/20 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_44px_-26px_rgba(0,0,0,0.85)] bg-transparent`}
+                      className="group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center p-4 sm:p-6 transition-all duration-500 focus:outline-none cursor-pointer rounded-[20px] overflow-hidden"
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
+                      whileHover={{ scale: 1.02, z: 50 }}
+                      whileTap={{ scale: 0.98 }}
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        perspective: '1000px'
+                      }}
                     >
-                      {/* Base angled pane gradient (light/dark), simulating global light from top-right */}
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 dark:hidden" style={{ backgroundImage: `linear-gradient(315deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 28%, ${overlayTintLight[idx % overlayTintLight.length]} 65%, rgba(240,243,247,0.92) 100%)` }} />
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-100 hidden dark:block" style={{ backgroundImage: `linear-gradient(315deg, rgba(23,25,29,0.98) 0%, rgba(18,20,24,0.96) 32%, ${overlayTintDark[idx % overlayTintDark.length]} 68%, rgba(10,12,14,0.98) 100%)` }} />
-                      {/* Refractive highlight overlays */}
-                      <div className={`absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen dark:hidden transition-opacity duration-300`} style={{ backgroundImage: lightOverlayImage, opacity: (osData[os as OSName].status === 'Live' ? 0.55 : 0.8) }} />
-                      <div className={`absolute inset-0 rounded-[18px] pointer-events-none mix-blend-screen hidden dark:block transition-opacity duration-300`} style={{ backgroundImage: darkOverlayImage, opacity: (osData[os as OSName].status === 'Live' ? 0.5 : 0.75) }} />
-                      {/* Subtle hover: only adjust gradient visibility */}
-                      <div className="absolute inset-0 rounded-[18px] pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-white/60 dark:bg-white/30" />
-                      {isAgentOS ? (
-                        <div className="mb-3 flex flex-col items-center">
-                          <Image src="/agentos-icon.svg" alt="AgentOS" width={40} height={40} className="object-contain mb-1" />
-                          <div className="min-h-[1.25rem]">
-                            <h3 className="text-base sm:text-lg font-semibold text-ink-900 dark:text-paper-50 tracking-tight">
+                      {/* Glass pane background */}
+                      <motion.div
+                        className="absolute inset-0 rounded-[20px]"
+                        initial={false}
+                        animate={{
+                          background: isHovered
+                            ? 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.95) 50%, rgba(240,245,250,0.98) 100%)'
+                            : 'linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.88) 50%, rgba(240,245,250,0.92) 100%)'
+                        }}
+                        transition={{ duration: 0.3 }}
+                        style={{
+                          boxShadow: isHovered
+                            ? '0 20px 40px -10px rgba(0,0,0,0.2), inset 0 2px 10px rgba(255,255,255,0.8)'
+                            : '0 10px 30px -15px rgba(0,0,0,0.15), inset 0 1px 4px rgba(255,255,255,0.5)'
+                        }}
+                      />
+
+                      {/* Dark mode glass background */}
+                      <div className="absolute inset-0 rounded-[20px] dark:block hidden"
+                        style={{
+                          background: isHovered
+                            ? 'linear-gradient(135deg, rgba(10,12,16,0.95) 0%, rgba(15,17,21,0.92) 50%, rgba(8,10,14,0.95) 100%)'
+                            : 'linear-gradient(135deg, rgba(10,12,16,0.88) 0%, rgba(15,17,21,0.85) 50%, rgba(8,10,14,0.88) 100%)',
+                          boxShadow: isHovered
+                            ? '0 20px 40px -10px rgba(0,0,0,0.5), inset 0 2px 10px rgba(255,255,255,0.1)'
+                            : '0 10px 30px -15px rgba(0,0,0,0.3), inset 0 1px 4px rgba(255,255,255,0.05)'
+                        }}
+                      />
+
+                      {/* Shimmer effect on hover */}
+                      <AnimatePresence>
+                        {isHovered && (
+                          <motion.div
+                            className="absolute inset-0 rounded-[20px] pointer-events-none z-20"
+                            initial={{ x: '-100%', opacity: 0 }}
+                            animate={{ x: '100%', opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.6, ease: 'easeInOut' }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/10 skew-x-12" />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {/* Sunlight refraction per pane */}
+                      <div
+                        className="absolute inset-0 rounded-[20px] pointer-events-none z-[3]"
+                        style={{
+                          background: `radial-gradient(circle at 20% 20%, ${sunlight.color} 0%, transparent 50%)`,
+                          opacity: sunlight.intensity * refractionIntensity * 0.5
+                        }}
+                      />
+
+                      {/* Sparkle effects for live OS */}
+                      {data.status === 'Live' && (
+                        <div className="absolute top-3 right-3 z-30">
+                          <motion.div
+                            animate={{
+                              scale: [1, 1.2, 1],
+                              rotate: [0, 180, 360]
+                            }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              ease: "linear"
+                            }}
+                          >
+                            <Sparkles className="w-4 h-4 text-frame-green opacity-60" />
+                          </motion.div>
+                        </div>
+                      )}
+
+                      {/* Content */}
+                      <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                        {isAgentOS ? (
+                          <motion.div
+                            className="mb-4 flex flex-col items-center"
+                            whileHover={{ y: -5 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <Image src="/agentos-icon.svg" alt="AgentOS" width={48} height={48} className="object-contain mb-2 drop-shadow-lg" />
+                            <h3 className="text-lg sm:text-xl font-bold text-ink-900 dark:text-paper-50 tracking-tight">
                               Agent
                               <span
                                 className="ml-0.5"
@@ -233,52 +354,53 @@ export default function WindowFrame() {
                                 OS
                               </span>
                             </h3>
-                          </div>
-                        </div>
-                      ) : data.placeholder ? (
-                        <div className="mb-3 flex flex-col items-center">
-                          <div className="mb-1 text-ink-400 dark:text-ink-600 opacity-80">
-                            {data.customSvg}
-                          </div>
-                          <div className="min-h-[1.25rem]">
-                            <h3 className={`text-base sm:text-lg font-semibold tracking-tight text-ink-900 dark:text-paper-100 ${data.status === 'Live' ? '' : 'opacity-90'}`}>
+                          </motion.div>
+                        ) : data.placeholder ? (
+                          <motion.div
+                            className="mb-4 flex flex-col items-center"
+                            whileHover={{ y: -5 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <div className="mb-2 text-ink-400 dark:text-ink-600 opacity-60">
+                              {data.customSvg}
+                            </div>
+                            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-ink-900 dark:text-paper-100 opacity-80">
                               {data.title}
                             </h3>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="mb-3 flex flex-col items-center">
-                          <data.icon className="w-11 h-11 sm:w-12 sm:h-12 text-frame-green mb-1 drop-shadow-[0_12px_18px_rgba(0,200,150,0.35)]" />
-                          <div className="min-h-[1.25rem]"><h3 className={`text-base sm:text-lg font-semibold tracking-tight text-ink-900 dark:text-paper-100 ${data.status === 'Live' ? '' : 'opacity-90'}`}>{data.title}</h3></div>
-                        </div>
-                      )}
-                      {/* Top-right status dot */}
-                      {data.status === 'Live' ? (
-                        <div className="absolute top-4 right-4"><div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" /></div>
-                      ) : (
-                        <div className="absolute top-4 right-4"><div className="w-3 h-3 bg-amber-400 rounded-full" /></div>
-                      )}
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            className="mb-4 flex flex-col items-center"
+                            whileHover={{ y: -5 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <data.icon className="w-12 h-12 sm:w-14 sm:h-14 text-frame-green mb-2 drop-shadow-[0_4px_12px_rgba(34,139,34,0.4)]" />
+                            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-ink-900 dark:text-paper-100">
+                              {data.title}
+                            </h3>
+                          </motion.div>
+                        )}
 
-                      {/* Flexible spacer pushes desc/status to bottom for consistency */}
-                      <div className="flex-1" />
-
-                      {/* Description/tagline moved near bottom, above status */}
-                      <div className="w-full text-center px-2">
-                        <p className="text-[11px] sm:text-[12px] text-ink-800 dark:text-paper-300 leading-snug">
-                          {isAgentOS ? (
-                            <span style={{ fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace' }}>Adaptive AI Orchestration</span>
-                          ) : (
-                            <span>{(data as any).descriptionShort ?? data.description}</span>
-                          )}
+                        {/* Description */}
+                        <p className="text-xs sm:text-sm text-ink-700 dark:text-paper-300 text-center px-2 mb-4 leading-relaxed">
+                          {data.description}
                         </p>
-                        <div className="mt-2 flex items-center justify-center">
-                          <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] sm:text-xs bg-white/70 backdrop-blur-[1px] dark:bg-black/30">
-                            <span className={`${data.status === 'Live' ? 'bg-emerald-500' : 'bg-amber-400'} h-2 w-2 rounded-full ring-1 ring-black/10 dark:ring-white/10`} />
-                            <span className="text-ink-900 dark:text-paper-100">{data.status}</span>
-                          </span>
-                        </div>
-                      </div>
 
+                        {/* Status badge */}
+                        <motion.div
+                          className="mt-auto"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${
+                            data.status === 'Live'
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 shadow-[0_0_20px_rgba(34,139,34,0.3)]'
+                              : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400'
+                          } backdrop-blur-sm`}>
+                            <span className={`${data.status === 'Live' ? 'bg-green-500 animate-pulse' : 'bg-amber-500'} h-2 w-2 rounded-full`} />
+                            {data.status}
+                          </span>
+                        </motion.div>
+                      </div>
                     </motion.button>
                   )
                 })}
@@ -288,106 +410,161 @@ export default function WindowFrame() {
         </div>
       </div>
 
-      {/* Universal Modal */}
+      {/* Premium Modal with paper-like feel */}
       <AnimatePresence>
         {selectedOS && osData[selectedOS] && (
           <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40 z-40"
+              className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-md z-40"
               onClick={() => setSelectedOS(null)}
             />
-            
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
+
+            {/* Modal */}
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ type: 'spring', duration: 0.3 }}
-                className="pointer-events-auto w-screen h-[100dvh] sm:w-full sm:h-fit sm:max-w-2xl sm:max-h-[85vh] overflow-hidden rounded-none sm:rounded-lg border-[5px] sm:border border-ink-200/40 dark:border-white/15 bg-paper-50/90 shadow-2xl shadow-black/30 dark:border-frame-green/20 dark:bg-ink-900/90 dark:shadow-black/60 backdrop-blur-md flex flex-col"
+                initial={{ opacity: 0, scale: 0.9, rotateX: -10 }}
+                animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                exit={{ opacity: 0, scale: 0.9, rotateX: 10 }}
+                transition={{ type: 'spring', duration: 0.5, bounce: 0.3 }}
+                className="pointer-events-auto w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl bg-gradient-to-br from-paper-50 via-white to-paper-100 dark:from-ink-900 dark:via-ink-950 dark:to-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] dark:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] flex flex-col"
+                style={{
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.1)'
+                }}
               >
-              <div className="p-3 sm:p-6 flex-1 min-h-0 overflow-y-auto">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    {selectedOS === 'AgentOS' ? (
-                      <div className="flex items-center gap-2">
-                        <Image src="/agentos-icon.svg" alt="AgentOS" width={28} height={28} className="object-contain" />
-                        <span className="text-2xl font-semibold text-ink-900 dark:text-paper-50 leading-none">
-                          Agent
-                          <span
-                            className="ml-0.5"
-                            style={{
-                              background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
-                              WebkitBackgroundClip: 'text',
-                              backgroundClip: 'text',
-                              WebkitTextFillColor: 'transparent'
-                            }}
-                          >
-                            OS
+                {/* Header with gradient */}
+                <div className="relative px-6 pt-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10">
+                  <div className="absolute inset-0 bg-gradient-to-r from-frame-green/5 via-transparent to-frame-green/5" />
+                  <div className="relative flex items-start justify-between">
+                    <div>
+                      {selectedOS === 'AgentOS' ? (
+                        <div className="flex items-center gap-3">
+                          <Image src="/agentos-icon.svg" alt="AgentOS" width={36} height={36} className="object-contain drop-shadow-md" />
+                          <span className="text-3xl font-bold text-ink-900 dark:text-paper-50">
+                            Agent
+                            <span
+                              className="ml-0.5"
+                              style={{
+                                background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                                WebkitBackgroundClip: 'text',
+                                backgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent'
+                              }}
+                            >
+                              OS
+                            </span>
                           </span>
-                        </span>
-                      </div>
-                    ) : (
-                      <h2 className="text-3xl font-bold mb-2 heading-display">{osData[selectedOS].title}</h2>
-                    )}
-                    <p className="text-lg text-ink-600 dark:text-paper-400">
-                      {osData[selectedOS].description}
-                    </p>
+                        </div>
+                      ) : (
+                        <h2 className="text-3xl font-bold text-ink-900 dark:text-paper-50">{osData[selectedOS].title}</h2>
+                      )}
+                      <p className="mt-2 text-base text-ink-600 dark:text-paper-400 leading-relaxed">
+                        {osData[selectedOS].description}
+                      </p>
+                    </div>
+                    <motion.button
+                      onClick={() => setSelectedOS(null)}
+                      className="p-2 rounded-xl hover:bg-ink-100 dark:hover:bg-ink-800 transition-colors"
+                      aria-label="Close"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <X className="w-5 h-5 text-ink-600 dark:text-paper-400" />
+                    </motion.button>
                   </div>
-                  <button
-                    onClick={() => setSelectedOS(null)}
-                    className="p-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-colors"
-                    aria-label="Close (ESC)"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
                 </div>
 
-                <div className="space-y-6">
+                {/* Content with paper texture */}
+                <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
                   {osData[selectedOS].longDescription && (
-                    <p className="text-base body-text">{osData[selectedOS].longDescription}</p>
+                    <motion.p
+                      className="text-base leading-relaxed text-ink-700 dark:text-paper-300"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      {osData[selectedOS].longDescription}
+                    </motion.p>
                   )}
 
                   {osData[selectedOS].features && (
-                    <div>
-                      <h3 className="text-xl font-bold mb-3">Key Features</h3>
-                      <ul className="space-y-2">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3 className="text-xl font-bold mb-4 text-ink-900 dark:text-paper-50">Key Features</h3>
+                      <ul className="space-y-3">
                         {osData[selectedOS].features!.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <span className="text-frame-green mt-1">•</span>
-                            <span>{feature}</span>
-                          </li>
+                          <motion.li
+                            key={i}
+                            className="flex items-start gap-3"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 + i * 0.1 }}
+                          >
+                            <span className="text-frame-green mt-0.5">✦</span>
+                            <span className="text-sm leading-relaxed text-ink-700 dark:text-paper-300">{feature}</span>
+                          </motion.li>
                         ))}
                       </ul>
-                    </div>
+                    </motion.div>
                   )}
 
                   {osData[selectedOS].links && (
-                    <div className="flex gap-3 pt-4">
+                    <motion.div
+                      className="flex gap-3 pt-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                    >
                       {osData[selectedOS].links!.github && (
-                        <a href={osData[selectedOS].links!.github} target="_blank" rel="noopener noreferrer" className="btn-secondary flex items-center gap-2">
+                        <motion.a
+                          href={osData[selectedOS].links!.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-ink-900 text-white hover:bg-ink-800 transition-colors shadow-lg"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
                           <Github className="w-4 h-4" />
                           GitHub
-                        </a>
+                        </motion.a>
                       )}
                       {osData[selectedOS].links!.website && (
-                        <a href={osData[selectedOS].links!.website} target="_blank" rel="noopener noreferrer" className="btn-primary flex items-center gap-2">
+                        <motion.a
+                          href={osData[selectedOS].links!.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-frame-green text-white hover:bg-frame-green/90 transition-colors shadow-lg"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
                           Visit Website
                           <ExternalLink className="w-4 h-4" />
-                        </a>
+                        </motion.a>
                       )}
                       {osData[selectedOS].links!.npm && (
-                        <a href={osData[selectedOS].links!.npm} target="_blank" rel="noopener noreferrer" className="btn-ghost flex items-center gap-2">
+                        <motion.a
+                          href={osData[selectedOS].links!.npm}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-paper-100 dark:bg-ink-800 text-ink-900 dark:text-paper-50 hover:bg-paper-200 dark:hover:bg-ink-700 transition-colors shadow-lg"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
                           <Package className="w-4 h-4" />
                           NPM
-                        </a>
+                        </motion.a>
                       )}
-                    </div>
+                    </motion.div>
                   )}
                 </div>
-              </div>
               </motion.div>
             </div>
           </>
