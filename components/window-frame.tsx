@@ -26,6 +26,49 @@ type OSDefinition = {
   features?: string[]
 }
 
+type LightingPreset = {
+  color: string
+  intensity: number
+  angle: string
+  secondary: string
+}
+
+const LIGHT_MODE_LIGHTING: Record<'morning' | 'noon' | 'evening' | 'night', LightingPreset> = {
+  morning: {
+    color: 'rgba(255, 230, 150, 0.3)', // Warm morning sun
+    intensity: 0.9,
+    angle: '135deg',
+    secondary: 'rgba(255, 220, 100, 0.15)',
+  },
+  noon: {
+    color: 'rgba(255, 250, 200, 0.25)', // Bright noon sun
+    intensity: 1,
+    angle: '120deg',
+    secondary: 'rgba(255, 245, 180, 0.12)',
+  },
+  evening: {
+    color: 'rgba(255, 200, 100, 0.35)', // Golden hour
+    intensity: 0.8,
+    angle: '45deg',
+    secondary: 'rgba(255, 180, 80, 0.18)',
+  },
+  night: {
+    color: 'rgba(255, 240, 180, 0.15)', // Indoor warm light at night
+    intensity: 0.5,
+    angle: '270deg',
+    secondary: 'rgba(255, 230, 150, 0.08)',
+  },
+}
+
+const DARK_MODE_LIGHTING: LightingPreset = {
+  color: 'rgba(180, 200, 255, 0.15)', // Cool moonlight blue
+  intensity: 0.5,
+  angle: '315deg',
+  secondary: 'rgba(200, 220, 255, 0.08)',
+}
+
+const DEFAULT_LIGHTING = LIGHT_MODE_LIGHTING.noon
+
 const osData: Record<string, OSDefinition> = {
   WebOS: {
     title: 'WebOS',
@@ -175,46 +218,14 @@ export default function WindowFrame() {
 
   // Accurate sunlight/moonlight effects
   const getSunlightEffect = () => {
-    const isDark = document.documentElement.classList.contains('dark')
+    const baseLighting = LIGHT_MODE_LIGHTING[timeOfDay] ?? DEFAULT_LIGHTING
 
-    if (isDark) {
-      // Moonlight in dark mode - cool blue tones
-      return {
-        color: 'rgba(180, 200, 255, 0.15)',  // Cool moonlight blue
-        intensity: 0.5,
-        angle: '315deg',
-        secondary: 'rgba(200, 220, 255, 0.08)'
-      }
-    } else {
-      // Sunlight in light mode - warm yellow tones
-      const effects = {
-        morning: {
-          color: 'rgba(255, 230, 150, 0.3)',  // Warm morning sun
-          intensity: 0.9,
-          angle: '135deg',
-          secondary: 'rgba(255, 220, 100, 0.15)'
-        },
-        noon: {
-          color: 'rgba(255, 250, 200, 0.25)',   // Bright noon sun
-          intensity: 1,
-          angle: '120deg',
-          secondary: 'rgba(255, 245, 180, 0.12)'
-        },
-        evening: {
-          color: 'rgba(255, 200, 100, 0.35)',   // Golden hour
-          intensity: 0.8,
-          angle: '45deg',
-          secondary: 'rgba(255, 180, 80, 0.18)'
-        },
-        night: {
-          color: 'rgba(255, 240, 180, 0.15)',  // Indoor warm light at night
-          intensity: 0.5,
-          angle: '270deg',
-          secondary: 'rgba(255, 230, 150, 0.08)'
-        }
-      }
-      return effects[timeOfDay]
+    if (typeof document === 'undefined') {
+      return baseLighting
     }
+
+    const isDark = document.documentElement.classList.contains('dark')
+    return isDark ? DARK_MODE_LIGHTING : baseLighting
   }
 
   const sunlight = getSunlightEffect()
