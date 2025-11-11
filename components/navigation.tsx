@@ -26,20 +26,26 @@ export default function Navigation() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-500 bg-gradient-to-r ${
           scrolled
-            ? 'bg-paper-50/95 dark:bg-ink-950/95 backdrop-blur-xl backdrop-saturate-150'
-            : 'bg-paper-50/85 dark:bg-ink-950/85 backdrop-blur-lg'
+            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-ink-950/96 dark:via-ink-950/92 dark:to-ink-950/96'
+            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-ink-950/94 dark:via-ink-950/86 dark:to-ink-950/94'
         }`}
         style={{
-          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(0,0,0,0.03)',
-          boxShadow: scrolled ? '0 2px 8px -2px rgba(0,0,0,0.08)' : 'none'
+          boxShadow: scrolled
+            ? '0 18px 46px -30px rgba(18, 52, 29, 0.55)'
+            : '0 20px 60px -44px rgba(18, 52, 29, 0.45)',
+          borderBottom: scrolled
+            ? '1px solid rgba(34,139,34,0.12)'
+            : '1px solid rgba(34,139,34,0.08)'
         }}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
+        <div className="px-3 sm:px-6">
+          <div className="relative mx-auto w-full max-w-6xl flex items-center justify-between h-20">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-paper-50/0 via-paper-50/20 to-paper-50/0 dark:from-ink-950/0 dark:via-ink-950/20 dark:to-ink-950/0" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-paper-50/0 via-paper-50/20 to-paper-50/0 dark:from-ink-950/0 dark:via-ink-950/20 dark:to-ink-950/0" />
             {/* Logo with subtle effects */}
-            <Link href="/" className="flex items-center group relative">
+            <Link href="/" className="flex items-center group relative z-10 pl-1 sm:pl-0">
               <div className="relative">
                 <svg
                   width="260"
@@ -57,7 +63,7 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-8 relative z-10">
               {[
                 { href: '/about', label: 'About' },
                 { href: '/blog', label: 'Blog' },
@@ -143,7 +149,7 @@ export default function Navigation() {
             </div>
 
             {/* Desktop Social Links + Theme Toggle */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-3 relative z-10">
               <ThemeToggle />
 
               {/* Discord with gradient background */}
@@ -178,7 +184,7 @@ export default function Navigation() {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-gradient-to-br from-paper-100 to-paper-200 dark:from-ink-900 dark:to-ink-800 shadow-lg hover:shadow-xl transition-all"
+              className="lg:hidden p-2 rounded-xl bg-gradient-to-br from-paper-100/95 to-paper-200/95 dark:from-ink-900/95 dark:to-ink-800/95 shadow-lg hover:shadow-xl transition-all relative z-10"
               aria-label="Toggle menu"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

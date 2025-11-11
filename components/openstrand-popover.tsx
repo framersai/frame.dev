@@ -351,7 +351,7 @@ export default function OpenStrandPopover() {
               {/* Close button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 p-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-colors"
+                className="absolute top-4 right-4 p-2.5 rounded-full bg-paper-100/90 dark:bg-ink-800/90 border border-ink-100/60 dark:border-white/10 text-ink-700 dark:text-paper-100 shadow-sm hover:bg-paper-100 dark:hover:bg-ink-700 hover:shadow-md transition-all"
                 aria-label="Close (ESC)"
                 title="Press ESC to close"
               >

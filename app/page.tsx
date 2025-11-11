@@ -19,7 +19,7 @@ export default function HomePage() {
     const timeout = setTimeout(() => {
       setHeadingRevealed(true)
       setIsDenoising(true)
-    }, 200)
+    }, 120)
     return () => clearTimeout(timeout)
   }, [])
 
@@ -41,7 +41,7 @@ export default function HomePage() {
 
     let currentNoise = 60 // Start at 60% for subtlety
     const targetNoise = 0
-    const animationDuration = 2500 // 2.5 seconds for smoother feel
+    const animationDuration = 1200 // Faster denoise reveal
     const startTime = Date.now()
 
     const drawNoise = () => {
@@ -202,27 +202,6 @@ export default function HomePage() {
               </span>
             </motion.span>
           </motion.h1>
-
-          {/* Noise level indicator */}
-          <motion.div
-            className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: noiseLevel > 0 ? 0.6 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex items-center gap-2 text-xs text-frame-green">
-              <div className="w-24 h-1 bg-ink-200/20 dark:bg-paper-200/20 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-frame-green to-frame-green/50"
-                  style={{ width: `${100 - noiseLevel}%` }}
-                  transition={{ duration: 0.1 }}
-                />
-              </div>
-              <span className="font-mono text-[10px]">
-                {noiseLevel > 0 ? `${Math.round(noiseLevel)}% noise` : 'CLEAR'}
-              </span>
-            </div>
-          </motion.div>
 
           <motion.div
             className="text-2xl md:text-3xl mt-6"

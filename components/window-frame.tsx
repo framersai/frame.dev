@@ -323,7 +323,7 @@ export default function WindowFrame() {
                     >
                       <button
                         type="button"
-                        className="group relative w-full h-full min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer rounded-xl overflow-hidden"
+                        className="group relative w-full h-full min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer rounded-xl overflow-hidden border border-ink-100/60 dark:border-white/10"
                         onClick={() => setSelectedOS(os as OSName)}
                         onMouseEnter={() => setHoveredPane(os as OSName)}
                         onMouseLeave={() => setHoveredPane(null)}
@@ -334,24 +334,24 @@ export default function WindowFrame() {
                         initial={false}
                         animate={{
                           background: isHovered
-                            ? 'linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(252,253,255,0.94) 50%, rgba(248,250,253,0.96) 100%)'
-                            : 'linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(252,253,255,0.86) 50%, rgba(248,250,253,0.90) 100%)'
+                            ? 'linear-gradient(135deg, rgba(255,255,255,0.995) 0%, rgba(252,253,255,0.99) 50%, rgba(248,250,253,0.995) 100%)'
+                            : 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(252,253,255,0.965) 50%, rgba(248,250,253,0.98) 100%)'
                         }}
                         transition={{ duration: 0.3 }}
                         style={{
                           boxShadow: isHovered
-                            ? '0 12px 24px -8px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9)'
-                            : '0 8px 16px -8px rgba(0,0,0,0.08), inset 0 1px 3px rgba(255,255,255,0.7)',
+                            ? '0 14px 28px -10px rgba(0,0,0,0.12), inset 0 2px 8px rgba(255,255,255,0.9)'
+                            : '0 10px 18px -10px rgba(0,0,0,0.08), inset 0 1px 3px rgba(255,255,255,0.7)',
                           backdropFilter: 'blur(10px)'
                         }}
                       />
 
                       {/* Dark mode glass background */}
-                      <div className="absolute inset-0 rounded-xl dark:block hidden"
+                      <div className="absolute inset-0 rounded-xl dark:block hidden border border-white/5"
                         style={{
                           background: isHovered
-                            ? 'linear-gradient(135deg, rgba(10,12,16,0.93) 0%, rgba(15,17,21,0.90) 50%, rgba(8,10,14,0.93) 100%)'
-                            : 'linear-gradient(135deg, rgba(10,12,16,0.86) 0%, rgba(15,17,21,0.82) 50%, rgba(8,10,14,0.86) 100%)',
+                            ? 'linear-gradient(135deg, rgba(12,14,18,0.98) 0%, rgba(16,18,24,0.95) 50%, rgba(10,12,16,0.98) 100%)'
+                            : 'linear-gradient(135deg, rgba(12,14,18,0.96) 0%, rgba(16,18,24,0.92) 50%, rgba(10,12,16,0.96) 100%)',
                           boxShadow: isHovered
                             ? '0 12px 24px -8px rgba(0,0,0,0.4), inset 0 2px 8px rgba(255,255,255,0.08)'
                             : '0 8px 16px -8px rgba(0,0,0,0.25), inset 0 1px 3px rgba(255,255,255,0.04)',
@@ -361,37 +361,7 @@ export default function WindowFrame() {
 
                       {/* Vanishing gradient for inactive/coming soon cards */}
                       {data.status !== 'Live' && (
-                        <div className="absolute inset-0 rounded-lg pointer-events-none z-[20]"
-                          style={{
-                            background: `
-                              linear-gradient(to right,
-                                rgba(255,255,255,0.7) 0%,
-                                rgba(255,255,255,0.4) 20%,
-                                rgba(255,255,255,0.2) 40%,
-                                rgba(255,255,255,0.1) 60%,
-                                rgba(255,255,255,0.3) 80%,
-                                rgba(255,255,255,0.6) 100%
-                              ),
-                              linear-gradient(to bottom,
-                                rgba(255,255,255,0.3) 0%,
-                                rgba(255,255,255,0) 50%,
-                                rgba(255,255,255,0.2) 100%
-                              )
-                            `,
-                            mixBlendMode: 'soft-light',
-                            opacity: 0.8
-                          }}
-                        />
-                      )}
-
-                      {/* Extra fade for non-live content */}
-                      {data.status !== 'Live' && (
-                        <div className="absolute inset-0 rounded-lg pointer-events-none z-[19]"
-                          style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent 100%)',
-                            opacity: 0.6
-                          }}
-                        />
+                        <div className="absolute inset-0 rounded-lg pointer-events-none z-[20] bg-white/82 dark:bg-ink-900/82 backdrop-blur-sm border border-white/40 dark:border-white/10" />
                       )}
 
                       {/* Shimmer effect on hover */}
@@ -564,23 +534,25 @@ export default function WindowFrame() {
                 className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden"
               >
                 {/* Outer frame matching window frame */}
-                <div className="relative h-full rounded-[32px] bg-gradient-to-br from-frame-green/30 via-frame-green/15 to-frame-green/10 dark:from-frame-green/25 dark:via-frame-green/12 dark:to-frame-green/8 p-[6px] sm:p-[8px] shadow-[0_40px_100px_-30px_rgba(34,139,34,0.4)] dark:shadow-[0_40px_100px_-30px_rgba(34,139,34,0.3)]">
-                  <div className="relative h-full rounded-[26px] bg-gradient-to-br from-white/95 via-paper-50/90 to-paper-100/95 dark:from-ink-900/95 dark:via-ink-950/90 dark:to-black/95 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),inset_0_-2px_4px_rgba(0,0,0,0.15)] overflow-hidden backdrop-blur-xl flex flex-col">
+                <div className="relative h-full rounded-[30px] bg-paper-50 dark:bg-ink-950 shadow-[0_40px_110px_-32px_rgba(34,139,34,0.45)] border border-ink-200/40 dark:border-ink-900 overflow-hidden flex flex-col">
 
-                    {/* Wood frame edge */}
-                    <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-7 sm:w-8 bg-gradient-to-r from-amber-900/15 via-amber-800/10 to-transparent dark:from-amber-900/20 dark:via-amber-800/15 dark:to-transparent">
-                      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10" />
-                      <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                    {/* Wood frame edges */}
+                    <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-7 sm:w-8 bg-gradient-to-r from-amber-900/18 via-amber-800/12 to-transparent dark:from-amber-900/25 dark:via-amber-800/18 dark:to-transparent">
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/12" />
+                      <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-amber-200/20 via-amber-200/12 to-amber-200/20" />
                     </div>
-                    {/* Header with gradient */}
-                    <div className="relative pl-10 sm:pl-12 pr-6 pt-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10">
-                      <div className="absolute inset-0 bg-gradient-to-r from-frame-green/5 via-transparent to-frame-green/5" />
-                      <div className="relative flex items-start justify-between">
+                    <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-7 sm:w-8 bg-gradient-to-l from-amber-900/18 via-amber-800/12 to-transparent dark:from-amber-900/25 dark:via-amber-800/18 dark:to-transparent">
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/12" />
+                      <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-amber-200/20 via-amber-200/12 to-amber-200/20" />
+                    </div>
+                    {/* Header */}
+                    <div className="relative px-10 sm:px-14 py-8 border-b border-ink-200/30 dark:border-white/5 bg-paper-100/92 dark:bg-ink-900/90 backdrop-blur-sm">
+                      <div className="relative flex items-start justify-between gap-6">
                     <div>
                       {selectedOS === 'AgentOS' ? (
-                        <div className="flex items-center gap-3">
-                          <Image src="/agentos-icon.svg" alt="AgentOS" width={36} height={36} className="object-contain drop-shadow-md" />
-                          <span className="text-3xl font-bold text-ink-900 dark:text-paper-50">
+                        <div className="flex items-center gap-4">
+                          <Image src="/agentos-icon.svg" alt="AgentOS" width={40} height={40} className="object-contain drop-shadow-md" />
+                          <span className="text-3xl font-bold text-ink-900 dark:text-paper-50 tracking-tight">
                             Agent
                             <span
                               className="ml-0.5"
@@ -598,106 +570,83 @@ export default function WindowFrame() {
                       ) : (
                         <h2 className="text-3xl font-bold text-ink-900 dark:text-paper-50">{osData[selectedOS].title}</h2>
                       )}
-                      <p className="mt-2 text-base text-ink-600 dark:text-paper-400 leading-relaxed">
+                      <p className="mt-3 text-base text-ink-700 dark:text-paper-300 leading-relaxed max-w-2xl">
                         {osData[selectedOS].description}
                       </p>
                     </div>
                     <motion.button
                       onClick={() => setSelectedOS(null)}
-                      className="p-2 rounded-xl hover:bg-ink-100 dark:hover:bg-ink-800 transition-colors"
+                      className="p-2.5 rounded-xl hover:bg-ink-100 dark:hover:bg-ink-800 transition-colors border border-transparent hover:border-ink-200/60 dark:hover:border-white/10"
                       aria-label="Close"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <X className="w-5 h-5 text-ink-600 dark:text-paper-400" />
+                      <X className="w-5 h-5 text-ink-700 dark:text-paper-200" />
                     </motion.button>
                   </div>
                 </div>
 
-                    {/* Content with paper texture */}
-                    <div className="flex-1 overflow-y-auto pl-10 sm:pl-12 pr-6 py-6 space-y-6">
+                    {/* Content */}
+                    <div className="flex-1 overflow-y-auto px-10 sm:px-14 py-10 space-y-8 bg-paper-50/95 dark:bg-ink-950/95">
                   {osData[selectedOS].longDescription && (
-                    <motion.p
-                      className="text-base leading-relaxed text-ink-700 dark:text-paper-300"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                    >
+                    <p className="text-base leading-relaxed text-ink-800 dark:text-paper-200 tracking-tight">
                       {osData[selectedOS].longDescription}
-                    </motion.p>
+                    </p>
                   )}
 
                   {osData[selectedOS].features && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <h3 className="text-xl font-bold mb-4 text-ink-900 dark:text-paper-50">Key Features</h3>
-                      <ul className="space-y-3">
+                    <div>
+                      <h3 className="text-xl font-semibold mb-4 text-ink-900 dark:text-paper-50 tracking-tight">Key Features</h3>
+                      <ul className="space-y-3 text-ink-700 dark:text-paper-300">
                         {osData[selectedOS].features!.map((feature, i) => (
-                          <motion.li
+                          <li
                             key={i}
                             className="flex items-start gap-3"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3 + i * 0.1 }}
                           >
-                            <span className="text-frame-green mt-0.5">✦</span>
-                            <span className="text-sm leading-relaxed text-ink-700 dark:text-paper-300">{feature}</span>
-                          </motion.li>
+                            <span className="text-frame-green mt-0.5 text-base leading-none">✦</span>
+                            <span className="text-sm leading-relaxed">{feature}</span>
+                          </li>
                         ))}
                       </ul>
-                    </motion.div>
+                    </div>
                   )}
 
                   {osData[selectedOS].links && (
-                    <motion.div
-                      className="flex gap-3 pt-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                    >
+                    <div className="flex flex-wrap gap-3 pt-6">
                       {osData[selectedOS].links!.github && (
-                        <motion.a
+                        <a
                           href={osData[selectedOS].links!.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-ink-900 text-white hover:bg-ink-800 transition-colors shadow-lg"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-ink-900 text-white hover:bg-ink-800 transition-colors shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-700"
                         >
                           <Github className="w-4 h-4" />
                           GitHub
-                        </motion.a>
+                        </a>
                       )}
                       {osData[selectedOS].links!.website && (
-                        <motion.a
+                        <a
                           href={osData[selectedOS].links!.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-frame-green text-white hover:bg-frame-green/90 transition-colors shadow-lg"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-frame-green text-white hover:bg-frame-green/90 transition-colors shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-frame-green"
                         >
                           Visit Website
                           <ExternalLink className="w-4 h-4" />
-                        </motion.a>
+                        </a>
                       )}
                       {osData[selectedOS].links!.npm && (
-                        <motion.a
+                        <a
                           href={osData[selectedOS].links!.npm}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-paper-100 dark:bg-ink-800 text-ink-900 dark:text-paper-50 hover:bg-paper-200 dark:hover:bg-ink-700 transition-colors shadow-lg"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-paper-200 dark:bg-ink-800 text-ink-900 dark:text-paper-50 hover:bg-paper-300 dark:hover:bg-ink-700 transition-colors shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-frame-green"
                         >
                           <Package className="w-4 h-4" />
                           NPM
-                        </motion.a>
+                        </a>
                       )}
-                    </motion.div>
+                    </div>
                   )}
                     </div>
                   </div>
