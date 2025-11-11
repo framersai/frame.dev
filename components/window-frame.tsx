@@ -305,49 +305,32 @@ export default function WindowFrame() {
                 </div>
               </div>
 
-              <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2" style={{ gap: '0' }}>
+              <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 gap-0">
                 {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
 
-                  // Calculate pane-specific sunlight refraction
-                  const row = Math.floor(idx / 3)
-                  const col = idx % 3
-                  const refractionIntensity = 1 - (row * 0.3 + col * 0.2)
-
-                  // Calculate exact pane boundaries - responsive
                   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-                  const mobileRow = Math.floor(idx / 2)
-                  const mobileCol = idx % 2
-
-                  const isTopRow = isMobile ? mobileRow === 0 : idx < 3
-                  const isBottomRow = isMobile ? mobileRow === 2 : idx >= 3
-                  const isLeftCol = isMobile ? mobileCol === 0 : idx % 3 === 0
-                  const isRightCol = isMobile ? mobileCol === 1 : idx % 3 === 2
-                  const isCenterCol = !isMobile && idx % 3 === 1
+                  const columns = isMobile ? 2 : 3
+                  const row = Math.floor(idx / columns)
+                  const col = idx % columns
+                  const refractionIntensity = 1 - (row * 0.3 + col * 0.2)
 
                   return (
                     <div
                       key={os}
-                      className="relative"
-                      style={{
-                        // Precise padding to fit within window pane divisions
-                        paddingTop: isTopRow ? '8px' : '3px',
-                        paddingBottom: isBottomRow ? '8px' : '3px',
-                        paddingLeft: isLeftCol ? '8px' : (isCenterCol ? '4px' : '3px'),
-                        paddingRight: isRightCol ? '8px' : (isCenterCol ? '4px' : '3px'),
-                      }}
+                      className="relative p-3 sm:p-4"
                     >
                       <button
                         type="button"
-                        className="group relative w-full h-full min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer rounded-[12px] overflow-hidden"
+                        className="group relative w-full h-full min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer rounded-xl overflow-hidden"
                         onClick={() => setSelectedOS(os as OSName)}
                         onMouseEnter={() => setHoveredPane(os as OSName)}
                         onMouseLeave={() => setHoveredPane(null)}
                       >
                       {/* Premium glass pane background */}
                       <motion.div
-                        className="absolute inset-0 rounded-[16px]"
+                        className="absolute inset-0 rounded-xl"
                         initial={false}
                         animate={{
                           background: isHovered
@@ -364,7 +347,7 @@ export default function WindowFrame() {
                       />
 
                       {/* Dark mode glass background */}
-                      <div className="absolute inset-0 rounded-[16px] dark:block hidden"
+                      <div className="absolute inset-0 rounded-xl dark:block hidden"
                         style={{
                           background: isHovered
                             ? 'linear-gradient(135deg, rgba(10,12,16,0.93) 0%, rgba(15,17,21,0.90) 50%, rgba(8,10,14,0.93) 100%)'
@@ -378,7 +361,7 @@ export default function WindowFrame() {
 
                       {/* Vanishing gradient for inactive/coming soon cards */}
                       {data.status !== 'Live' && (
-                        <div className="absolute inset-0 rounded-[12px] pointer-events-none z-[20]"
+                        <div className="absolute inset-0 rounded-lg pointer-events-none z-[20]"
                           style={{
                             background: `
                               linear-gradient(to right,
@@ -403,7 +386,7 @@ export default function WindowFrame() {
 
                       {/* Extra fade for non-live content */}
                       {data.status !== 'Live' && (
-                        <div className="absolute inset-0 rounded-[12px] pointer-events-none z-[19]"
+                        <div className="absolute inset-0 rounded-lg pointer-events-none z-[19]"
                           style={{
                             background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent 100%)',
                             opacity: 0.6
@@ -415,7 +398,7 @@ export default function WindowFrame() {
                       <AnimatePresence>
                         {isHovered && (
                           <motion.div
-                            className="absolute inset-0 rounded-[20px] pointer-events-none z-20"
+                            className="absolute inset-0 rounded-xl pointer-events-none z-20"
                             initial={{ x: '-100%', opacity: 0 }}
                             animate={{ x: '100%', opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -428,7 +411,7 @@ export default function WindowFrame() {
 
                       {/* Sunlight refraction per pane */}
                       <div
-                        className="absolute inset-0 rounded-[20px] pointer-events-none z-[3]"
+                        className="absolute inset-0 rounded-xl pointer-events-none z-[3]"
                         style={{
                           background: `radial-gradient(circle at 20% 20%, ${sunlight.color} 0%, transparent 50%)`,
                           opacity: sunlight.intensity * refractionIntensity * 0.5
