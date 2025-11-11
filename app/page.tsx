@@ -148,12 +148,12 @@ export default function HomePage() {
       <VCABanner />
 
       {/* Hero Section */}
-      <div className="container mx-auto px-0 sm:px-4 pt-8 pb-8 sm:pt-12 sm:pb-10">
+      <div className="container mx-auto px-0 sm:px-4 pt-4 pb-6 sm:pt-8 sm:pb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-8 md:mb-14 overflow-visible relative"
+          className="text-center mb-6 md:mb-10 overflow-visible relative"
         >
           {/* Noise overlay canvas */}
           <canvas
@@ -225,7 +225,7 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div
-            className="text-2xl md:text-3xl mt-8"
+            className="text-2xl md:text-3xl mt-6"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 2.5 }}

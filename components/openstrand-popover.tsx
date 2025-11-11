@@ -235,53 +235,22 @@ export default function OpenStrandPopover() {
 
   return (
     <>
-      <motion.button
-        className="text-2xl md:text-3xl body-text font-light relative group inline-flex items-center gap-3"
+      <button
+        className="text-2xl md:text-3xl body-text font-light relative group inline-flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
         onClick={() => setIsOpen(true)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
       >
-        <motion.span
-          className="text-frame-green"
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{
-            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-          }}
-        >
+        <span className="text-frame-green">
           ∞
-        </motion.span>
+        </span>
         <span className="relative">
-          <span className="relative z-10">
+          <span className="relative z-10 border-b-2 border-dotted border-frame-green/40 hover:border-frame-green/60 transition-colors">
             The <span className="font-bold bg-gradient-to-r from-frame-green to-frame-green-dark bg-clip-text text-transparent">OS</span> for your life
           </span>
-          <motion.div
-            className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-frame-green/0 via-frame-green/50 to-frame-green/0"
-            initial={{ scaleX: 0 }}
-            whileHover={{ scaleX: 1 }}
-            transition={{ duration: 0.3 }}
-          />
         </span>
-        <motion.span
-          className="text-frame-green"
-          animate={{
-            rotate: [360, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{
-            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            scale: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }
-          }}
-        >
+        <span className="text-frame-green">
           ∞
-        </motion.span>
-      </motion.button>
+        </span>
+      </button>
 
       <AnimatePresence>
         {isOpen && (
@@ -307,13 +276,7 @@ export default function OpenStrandPopover() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: 20 }}
                 transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
-                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl flex flex-col"
-                style={{
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(252,253,255,0.96) 50%, rgba(248,250,253,0.98) 100%)',
-                  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05)',
-                  backdropFilter: 'blur(20px) saturate(1.5)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
-                }}
+                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
               >
               {/* Header with logo */}
               <div className="p-3 sm:p-6 pb-3 sm:pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">

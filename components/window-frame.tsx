@@ -173,35 +173,48 @@ export default function WindowFrame() {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [selectedOS])
 
-  // Enhanced sunlight/moonlight effects with yellow tint
+  // Accurate sunlight/moonlight effects
   const getSunlightEffect = () => {
-    const effects = {
-      morning: {
-        color: 'rgba(255, 220, 130, 0.25)',  // Warm golden yellow
-        intensity: 0.8,
-        angle: '135deg',
-        secondary: 'rgba(255, 200, 100, 0.1)'
-      },
-      noon: {
-        color: 'rgba(255, 245, 180, 0.2)',   // Bright yellow sunlight
-        intensity: 1,
-        angle: '120deg',
-        secondary: 'rgba(255, 230, 150, 0.08)'
-      },
-      evening: {
-        color: 'rgba(255, 180, 80, 0.28)',   // Sunset orange-yellow
-        intensity: 0.7,
-        angle: '45deg',
-        secondary: 'rgba(255, 150, 50, 0.12)'
-      },
-      night: {
-        color: 'rgba(200, 210, 255, 0.12)',  // Moonlight with subtle yellow
-        intensity: 0.4,
+    const isDark = document.documentElement.classList.contains('dark')
+
+    if (isDark) {
+      // Moonlight in dark mode - cool blue tones
+      return {
+        color: 'rgba(180, 200, 255, 0.15)',  // Cool moonlight blue
+        intensity: 0.5,
         angle: '315deg',
-        secondary: 'rgba(255, 250, 200, 0.04)' // Faint yellow even at night
+        secondary: 'rgba(200, 220, 255, 0.08)'
       }
+    } else {
+      // Sunlight in light mode - warm yellow tones
+      const effects = {
+        morning: {
+          color: 'rgba(255, 230, 150, 0.3)',  // Warm morning sun
+          intensity: 0.9,
+          angle: '135deg',
+          secondary: 'rgba(255, 220, 100, 0.15)'
+        },
+        noon: {
+          color: 'rgba(255, 250, 200, 0.25)',   // Bright noon sun
+          intensity: 1,
+          angle: '120deg',
+          secondary: 'rgba(255, 245, 180, 0.12)'
+        },
+        evening: {
+          color: 'rgba(255, 200, 100, 0.35)',   // Golden hour
+          intensity: 0.8,
+          angle: '45deg',
+          secondary: 'rgba(255, 180, 80, 0.18)'
+        },
+        night: {
+          color: 'rgba(255, 240, 180, 0.15)',  // Indoor warm light at night
+          intensity: 0.5,
+          angle: '270deg',
+          secondary: 'rgba(255, 230, 150, 0.08)'
+        }
+      }
+      return effects[timeOfDay]
     }
-    return effects[timeOfDay]
   }
 
   const sunlight = getSunlightEffect()
@@ -248,26 +261,30 @@ export default function WindowFrame() {
                 }}
               />
 
-              {/* Refined window pane dividers */}
+              {/* Wood-like window pane dividers */}
               <div className="absolute inset-0 pointer-events-none z-10">
-                {/* Vertical dividers - perfectly aligned */}
-                <div className="absolute top-0 bottom-0 left-[33.333%] w-[1.5px] bg-gradient-to-b from-black/15 via-black/25 to-black/15 dark:from-black/25 dark:via-black/35 dark:to-black/25">
-                  <div className="absolute inset-0 bg-gradient-to-b from-amber-800/10 via-amber-800/5 to-amber-800/10" />
+                {/* Vertical wood dividers */}
+                <div className="absolute top-0 bottom-0 left-[33.333%] w-[4px] sm:w-[6px] -translate-x-1/2">
+                  <div className="absolute inset-0 bg-gradient-to-b from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-700/30 to-transparent" />
+                  <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-amber-600/20 via-amber-500/10 to-amber-600/20" />
+                  <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-black/20" />
                 </div>
 
-                <div className="absolute top-0 bottom-0 left-[66.666%] w-[1.5px] bg-gradient-to-b from-black/15 via-black/25 to-black/15 dark:from-black/25 dark:via-black/35 dark:to-black/25">
-                  <div className="absolute inset-0 bg-gradient-to-b from-amber-800/10 via-amber-800/5 to-amber-800/10" />
+                <div className="absolute top-0 bottom-0 left-[66.666%] w-[4px] sm:w-[6px] -translate-x-1/2">
+                  <div className="absolute inset-0 bg-gradient-to-b from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-700/30 to-transparent" />
+                  <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-amber-600/20 via-amber-500/10 to-amber-600/20" />
+                  <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-black/20" />
                 </div>
 
-                {/* Horizontal divider - perfectly centered */}
-                <div className="absolute left-0 right-0 top-[50%] h-[1.5px] bg-gradient-to-r from-black/15 via-black/25 to-black/15 dark:from-black/25 dark:via-black/35 dark:to-black/25">
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-800/10 via-amber-800/5 to-amber-800/10" />
+                {/* Horizontal wood divider */}
+                <div className="absolute left-0 right-0 top-[50%] h-[4px] sm:h-[6px] -translate-y-1/2">
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-700/30 to-transparent" />
+                  <div className="absolute left-0 right-0 top-0 h-[1px] bg-gradient-to-r from-amber-600/20 via-amber-500/10 to-amber-600/20" />
+                  <div className="absolute left-0 right-0 bottom-0 h-[1px] bg-black/20" />
                 </div>
-
-                {/* Subtle shadow lines for depth */}
-                <div className="absolute top-0 bottom-0 left-[33.333%] w-[8px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/3 to-transparent" />
-                <div className="absolute top-0 bottom-0 left-[66.666%] w-[8px] -translate-x-1/2 bg-gradient-to-r from-transparent via-black/3 to-transparent" />
-                <div className="absolute left-0 right-0 top-[50%] h-[8px] -translate-y-1/2 bg-gradient-to-b from-transparent via-black/3 to-transparent" />
               </div>
 
               <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-2">
@@ -281,28 +298,13 @@ export default function WindowFrame() {
                   const refractionIntensity = 1 - (row * 0.3 + col * 0.2)
 
                   return (
-                    <motion.button
+                    <button
                       type="button"
                       key={os}
-                      className="group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-6 transition-all duration-500 focus:outline-none cursor-pointer rounded-[16px] overflow-hidden"
+                      className="group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-6 transition-all duration-300 focus:outline-none cursor-pointer rounded-[16px] overflow-hidden"
                       onClick={() => setSelectedOS(os as OSName)}
                       onMouseEnter={() => setHoveredPane(os as OSName)}
                       onMouseLeave={() => setHoveredPane(null)}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: idx * 0.1 }}
-                      whileHover={{
-                        scale: 1.03,
-                        rotateY: 5,
-                        rotateX: -2,
-                        z: 100
-                      }}
-                      whileTap={{ scale: 0.97 }}
-                      style={{
-                        transformStyle: 'preserve-3d',
-                        perspective: '1200px',
-                        transformOrigin: 'center center'
-                      }}
                     >
                       {/* Premium glass pane background */}
                       <motion.div
@@ -516,13 +518,7 @@ export default function WindowFrame() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: 20 }}
                 transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
-                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl flex flex-col"
-                style={{
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(252,253,255,0.96) 50%, rgba(248,250,253,0.98) 100%)',
-                  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05)',
-                  backdropFilter: 'blur(20px) saturate(1.5)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(1.5)',
-                }}
+                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
               >
                 {/* Header with gradient */}
                 <div className="relative px-6 pt-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10">

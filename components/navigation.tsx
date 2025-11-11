@@ -32,29 +32,20 @@ export default function Navigation() {
             : 'bg-paper-50/85 dark:bg-ink-950/85 backdrop-blur-lg'
         }`}
         style={{
-          background: scrolled
-            ? 'linear-gradient(to bottom, rgba(255,255,255,0.96), rgba(255,255,255,0.94))'
-            : 'linear-gradient(to bottom, rgba(255,255,255,0.88), rgba(255,255,255,0.82))',
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid rgba(0,0,0,0.03)',
           boxShadow: scrolled ? '0 2px 8px -2px rgba(0,0,0,0.08)' : 'none'
         }}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            {/* Logo with hover effects */}
+            {/* Logo with subtle effects */}
             <Link href="/" className="flex items-center group relative">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="relative"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-frame-green/20 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+              <div className="relative">
                 <svg
                   width="260"
                   height="78"
                   viewBox="0 0 800 240"
-                  className="relative z-10 drop-shadow-[0_2px_10px_rgba(34,139,34,0.15)] group-hover:drop-shadow-[0_4px_20px_rgba(34,139,34,0.25)] transition-all duration-300"
+                  className="relative z-10 transition-all duration-300 group-hover:drop-shadow-[0_2px_8px_rgba(34,139,34,0.2)]"
                 >
                   <image
                     href="/frame-logo-no-subtitle.svg"
@@ -62,7 +53,7 @@ export default function Navigation() {
                     height="240"
                   />
                 </svg>
-              </motion.div>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -76,98 +67,79 @@ export default function Navigation() {
                   href={link.href}
                   className="relative group"
                 >
-                  <motion.span
+                  <span
                     className={`relative z-10 font-medium transition-all duration-300 ${
                       pathname === link.href || (link.href === '/blog' && pathname?.startsWith('/blog'))
                         ? 'text-frame-green font-semibold'
                         : 'text-ink-700 dark:text-paper-200 hover:text-frame-green'
                     }`}
-                    whileHover={{ y: -1 }}
-                    whileTap={{ scale: 0.98 }}
                   >
                     {link.label}
-                  </motion.span>
+                  </span>
                   {/* Clean underline for internal links */}
-                  <motion.div
-                    className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] bg-frame-green origin-left"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    animate={{
-                      scaleX: (pathname === link.href || (link.href === '/blog' && pathname?.startsWith('/blog'))) ? 1 : 0
-                    }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  <div
+                    className={`absolute -bottom-1.5 left-0 right-0 h-[1.5px] bg-frame-green origin-left transition-transform duration-300 ${
+                      pathname === link.href || (link.href === '/blog' && pathname?.startsWith('/blog'))
+                        ? 'scale-x-100'
+                        : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
                   />
                 </Link>
               ))}
 
               {/* External links with different style */}
-              <motion.a
+              <a
                 href="https://agentos.sh"
                 className="relative font-bold text-frame-green hover:text-frame-green/90 transition-colors group inline-flex items-center gap-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 <span className="relative z-10">AgentOS</span>
                 <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 {/* Dotted underline for external */}
-                <motion.div
-                  className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left"
+                <div
+                  className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
                   style={{
                     backgroundImage: 'repeating-linear-gradient(90deg, #228b22, #228b22 2px, transparent 2px, transparent 4px)',
                   }}
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 />
-              </motion.a>
+              </a>
 
-              <motion.a
+              <a
                 href="https://openstrand.ai"
                 className="flex items-center gap-1 group relative"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 <span className="text-frame-green">∞</span>
                 <span className="text-ink-700 dark:text-paper-200 group-hover:text-frame-green transition-colors">OpenStrand</span>
                 <span className="text-frame-green">∞</span>
                 <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity text-ink-600 dark:text-paper-400" />
                 {/* Dotted underline */}
-                <motion.div
-                  className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left"
+                <div
+                  className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
                   style={{
                     backgroundImage: 'repeating-linear-gradient(90deg, #228b22, #228b22 2px, transparent 2px, transparent 4px)',
                   }}
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 />
-              </motion.a>
+              </a>
 
-              <motion.a
+              <a
                 href="https://vca.chat"
                 className="relative text-ink-700 dark:text-paper-200 hover:text-frame-green transition-colors font-medium group inline-flex items-center gap-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 Marketplace
                 <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 {/* Dotted underline */}
-                <motion.div
-                  className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left"
+                <div
+                  className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
                   style={{
                     backgroundImage: 'repeating-linear-gradient(90deg, #228b22, #228b22 2px, transparent 2px, transparent 4px)',
                   }}
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 />
-              </motion.a>
+              </a>
             </div>
 
             {/* Desktop Social Links + Theme Toggle */}
@@ -175,36 +147,32 @@ export default function Navigation() {
               <ThemeToggle />
 
               {/* Discord with gradient background */}
-              <motion.a
+              <a
                 href="https://discord.gg/VXXC4SJMKh"
-                className="relative p-2.5 rounded-xl bg-gradient-to-br from-paper-100 to-paper-200 dark:from-ink-900 dark:to-ink-800 shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden"
+                className="relative p-2.5 rounded-xl bg-gradient-to-br from-paper-100 to-paper-200 dark:from-ink-900 dark:to-ink-800 shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Discord"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-frame-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <svg className="relative z-10 w-5 h-5 text-ink-600 dark:text-paper-300 group-hover:text-frame-green transition-colors" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
                 </svg>
-              </motion.a>
+              </a>
 
               {/* GitHub with gradient background */}
-              <motion.a
+              <a
                 href="https://github.com/framersai"
-                className="relative p-2.5 rounded-xl bg-gradient-to-br from-paper-100 to-paper-200 dark:from-ink-900 dark:to-ink-800 shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden"
+                className="relative p-2.5 rounded-xl bg-gradient-to-br from-paper-100 to-paper-200 dark:from-ink-900 dark:to-ink-800 shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-frame-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <svg className="relative z-10 w-5 h-5 text-ink-600 dark:text-paper-300 group-hover:text-frame-green transition-colors" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
-              </motion.a>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
