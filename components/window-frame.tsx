@@ -263,23 +263,30 @@ export default function WindowFrame() {
 
               {/* Wood-like window pane dividers */}
               <div className="absolute inset-0 pointer-events-none z-10">
-                {/* Vertical wood dividers */}
-                <div className="absolute top-0 bottom-0 left-[33.333%] w-[4px] sm:w-[6px] -translate-x-1/2">
+                {/* Vertical dividers - responsive positioning */}
+                <div className="absolute top-0 bottom-0 left-[50%] md:left-[33.333%] w-[4px] sm:w-[6px] -translate-x-1/2">
                   <div className="absolute inset-0 bg-gradient-to-b from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-700/30 to-transparent" />
                   <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-amber-600/20 via-amber-500/10 to-amber-600/20" />
                   <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-black/20" />
                 </div>
 
-                <div className="absolute top-0 bottom-0 left-[66.666%] w-[4px] sm:w-[6px] -translate-x-1/2">
+                <div className="hidden md:block absolute top-0 bottom-0 left-[66.666%] w-[4px] sm:w-[6px] -translate-x-1/2">
                   <div className="absolute inset-0 bg-gradient-to-b from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-700/30 to-transparent" />
                   <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-amber-600/20 via-amber-500/10 to-amber-600/20" />
                   <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-black/20" />
                 </div>
 
-                {/* Horizontal wood divider */}
-                <div className="absolute left-0 right-0 top-[50%] h-[4px] sm:h-[6px] -translate-y-1/2">
+                {/* Horizontal dividers - responsive positioning */}
+                <div className="absolute left-0 right-0 top-[33.333%] md:top-[50%] h-[4px] sm:h-[6px] -translate-y-1/2">
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-700/30 to-transparent" />
+                  <div className="absolute left-0 right-0 top-0 h-[1px] bg-gradient-to-r from-amber-600/20 via-amber-500/10 to-amber-600/20" />
+                  <div className="absolute left-0 right-0 bottom-0 h-[1px] bg-black/20" />
+                </div>
+
+                <div className="absolute left-0 right-0 top-[66.666%] md:hidden h-[4px] sm:h-[6px] -translate-y-1/2">
                   <div className="absolute inset-0 bg-gradient-to-r from-amber-900/80 via-amber-800/90 to-amber-900/80 dark:from-amber-950/90 dark:via-amber-900/95 dark:to-amber-950/90" />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-700/30 to-transparent" />
                   <div className="absolute left-0 right-0 top-0 h-[1px] bg-gradient-to-r from-amber-600/20 via-amber-500/10 to-amber-600/20" />
@@ -287,7 +294,7 @@ export default function WindowFrame() {
                 </div>
               </div>
 
-              <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 gap-4 md:grid-cols-3 md:grid-rows-2">
+              <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2" style={{ gap: '0' }}>
                 {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
@@ -297,15 +304,36 @@ export default function WindowFrame() {
                   const col = idx % 3
                   const refractionIntensity = 1 - (row * 0.3 + col * 0.2)
 
+                  // Calculate exact pane boundaries - responsive
+                  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+                  const mobileRow = Math.floor(idx / 2)
+                  const mobileCol = idx % 2
+
+                  const isTopRow = isMobile ? mobileRow === 0 : idx < 3
+                  const isBottomRow = isMobile ? mobileRow === 2 : idx >= 3
+                  const isLeftCol = isMobile ? mobileCol === 0 : idx % 3 === 0
+                  const isRightCol = isMobile ? mobileCol === 1 : idx % 3 === 2
+                  const isCenterCol = !isMobile && idx % 3 === 1
+
                   return (
-                    <button
-                      type="button"
+                    <div
                       key={os}
-                      className="group relative aspect-[3/4] min-h-[320px] sm:min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-6 transition-all duration-300 focus:outline-none cursor-pointer rounded-[16px] overflow-hidden"
-                      onClick={() => setSelectedOS(os as OSName)}
-                      onMouseEnter={() => setHoveredPane(os as OSName)}
-                      onMouseLeave={() => setHoveredPane(null)}
+                      className="relative"
+                      style={{
+                        // Precise padding to fit within window pane divisions
+                        paddingTop: isTopRow ? '8px' : '3px',
+                        paddingBottom: isBottomRow ? '8px' : '3px',
+                        paddingLeft: isLeftCol ? '8px' : (isCenterCol ? '4px' : '3px'),
+                        paddingRight: isRightCol ? '8px' : (isCenterCol ? '4px' : '3px'),
+                      }}
                     >
+                      <button
+                        type="button"
+                        className="group relative w-full h-full min-h-[280px] flex flex-col items-center justify-between p-4 sm:p-5 transition-all duration-300 focus:outline-none cursor-pointer rounded-[12px] overflow-hidden"
+                        onClick={() => setSelectedOS(os as OSName)}
+                        onMouseEnter={() => setHoveredPane(os as OSName)}
+                        onMouseLeave={() => setHoveredPane(null)}
+                      >
                       {/* Premium glass pane background */}
                       <motion.div
                         className="absolute inset-0 rounded-[16px]"
@@ -337,25 +365,40 @@ export default function WindowFrame() {
                         }}
                       />
 
-                      {/* Vanishing gradient overlay */}
-                      <div className="absolute inset-0 rounded-[16px] pointer-events-none z-[15]"
-                        style={{
-                          background: `
-                            linear-gradient(to right,
-                              rgba(255,255,255,0) 0%,
-                              rgba(255,255,255,0) 5%,
-                              rgba(255,255,255,0) 95%,
-                              rgba(255,255,255,0.3) 100%
-                            ),
-                            linear-gradient(to bottom,
-                              rgba(255,255,255,0) 0%,
-                              rgba(255,255,255,0) 85%,
-                              rgba(255,255,255,0.2) 100%
-                            )
-                          `,
-                          mixBlendMode: 'soft-light'
-                        }}
-                      />
+                      {/* Vanishing gradient for inactive/coming soon cards */}
+                      {data.status !== 'Live' && (
+                        <div className="absolute inset-0 rounded-[12px] pointer-events-none z-[20]"
+                          style={{
+                            background: `
+                              linear-gradient(to right,
+                                rgba(255,255,255,0.7) 0%,
+                                rgba(255,255,255,0.4) 20%,
+                                rgba(255,255,255,0.2) 40%,
+                                rgba(255,255,255,0.1) 60%,
+                                rgba(255,255,255,0.3) 80%,
+                                rgba(255,255,255,0.6) 100%
+                              ),
+                              linear-gradient(to bottom,
+                                rgba(255,255,255,0.3) 0%,
+                                rgba(255,255,255,0) 50%,
+                                rgba(255,255,255,0.2) 100%
+                              )
+                            `,
+                            mixBlendMode: 'soft-light',
+                            opacity: 0.8
+                          }}
+                        />
+                      )}
+
+                      {/* Extra fade for non-live content */}
+                      {data.status !== 'Live' && (
+                        <div className="absolute inset-0 rounded-[12px] pointer-events-none z-[19]"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent 100%)',
+                            opacity: 0.6
+                          }}
+                        />
+                      )}
 
                       {/* Shimmer effect on hover */}
                       <AnimatePresence>
@@ -444,18 +487,19 @@ export default function WindowFrame() {
                             </h3>
                           </motion.div>
                         ) : data.placeholder ? (
-                          <motion.div
-                            className="mb-4 flex flex-col items-center"
-                            whileHover={{ y: -5 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                          >
-                            <div className="mb-2 text-ink-400 dark:text-ink-600 opacity-60">
+                          <div className="mb-4 flex flex-col items-center relative">
+                            {/* Large background silhouette */}
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-ink-300 dark:text-ink-700 opacity-10 scale-150">
                               {data.customSvg}
                             </div>
-                            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-ink-900 dark:text-paper-100 opacity-80">
+                            {/* Main icon */}
+                            <div className="mb-2 text-ink-400 dark:text-ink-600 opacity-40 relative z-10">
+                              {data.customSvg}
+                            </div>
+                            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-ink-900 dark:text-paper-100 opacity-60 relative z-10">
                               {data.title}
                             </h3>
-                          </motion.div>
+                          </div>
                         ) : (
                           <motion.div
                             className="mb-4 flex flex-col items-center"
@@ -470,7 +514,11 @@ export default function WindowFrame() {
                         )}
 
                         {/* Description */}
-                        <p className="text-xs sm:text-sm text-ink-700 dark:text-paper-300 text-center px-2 mb-4 leading-relaxed">
+                        <p className={`text-xs sm:text-sm text-center px-2 mb-4 leading-relaxed ${
+                          data.status === 'Live'
+                            ? 'text-ink-700 dark:text-paper-300'
+                            : 'text-ink-600 dark:text-paper-400 opacity-60'
+                        }`}>
                           {data.description}
                         </p>
 
@@ -489,7 +537,8 @@ export default function WindowFrame() {
                           </span>
                         </motion.div>
                       </div>
-                    </motion.button>
+                      </button>
+                    </div>
                   )
                 })}
               </div>
@@ -511,19 +560,28 @@ export default function WindowFrame() {
               onClick={() => setSelectedOS(null)}
             />
 
-            {/* Premium Modal - Consistent height */}
+            {/* Modal matching window frame exactly */}
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.92, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: 20 }}
                 transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
-                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
+                className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden"
               >
-                {/* Header with gradient */}
-                <div className="relative px-6 pt-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10">
-                  <div className="absolute inset-0 bg-gradient-to-r from-frame-green/5 via-transparent to-frame-green/5" />
-                  <div className="relative flex items-start justify-between">
+                {/* Outer frame matching window frame */}
+                <div className="relative h-full rounded-[32px] bg-gradient-to-br from-frame-green/30 via-frame-green/15 to-frame-green/10 dark:from-frame-green/25 dark:via-frame-green/12 dark:to-frame-green/8 p-[6px] sm:p-[8px] shadow-[0_40px_100px_-30px_rgba(34,139,34,0.4)] dark:shadow-[0_40px_100px_-30px_rgba(34,139,34,0.3)]">
+                  <div className="relative h-full rounded-[26px] bg-gradient-to-br from-white/95 via-paper-50/90 to-paper-100/95 dark:from-ink-900/95 dark:via-ink-950/90 dark:to-black/95 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),inset_0_-2px_4px_rgba(0,0,0,0.15)] overflow-hidden backdrop-blur-xl flex flex-col">
+
+                    {/* Wood frame edge */}
+                    <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-7 sm:w-8 bg-gradient-to-r from-amber-900/15 via-amber-800/10 to-transparent dark:from-amber-900/20 dark:via-amber-800/15 dark:to-transparent">
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10" />
+                      <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-amber-200/20 via-amber-200/10 to-amber-200/20" />
+                    </div>
+                    {/* Header with gradient */}
+                    <div className="relative pl-10 sm:pl-12 pr-6 pt-6 pb-4 border-b border-ink-200/10 dark:border-paper-200/10">
+                      <div className="absolute inset-0 bg-gradient-to-r from-frame-green/5 via-transparent to-frame-green/5" />
+                      <div className="relative flex items-start justify-between">
                     <div>
                       {selectedOS === 'AgentOS' ? (
                         <div className="flex items-center gap-3">
@@ -562,8 +620,8 @@ export default function WindowFrame() {
                   </div>
                 </div>
 
-                {/* Content with paper texture */}
-                <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+                    {/* Content with paper texture */}
+                    <div className="flex-1 overflow-y-auto pl-10 sm:pl-12 pr-6 py-6 space-y-6">
                   {osData[selectedOS].longDescription && (
                     <motion.p
                       className="text-base leading-relaxed text-ink-700 dark:text-paper-300"
@@ -647,6 +705,8 @@ export default function WindowFrame() {
                       )}
                     </motion.div>
                   )}
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
