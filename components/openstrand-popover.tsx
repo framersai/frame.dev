@@ -348,14 +348,14 @@ export default function OpenStrandPopover() {
                 </button>
               </div>
 
-              {/* Close button - Always visible */}
+              {/* Close button - Positioned inside modal */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 p-2.5 rounded-full bg-paper-100 dark:bg-ink-800 border border-ink-200 dark:border-white/20 text-ink-800 dark:text-paper-100 shadow-lg hover:bg-paper-200 dark:hover:bg-ink-700 hover:shadow-xl hover:scale-110 transition-all z-50"
+                className="absolute top-3 sm:top-6 right-3 sm:right-6 p-2 rounded-full bg-paper-100/90 dark:bg-ink-800/90 border border-ink-200/60 dark:border-white/10 text-ink-700 dark:text-paper-100 shadow-sm hover:bg-paper-100 dark:hover:bg-ink-700 hover:shadow-md hover:scale-105 transition-all z-50"
                 aria-label="Close (ESC)"
                 title="Press ESC to close"
               >
-                <X className="w-5 h-5 stroke-2" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               </motion.div>
             </motion.div>

@@ -35,36 +35,36 @@ type LightingPreset = {
 
 const LIGHT_MODE_LIGHTING: Record<'morning' | 'noon' | 'evening' | 'night', LightingPreset> = {
   morning: {
-    color: 'rgba(255, 220, 100, 0.5)', // Warmer, more golden morning light
-    intensity: 1.1,
+    color: 'rgba(255, 220, 100, 0.65)', // Stronger golden morning light
+    intensity: 1.3,
     angle: '135deg',
-    secondary: 'rgba(255, 200, 50, 0.25)'
+    secondary: 'rgba(255, 200, 50, 0.35)'
   },
   noon: {
-    color: 'rgba(255, 245, 150, 0.45)', // Bright yellow sunlight
-    intensity: 1.2,
+    color: 'rgba(255, 245, 150, 0.6)', // Brighter yellow sunlight
+    intensity: 1.4,
     angle: '120deg',
-    secondary: 'rgba(255, 235, 100, 0.22)'
+    secondary: 'rgba(255, 235, 100, 0.32)'
   },
   evening: {
-    color: 'rgba(255, 180, 60, 0.55)', // Deep orange sunset
-    intensity: 1.0,
+    color: 'rgba(255, 180, 60, 0.7)', // Stronger orange sunset
+    intensity: 1.2,
     angle: '45deg',
-    secondary: 'rgba(255, 150, 40, 0.28)'
+    secondary: 'rgba(255, 150, 40, 0.38)'
   },
   night: {
-    color: 'rgba(255, 235, 140, 0.25)', // Warm indoor lighting
-    intensity: 0.7,
+    color: 'rgba(255, 235, 140, 0.35)', // Warmer indoor lighting
+    intensity: 0.9,
     angle: '270deg',
-    secondary: 'rgba(255, 220, 100, 0.12)'
+    secondary: 'rgba(255, 220, 100, 0.18)'
   }
 }
 
 const DARK_MODE_LIGHTING: LightingPreset = {
-  color: 'rgba(150, 180, 255, 0.35)', // Cool blue moonlight with more visibility
-  intensity: 0.8,
+  color: 'rgba(150, 180, 255, 0.45)', // Stronger cool blue moonlight
+  intensity: 1.0,
   angle: '315deg',
-  secondary: 'rgba(180, 200, 255, 0.18)' // Stronger secondary moonlight
+  secondary: 'rgba(180, 200, 255, 0.25)' // More visible secondary moonlight
 }
 
 const DEFAULT_LIGHTING = LIGHT_MODE_LIGHTING.noon
@@ -286,7 +286,7 @@ export default function WindowFrame() {
                 </div>
               </div>
 
-              <div className="relative z-10 pl-7 sm:pl-10 pr-2 sm:pr-3 py-3 sm:py-4 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 gap-0">
+              <div className="relative z-10 px-0 py-0 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2 gap-0">
                 {Object.entries(osData).map(([os, data], idx) => {
                   const isAgentOS = os === 'AgentOS'
                   const isHovered = hoveredPane === os
@@ -338,39 +338,63 @@ export default function WindowFrame() {
                         />
 
                         {data.status !== 'Live' && (
-                          <div className="absolute inset-0 pointer-events-none z-[20] bg-white/50 dark:bg-ink-900/50 backdrop-blur-[2px] border border-white/20 dark:border-white/5" />
+                          <motion.div
+                            className="absolute inset-0 pointer-events-none z-[20]"
+                            initial={{ opacity: 1 }}
+                            animate={{
+                              opacity: isHovered ? 0 : 1
+                            }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/15 to-white/10 dark:from-ink-900/30 dark:via-ink-900/20 dark:to-ink-900/15" />
+                          </motion.div>
                         )}
 
                         <AnimatePresence>
                           {isHovered && (
                             <>
-                              {/* Primary shimmer */}
+                              {/* Primary shimmer - brighter and smoother */}
                               <motion.div
                                 className="absolute inset-0 pointer-events-none z-20"
                                 initial={{ x: '-100%', opacity: 0 }}
                                 animate={{ x: '100%', opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{
-                                  duration: 0.6 + (idx * 0.1),
-                                  ease: [0.25, 0.1, 0.25, 1],
-                                  delay: idx * 0.05
+                                  duration: 0.5,
+                                  ease: [0.16, 1, 0.3, 1],
+                                  delay: 0
                                 }}
                               >
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/12 skew-x-12" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/20 skew-x-12 blur-sm" />
                               </motion.div>
-                              {/* Secondary shimmer */}
+                              {/* Secondary shimmer - more prominent green tint */}
                               <motion.div
                                 className="absolute inset-0 pointer-events-none z-19"
-                                initial={{ x: '-150%', opacity: 0 }}
-                                animate={{ x: '150%', opacity: 0.7 }}
+                                initial={{ x: '-120%', opacity: 0 }}
+                                animate={{ x: '120%', opacity: 0.8 }}
                                 exit={{ opacity: 0 }}
                                 transition={{
-                                  duration: 0.8 + (idx * 0.15),
-                                  ease: 'easeOut',
-                                  delay: 0.1 + (idx * 0.08)
+                                  duration: 0.7,
+                                  ease: [0.16, 1, 0.3, 1],
+                                  delay: 0.15
                                 }}
                               >
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-frame-green/10 to-transparent skew-x-6" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-frame-green/15 to-transparent skew-x-6 blur-md" />
+                              </motion.div>
+                              {/* Third shimmer - subtle sparkle effect */}
+                              <motion.div
+                                className="absolute inset-0 pointer-events-none z-18"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: [0, 0.6, 0] }}
+                                exit={{ opacity: 0 }}
+                                transition={{
+                                  duration: 1.2,
+                                  repeat: Infinity,
+                                  repeatType: 'loop',
+                                  ease: 'easeInOut'
+                                }}
+                              >
+                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent" />
                               </motion.div>
                             </>
                           )}
@@ -496,10 +520,19 @@ export default function WindowFrame() {
 
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
-                initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92, y: 20 }}
-                transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
+                initial={{ opacity: 0, scale: 0.85, rotateY: -15, z: -100 }}
+                animate={{ opacity: 1, scale: 1, rotateY: 0, z: 0 }}
+                exit={{ opacity: 0, scale: 0.85, rotateY: 15, z: -100 }}
+                transition={{
+                  type: 'spring',
+                  duration: 0.6,
+                  bounce: 0.15,
+                  opacity: { duration: 0.3 }
+                }}
+                style={{
+                  transformPerspective: 1200,
+                  transformStyle: 'preserve-3d'
+                }}
                 className="pointer-events-auto w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden"
               >
                 <div className="relative h-full rounded-[30px] bg-paper-50 dark:bg-ink-950 shadow-[0_40px_110px_-32px_rgba(34,139,34,0.45)] border border-ink-200/40 dark:border-ink-900 overflow-hidden flex flex-col">

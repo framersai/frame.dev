@@ -28,16 +28,18 @@ export default function Navigation() {
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-500 bg-gradient-to-r ${
           scrolled
-            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-ink-900/96 dark:via-ink-950/92 dark:to-ink-900/96'
-            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-ink-900/94 dark:via-ink-950/86 dark:to-ink-900/94'
+            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-ink-950/96 dark:via-ink-950/92 dark:to-ink-950/96'
+            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-ink-950/94 dark:via-ink-950/86 dark:to-ink-950/94'
         }`}
         style={{
           boxShadow: scrolled
-            ? '0 18px 46px -30px rgba(18, 52, 29, 0.55)'
-            : '0 20px 60px -44px rgba(18, 52, 29, 0.45)',
+            ? '0 18px 46px -30px rgba(18, 52, 29, 0.55), inset 0 1px 0 rgba(255,255,255,0.1)'
+            : '0 20px 60px -44px rgba(18, 52, 29, 0.45), inset 0 1px 0 rgba(255,255,255,0.05)',
           borderBottom: scrolled
             ? '1px solid rgba(34,139,34,0.12)'
-            : '1px solid rgba(34,139,34,0.08)'
+            : '1px solid rgba(34,139,34,0.08)',
+          backdropFilter: 'blur(16px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(16px) saturate(180%)'
         }}
       >
         <div className="px-3 sm:px-6">
