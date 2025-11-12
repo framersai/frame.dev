@@ -2,13 +2,23 @@ import type { Metadata } from 'next'
 import PageLayout from '@/components/page-layout'
 import Link from 'next/link'
 import { Calendar, Clock, ArrowLeft, Github, ExternalLink } from 'lucide-react'
+import { getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
+import { notFound } from 'next/navigation'
+
+const post = getBlogPost('introducing-frame')
+
+if (!post) {
+  notFound()
+}
 
 export const metadata: Metadata = {
-  title: 'Introducing Frame: The OS for Your Life',
-  description: 'Revolutionary suite of operating systems designed to organize, simplify, and enhance your digital existence.',
+  title: `${post.title} - Frame Blog`,
+  description: post.description,
 }
 
 export default function IntroducingFramePage() {
+  const relatedPosts = getRelatedPosts(post.slug)
+
   return (
     <PageLayout>
       <article className="container mx-auto px-4 max-w-3xl pt-20 pb-20">
@@ -19,18 +29,22 @@ export default function IntroducingFramePage() {
 
         <header className="mb-12">
           <h1 className="text-5xl font-bold mb-6 heading-gradient">
-            Introducing Frame: The OS for Your Life
+            {post.title}
           </h1>
           <div className="flex items-center gap-4 text-sm text-ink-600 dark:text-paper-400">
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
-              January 9, 2025
+              {new Date(post.date).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })}
             </span>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
-              5 min read
+              {post.readTime}
             </span>
-            <span>By Frame Team</span>
+            <span>By {post.author}</span>
           </div>
         </header>
 
@@ -204,28 +218,23 @@ export default function IntroducingFramePage() {
         <div className="mt-16 pt-8 border-t border-ink-200/20 dark:border-paper-200/10">
           <h2 className="text-2xl font-bold mb-6">Read Next</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <Link href="/blog/agentos-launch" className="paper-card p-6 hover:shadow-lg transition-shadow group">
-              <h3 className="text-xl font-bold mb-2 group-hover:text-frame-green transition-colors">
-                AgentOS is Now Live
-              </h3>
-              <p className="text-sm text-ink-600 dark:text-paper-400 mb-3">
-                Our production-ready runtime for AI agents is now available. Deploy, manage, and orchestrate AI agents at scale.
-              </p>
-              <span className="text-frame-green text-sm font-semibold inline-flex items-center gap-1">
-                Read more →
-              </span>
-            </Link>
-            <Link href="/blog/openstrand-architecture" className="paper-card p-6 hover:shadow-lg transition-shadow group">
-              <h3 className="text-xl font-bold mb-2 group-hover:text-frame-green transition-colors">
-                Understanding OpenStrand Architecture
-              </h3>
-              <p className="text-sm text-ink-600 dark:text-paper-400 mb-3">
-                Deep dive into the distributed architecture powering all Frame operating systems.
-              </p>
-              <span className="text-frame-green text-sm font-semibold inline-flex items-center gap-1">
-                Read more →
-              </span>
-            </Link>
+            {relatedPosts.map((related) => (
+              <Link
+                key={related.slug}
+                href={`/blog/${related.slug}`}
+                className="paper-card p-6 hover:shadow-lg transition-shadow group"
+              >
+                <h3 className="text-xl font-bold mb-2 group-hover:text-frame-green transition-colors">
+                  {related.title}
+                </h3>
+                <p className="text-sm text-ink-600 dark:text-paper-400 mb-3">
+                  {related.excerpt}
+                </p>
+                <span className="text-frame-green text-sm font-semibold inline-flex items-center gap-1">
+                  Read more →
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </article>

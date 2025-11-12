@@ -2,48 +2,26 @@ import type { Metadata } from 'next'
 import PageLayout from '@/components/page-layout'
 import Link from 'next/link'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
+import { blogPosts } from '@/lib/blog-posts'
 
 export const metadata: Metadata = {
   title: 'Blog - Frame',
   description: 'Latest updates and insights from the Frame team',
 }
 
-const posts = [
-  {
-    slug: 'introducing-frame',
-    title: 'Introducing Frame: The OS for Your Life',
-    excerpt: 'Today we\'re excited to announce Frame, a revolutionary suite of operating systems designed to organize, simplify, and enhance every aspect of your digital existence.',
-    date: '2025-01-09',
-    readTime: '5 min read',
-    author: 'Frame Team',
-    featured: true
-  },
-  {
-    slug: 'agentos-launch',
-    title: 'AgentOS is Now Live',
-    excerpt: 'Our production-ready runtime for AI agents is now available. Deploy, manage, and orchestrate AI agents at scale with TypeScript.',
-    date: '2025-01-08',
-    readTime: '3 min read',
-    author: 'Engineering Team'
-  },
-  {
-    slug: 'openstrand-architecture',
-    title: 'Understanding OpenStrand Architecture',
-    excerpt: 'Deep dive into the distributed architecture powering all Frame operating systems and enabling seamless interoperability.',
-    date: '2025-01-07',
-    readTime: '8 min read',
-    author: 'Technical Team'
-  }
-]
-
 export default function BlogPage() {
+  const featuredPosts = blogPosts.filter((post) => post.featured)
+  const otherPosts = blogPosts
+    .filter((post) => !post.featured)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
   return (
     <PageLayout>
       <div className="container mx-auto px-4 max-w-4xl pt-20 pb-20">
         <h1 className="text-5xl font-bold mb-12 heading-gradient">Blog</h1>
         
         {/* Featured Post */}
-        {posts.filter(p => p.featured).map(post => (
+        {featuredPosts.map(post => (
           <div key={post.slug} className="mb-12">
             <div className="paper-card-lifted p-8 bg-gradient-to-br from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
               <span className="inline-block px-3 py-1 bg-frame-green text-white text-xs font-semibold rounded-full mb-4">
@@ -85,7 +63,7 @@ export default function BlogPage() {
 
         {/* Other Posts */}
         <div className="space-y-8">
-          {posts.filter(p => !p.featured).map(post => (
+          {otherPosts.map(post => (
             <article key={post.slug} className="paper-card p-6">
               <h2 className="text-2xl font-bold mb-3">
                 <Link href={`/blog/${post.slug}`} className="hover:text-frame-green transition-colors">

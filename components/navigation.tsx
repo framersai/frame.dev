@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Menu, X, ExternalLink } from 'lucide-react'
+import clsx from 'clsx'
 import ThemeToggle from './theme-toggle'
 
 export default function Navigation() {
@@ -26,21 +27,12 @@ export default function Navigation() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-500 bg-gradient-to-r ${
+        className={clsx(
+          'fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-xl backdrop-saturate-150 transition-[background-color,border-color,box-shadow] duration-500',
           scrolled
-            ? 'from-paper-50/95 via-paper-50/85 to-paper-50/95 dark:from-black/96 dark:via-ink-950/94 dark:to-black/96'
-            : 'from-paper-50/90 via-paper-50/70 to-paper-50/90 dark:from-black/90 dark:via-ink-950/88 dark:to-black/90'
-        }`}
-        style={{
-          boxShadow: scrolled
-            ? '0 18px 46px -30px rgba(18, 52, 29, 0.55), inset 0 1px 0 rgba(255,255,255,0.1)'
-            : '0 20px 60px -44px rgba(18, 52, 29, 0.45), inset 0 1px 0 rgba(255,255,255,0.05)',
-          borderBottom: scrolled
-            ? '1px solid rgba(34,139,34,0.12)'
-            : '1px solid rgba(34,139,34,0.08)',
-          backdropFilter: 'blur(16px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(16px) saturate(180%)'
-        }}
+            ? 'bg-paper-50/90 dark:bg-ink-900/90 border-frame-green/20 shadow-[0_18px_46px_-28px_rgba(0,0,0,0.45)]'
+            : 'bg-paper-50/60 dark:bg-ink-950/55 border-transparent shadow-none'
+        )}
       >
         <div className="px-3 sm:px-6">
           <div className="relative mx-auto w-full max-w-6xl flex items-center justify-between h-20">
