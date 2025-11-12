@@ -385,22 +385,37 @@ export default function WindowFrame() {
                             <motion.div
                               className={`w-3 h-3 rounded-full ${
                                 data.status === 'Live'
-                                  ? 'bg-green-500'
+                                  ? 'bg-green-500/90'
                                   : data.status === 'Coming Soon'
-                                  ? 'bg-amber-500'
-                                  : 'bg-blue-500'
+                                  ? 'bg-amber-500/90'
+                                  : 'bg-blue-500/90'
                               }`}
-                              animate={{
-                                scale: data.status === 'Live' ? [1, 1.2, 1] : 1,
-                                opacity: data.status === 'Live' ? [0.8, 1, 0.8] : 0.6
+                              initial={{ scale: 1, opacity: 0.9 }}
+                              animate={
+                                data.status === 'Live'
+                                  ? { scale: [1, 1.03, 1], opacity: [0.9, 0.96, 0.9] }
+                                  : { scale: 1, opacity: 0.75 }
+                              }
+                              transition={{
+                                duration: 4.6,
+                                repeat: data.status === 'Live' ? Infinity : 0,
+                                repeatType: 'mirror',
+                                ease: 'easeInOut'
                               }}
-                              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                              style={{ willChange: 'transform, opacity' }}
                             />
                             {data.status === 'Live' && (
                               <motion.div
-                                className="absolute inset-0 w-3 h-3 rounded-full bg-green-500"
-                                animate={{ scale: [1, 2, 2], opacity: [0.5, 0, 0] }}
-                                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut' }}
+                                className="absolute inset-0 w-3 h-3 rounded-full bg-green-500/70"
+                                initial={{ scale: 1, opacity: 0 }}
+                                animate={{ scale: [1, 1.2, 1], opacity: [0, 0.2, 0] }}
+                                transition={{
+                                  duration: 5.2,
+                                  repeat: Infinity,
+                                  ease: 'easeOut',
+                                  repeatDelay: 1.2
+                                }}
+                                style={{ willChange: 'transform, opacity' }}
                               />
                             )}
                           </div>
@@ -460,11 +475,11 @@ export default function WindowFrame() {
                             <span
                               className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${
                                 data.status === 'Live'
-                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 shadow-[0_0_20px_rgba(34,139,34,0.3)]'
+                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 shadow-[0_0_20px_rgba(34,139,34,0.2)]'
                                   : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400'
                               } backdrop-blur-sm`}
                             >
-                              <span className={`${data.status === 'Live' ? 'bg-green-500 animate-pulse' : 'bg-amber-500'} h-2 w-2 rounded-full`} />
+                              <span className={`${data.status === 'Live' ? 'bg-green-500/90' : 'bg-amber-500/90'} h-2 w-2 rounded-full`} />
                               {data.status}
                             </span>
                           </motion.div>
