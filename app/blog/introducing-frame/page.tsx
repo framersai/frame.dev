@@ -92,40 +92,40 @@ export default function IntroducingFramePage() {
             <div className="paper-card p-6">
               <h3 className="text-xl font-bold mb-3">WebOS</h3>
               <p>
-                Reimagining the browser as a full operating system. WebOS enables web applications to run with 
-                native-like performance while maintaining the security and convenience of the web platform.
+                Your OS interface for the web. A unified layer bridging Web 2.0 and Web 3.0 standards, 
+                authentication systems, and protocols—providing a consistent interface for all web interactions.
               </p>
             </div>
 
             <div className="paper-card p-6">
               <h3 className="text-xl font-bold mb-3">HomeOS</h3>
               <p>
-                Unified smart home orchestration that actually works. HomeOS brings together all your devices under 
-                a single, intelligent platform that learns your routines and preferences.
+                All-in-one intelligent smart home. The complete platform with AI integrations and assistants 
+                managing everything from security to comfort, energy to entertainment.
               </p>
             </div>
 
             <div className="paper-card p-6">
               <h3 className="text-xl font-bold mb-3">SafeOS</h3>
               <p>
-                Security-first operating system for critical infrastructure. Built with formal verification and 
-                zero-trust architecture for financial, healthcare, and government applications.
+                Digital trusted safe vault. Your secure digital vault for documents, identity monitoring, and 
+                malware protection. Features automated signing, death switches, and dependent management intelligence.
               </p>
             </div>
 
             <div className="paper-card p-6">
               <h3 className="text-xl font-bold mb-3">WorkOS</h3>
               <p>
-                Enterprise productivity reimagined with AI-native workflows. Automate complex business processes 
-                and enable seamless collaboration across teams.
+                CRM & work platform with AI agents. The complete work platform combining CRM, project management, 
+                and AI agents. Built on AgentOS and OpenStrand for seamless enterprise automation.
               </p>
             </div>
 
             <div className="paper-card p-6">
               <h3 className="text-xl font-bold mb-3">MyOS</h3>
               <p>
-                Your personal AI companion and life management system. MyOS learns, adapts, and grows with you, 
-                managing everything from health and finances to learning and creativity.
+                Your personalized virtual assistant. The central dashboard customized for you, managing all 
+                Frame OS integrations, data sharing, and syncing across your digital life.
               </p>
             </div>
           </div>

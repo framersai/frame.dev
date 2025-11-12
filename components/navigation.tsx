@@ -60,6 +60,7 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center gap-8 relative z-10">
               {[
                 { href: '/about', label: 'About' },
+                { href: '/faq', label: 'FAQ' },
                 { href: '/blog', label: 'Blog' },
               ].map((link) => (
                 <Link
@@ -226,6 +227,7 @@ export default function Navigation() {
                 {/* Internal Links */}
                 {[
                   { href: '/about', label: 'About', internal: true },
+                  { href: '/faq', label: 'FAQ', internal: true },
                   { href: '/blog', label: 'Blog', internal: true },
                 ].map((link, index) => (
                   <motion.div

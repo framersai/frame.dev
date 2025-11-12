@@ -5,6 +5,7 @@ import type { ReactNode, ComponentType } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package } from 'lucide-react'
 import Image from 'next/image'
+import { WebOSIcon, HomeOSIcon, SafeOSIcon, WorkOSIcon, MyOSIcon } from './os-icons'
 
 type OSIcon = ComponentType<{ className?: string }>
 
@@ -73,38 +74,25 @@ const osData: Record<string, OSDefinition> = {
   WebOS: {
     title: 'WebOS',
     icon: Globe,
-    description: 'The browser reimagined as an operating system',
+    description: 'Your OS interface for the web',
     longDescription:
-      'WebOS transforms the browser into a fully-fledged operating system, enabling web applications to run with native-like performance and capabilities.',
+      'A unified layer bridging Web 2.0 and Web 3.0 standards, authentication systems, and protocols. WebOS provides a consistent interface for all web interactions.',
     status: 'Coming Soon',
     statusColor: 'text-amber-600',
     placeholder: true,
-    customSvg: (
-      <svg className="w-12 h-12 opacity-30" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.3" />
-        <circle cx="50" cy="30" r="15" fill="currentColor" opacity="0.2" />
-        <circle cx="35" cy="60" r="12" fill="currentColor" opacity="0.2" />
-        <circle cx="65" cy="60" r="12" fill="currentColor" opacity="0.2" />
-      </svg>
-    ),
+    customSvg: <WebOSIcon className="w-12 h-12" />,
     features: ['Virtual File System', 'Process Management', 'WebAssembly Runtime', 'PWA Integration']
   },
   HomeOS: {
     title: 'HomeOS',
     icon: Home,
-    description: 'Smart home orchestration platform',
+    description: 'All-in-one intelligent smart home',
     longDescription:
-      'HomeOS unifies all your smart home devices under a single, intelligent operating system with natural language control and automated workflows.',
+      'The complete smart home platform with AI integrations and assistants managing everything from security to comfort, energy to entertainment.',
     status: 'Coming Soon',
     statusColor: 'text-amber-600',
     placeholder: true,
-    customSvg: (
-      <svg className="w-12 h-12 opacity-30" viewBox="0 0 100 100">
-        <rect x="30" y="40" width="40" height="35" fill="currentColor" opacity="0.2" />
-        <polygon points="50,25 75,40 25,40" fill="currentColor" opacity="0.3" />
-        <rect x="42" y="55" width="16" height="20" fill="currentColor" opacity="0.3" />
-      </svg>
-    ),
+    customSvg: <HomeOSIcon className="w-12 h-12" />,
     features: ['Matter Protocol Support', 'Voice Control', 'Energy Management', 'Security Integration']
   },
   AgentOS: {
@@ -132,53 +120,37 @@ const osData: Record<string, OSDefinition> = {
   SafeOS: {
     title: 'SafeOS',
     icon: Shield,
-    description: 'Security-first operating system',
+    description: 'Digital trusted safe vault',
     longDescription:
-      'SafeOS is designed from the ground up with security as the primary concern. Perfect for financial institutions, healthcare systems, and government infrastructure.',
+      'Your secure digital vault for documents, identity monitoring, and malware protection. Features automated signing, death switches, and dependent management intelligence.',
     status: 'Coming Soon',
     statusColor: 'text-amber-600',
     placeholder: true,
-    customSvg: (
-      <svg className="w-12 h-12 opacity-30" viewBox="0 0 100 100">
-        <path d="M50 20 L70 30 L70 60 L50 75 L30 60 L30 30 Z" fill="currentColor" opacity="0.2" />
-        <circle cx="50" cy="45" r="8" fill="currentColor" opacity="0.3" />
-      </svg>
-    ),
+    customSvg: <SafeOSIcon className="w-12 h-12" />,
     features: ['Secure Boot', 'Memory Encryption', 'Audit Logging', 'Compliance Ready']
   },
   WorkOS: {
     title: 'WorkOS',
     icon: Briefcase,
-    description: 'Enterprise productivity platform',
+    description: 'CRM & work platform with AI agents',
     longDescription:
-      'WorkOS reimagines enterprise productivity with AI-native workflows, seamless collaboration, and intelligent automation of repetitive tasks.',
+      'The complete work platform combining CRM, project management, and AI agents. Built on AgentOS and OpenStrand for seamless enterprise automation.',
     status: 'Coming Soon',
     statusColor: 'text-amber-600',
     placeholder: true,
-    customSvg: (
-      <svg className="w-12 h-12 opacity-30" viewBox="0 0 100 100">
-        <rect x="25" y="35" width="50" height="35" rx="3" fill="currentColor" opacity="0.2" />
-        <rect x="40" y="30" width="20" height="10" rx="2" fill="currentColor" opacity="0.3" />
-        <line x1="50" y1="45" x2="50" y2="60" stroke="currentColor" strokeWidth="2" opacity="0.3" />
-      </svg>
-    ),
+    customSvg: <WorkOSIcon className="w-12 h-12" />,
     features: ['Smart Documents', 'Team Spaces', 'Process Automation', 'Analytics Dashboard']
   },
   MyOS: {
     title: 'MyOS',
     icon: User,
-    description: 'Personal AI companion',
+    description: 'Your personalized virtual assistant',
     longDescription:
-      'MyOS is your personal operating system that learns, adapts, and grows with you. Managing everything from health and finances to learning and creativity.',
+      'The central dashboard and virtual assistant customized for you, managing all Frame OS integrations, data sharing, and syncing across your digital life.',
     status: 'Coming Soon',
     statusColor: 'text-blue-600',
     placeholder: true,
-    customSvg: (
-      <svg className="w-12 h-12 opacity-30" viewBox="0 0 100 100">
-        <circle cx="50" cy="35" r="12" fill="currentColor" opacity="0.3" />
-        <path d="M35 55 Q50 45 65 55 L65 70 Q50 75 35 70 Z" fill="currentColor" opacity="0.2" />
-      </svg>
-    ),
+    customSvg: <MyOSIcon className="w-12 h-12" />,
     features: ['Health Tracking', 'Financial Assistant', 'Learning Companion', 'Memory Palace']
   }
 }

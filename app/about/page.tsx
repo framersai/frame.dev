@@ -121,6 +121,57 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Frame Ecosystem */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">The Frame Ecosystem</h2>
+          <div className="space-y-6 body-text">
+            <p className="text-lg">
+              Every Frame OS is built on top of <strong>AgentOS</strong> and <strong>OpenStrand</strong>, 
+              our foundational technologies for agent orchestration and distributed computing. This shared 
+              architecture ensures seamless interoperability and consistent developer experience across all 
+              our operating systems.
+            </p>
+            <div className="grid gap-4">
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-bold mb-3 text-frame-green">WebOS</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  Your OS interface for the web. A unified layer bridging Web 2.0 and Web 3.0 standards, 
+                  authentication systems, and protocols—providing a consistent interface for all web interactions.
+                </p>
+              </div>
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-bold mb-3 text-frame-green">HomeOS</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  All-in-one intelligent smart home. The complete platform with AI integrations and assistants 
+                  managing everything from security to comfort, energy to entertainment.
+                </p>
+              </div>
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-bold mb-3 text-frame-green">SafeOS</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  Digital trusted safe vault. Your secure digital vault for documents, identity monitoring, 
+                  and malware protection. Features automated signing, death switches, and dependent management 
+                  intelligence.
+                </p>
+              </div>
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-bold mb-3 text-frame-green">WorkOS</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  CRM & work platform with AI agents. The complete work platform combining CRM, project 
+                  management, and AI agents. Built on AgentOS and OpenStrand for seamless enterprise automation.
+                </p>
+              </div>
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-bold mb-3 text-frame-green">MyOS</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  Your personalized virtual assistant. The central dashboard customized for you, managing all 
+                  Frame OS integrations, data sharing, and syncing across your digital life.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Values */}
         <section>
           <h2 className="text-3xl font-bold mb-6 heading-display">Our Values</h2>
