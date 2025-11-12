@@ -5,18 +5,17 @@ import { Calendar, Clock, ArrowLeft, Github, ExternalLink } from 'lucide-react'
 import { getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
 import { notFound } from 'next/navigation'
 
-const post = getBlogPost('introducing-frame')
-
-if (!post) {
-  notFound()
-}
-
 export const metadata: Metadata = {
-  title: `${post.title} - Frame Blog`,
-  description: post.description,
+  title: 'Introducing Frame: The OS for Your Life - Frame Blog',
+  description:
+    'Discover how Frame unifies AgentOS, WebOS, HomeOS, SafeOS, WorkOS, and MyOS on the OpenStrand architecture to bring order to every aspect of your digital life.',
 }
 
 export default function IntroducingFramePage() {
+  const post = getBlogPost('introducing-frame')
+  if (!post) {
+    notFound()
+  }
   const relatedPosts = getRelatedPosts(post.slug)
 
   return (

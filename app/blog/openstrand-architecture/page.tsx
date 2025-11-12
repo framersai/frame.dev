@@ -5,18 +5,17 @@ import { Calendar, Clock, ArrowLeft, Network, ShieldCheck, Layers3, Zap } from '
 import { getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
 import { notFound } from 'next/navigation'
 
-const post = getBlogPost('openstrand-architecture')
-
-if (!post) {
-  notFound()
-}
-
 export const metadata: Metadata = {
-  title: `${post.title} - Frame Blog`,
-  description: post.description,
+  title: 'Understanding OpenStrand Architecture - Frame Blog',
+  description:
+    'Deep dive into the distributed architecture powering all Frame operating systems and enabling seamless interoperability.',
 }
 
 export default function OpenStrandArchitecturePage() {
+  const post = getBlogPost('openstrand-architecture')
+  if (!post) {
+    notFound()
+  }
   const relatedPosts = getRelatedPosts(post.slug)
 
   return (

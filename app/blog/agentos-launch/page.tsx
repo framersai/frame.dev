@@ -5,18 +5,17 @@ import { Calendar, Clock, ArrowLeft, CheckCircle2, Server, Workflow, Rocket } fr
 import { getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
 import { notFound } from 'next/navigation'
 
-const post = getBlogPost('agentos-launch')
-
-if (!post) {
-  notFound()
-}
-
 export const metadata: Metadata = {
-  title: `${post.title} - Frame Blog`,
-  description: post.description,
+  title: 'AgentOS is Now Live - Frame Blog',
+  description:
+    'Our production-ready runtime for AI agents is now available. Deploy, manage, and orchestrate AI agents at scale with TypeScript.',
 }
 
 export default function AgentOSLaunchPage() {
+  const post = getBlogPost('agentos-launch')
+  if (!post) {
+    notFound()
+  }
   const relatedPosts = getRelatedPosts(post.slug)
 
   return (
