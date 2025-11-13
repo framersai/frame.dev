@@ -501,11 +501,11 @@ export default function WindowFrame() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/45 dark:bg-black/70 backdrop-blur-md z-40"
+              className="fixed inset-0 bg-black/45 dark:bg-black/70 backdrop-blur-md z-[1000]"
               onClick={() => setSelectedOS(null)}
             />
 
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            <div className="fixed inset-0 z-[1001] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.85, rotateY: -15, z: -100 }}
                 animate={{ opacity: 1, scale: 1, rotateY: 0, z: 0 }}
