@@ -269,7 +269,13 @@ export default function OpenStrandPopover() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.92, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.96,
+                  y: 8,
+                  filter: 'blur(6px)',
+                  transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] }
+                }}
                 transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
                 className="pointer-events-auto relative w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
               >

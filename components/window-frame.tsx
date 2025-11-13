@@ -509,7 +509,13 @@ export default function WindowFrame() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.85, rotateY: -15, z: -100 }}
                 animate={{ opacity: 1, scale: 1, rotateY: 0, z: 0 }}
-                exit={{ opacity: 0, scale: 0.85, rotateY: 15, z: -100 }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.96,
+                  y: 10,
+                  filter: 'blur(6px)',
+                  transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
+                }}
                 transition={{
                   type: 'spring',
                   duration: 0.6,
