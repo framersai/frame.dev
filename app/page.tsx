@@ -181,7 +181,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-6 md:mb-10 overflow-visible relative"
+          className="text-center mb-6 md:mb-10 overflow-visible relative z-10"
         >
           {/* Noise overlay canvas */}
           <canvas
@@ -254,6 +254,7 @@ export default function HomePage() {
 
         {/* Interactive Window Frame with quick reveal */}
         <motion.div
+          className="relative z-20"
           initial={{ opacity: 0, scale: 0.98, filter: 'blur(4px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.5, delay: 0.4 }}
