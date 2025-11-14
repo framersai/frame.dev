@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Search, Folder, FolderOpen, File, ChevronRight, Home, Loader2, ExternalLink, Book, FileText } from 'lucide-react'
+import { X, Search, Folder, FolderOpen, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText as FileTextIcon } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -120,12 +120,8 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
     }, 300);
   };
 
-  // Get file icon
-  const getFileIcon = (name: string): JSX.Element => {
-    const ext = name.split('.').pop()?.toLowerCase();
-    if (ext === 'md') return <FileText className="w-4 h-4" />;
-    return <File className="w-4 h-4" />;
-  };
+  // Helper: check markdown extension
+  const isMarkdown = (name: string): boolean => name.toLowerCase().endsWith('.md');
 
   return (
     <>
@@ -259,7 +255,13 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
                         {file.type === 'dir' ? (
                           <Folder className="w-5 h-5 text-frame-green flex-shrink-0" />
                         ) : (
-                          <span className="text-ink-500 dark:text-paper-500 flex-shrink-0">{getFileIcon(file.name)}</span>
+                          <span className="text-ink-500 dark:text-paper-500 flex-shrink-0">
+                            {isMarkdown(file.name) ? (
+                              <FileTextIcon className="w-4 h-4" />
+                            ) : (
+                              <FileIcon className="w-4 h-4" />
+                            )}
+                          </span>
                         )}
                         <span className="text-sm truncate">{file.name}</span>
                         {file.type === 'dir' && (
