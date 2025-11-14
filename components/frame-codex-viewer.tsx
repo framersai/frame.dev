@@ -64,7 +64,7 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
     } finally {
       setLoading(false)
     }
-  }, [API_BASE])
+  }, [API_BASE]);
 
   // Fetch file content
   const fetchFileContent = useCallback(async (file: GitHubFile) => {
@@ -85,21 +85,21 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, []);
 
   // Initial load
   useEffect(() => {
     if (isOpen) {
       fetchContents(currentPath)
     }
-  }, [isOpen, currentPath, fetchContents])
+  }, [isOpen, currentPath, fetchContents]);
 
   // Handle folder navigation
   const navigateToFolder = (path: string) => {
     setCurrentPath(path)
     setSelectedFile(null)
     setFileContent('')
-  }
+  };
 
   // Handle breadcrumb navigation
   const breadcrumbs = currentPath.split('/').filter(Boolean)
@@ -107,25 +107,25 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
   // Filter files based on search with lazy loading
   const allFilteredFiles = files.filter(file => 
     file.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-  const filteredFiles = allFilteredFiles.slice(0, displayLimit)
-  const hasMore = allFilteredFiles.length > displayLimit
+  );
+  const filteredFiles = allFilteredFiles.slice(0, displayLimit);
+  const hasMore = allFilteredFiles.length > displayLimit;
 
   // Load more files
   const loadMore = () => {
-    setIsLoadingMore(true)
+    setIsLoadingMore(true);
     setTimeout(() => {
-      setDisplayLimit(prev => prev + 50)
-      setIsLoadingMore(false)
-    }, 300)
-  }
+      setDisplayLimit(prev => prev + 50);
+      setIsLoadingMore(false);
+    }, 300);
+  };
 
   // Get file icon
-  const getFileIcon = (name: string) => {
-    const ext = name.split('.').pop()?.toLowerCase()
-    if (ext === 'md') return <FileText className="w-4 h-4" />
-    return <File className="w-4 h-4" />
-  }
+  const getFileIcon = (name: string): JSX.Element => {
+    const ext = name.split('.').pop()?.toLowerCase();
+    if (ext === 'md') return <FileText className="w-4 h-4" />;
+    return <File className="w-4 h-4" />;
+  };
 
   return (
     <>
