@@ -236,7 +236,7 @@ export default function OpenStrandPopover() {
   return (
     <>
       <button
-        className="text-2xl md:text-3xl body-text font-light relative group inline-flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
+        className="text-2xl md:text-3xl body-text font-light relative z-[100] group inline-flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
         onClick={() => setIsOpen(true)}
       >
         <span className="text-frame-green">
