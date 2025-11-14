@@ -349,7 +349,8 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
                           prose-strong:text-ink-900 dark:prose-strong:text-paper-100
                           prose-em:text-ink-700 dark:prose-em:text-paper-300
                           prose-ul:list-disc prose-ol:list-decimal
-                          prose-li:marker:text-frame-green"
+                          prose-li:marker:text-frame-green
+                          prose-p:first-of-type:first-letter:text-6xl prose-p:first-of-type:first-letter:font-serif prose-p:first-of-type:first-letter:leading-none prose-p:first-of-type:first-letter:mr-2 prose-p:first-of-type:first-letter:mt-1 prose-p:first-of-type:first-letter:text-frame-green"
                           style={{
                             fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif',
                             textRendering: 'optimizeLegibility',
@@ -373,38 +374,7 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
                                   {children}
                                 </h2>
                               ),
-                              // Add drop caps for first paragraph
-                              p: ({ children, ...props }) => {
-                                const text = children?.toString() || ''
-                                const isFirstParagraph = !props.node?.position?.start.line || props.node.position.start.line === 1
-                                if (isFirstParagraph && text.length > 0) {
-                                  const firstLetter = text.charAt(0)
-                                  const restOfText = text.slice(1)
-                                  return (
-                                    <p {...props}>
-                                      <span className="float-left text-6xl font-serif leading-none mr-2 mt-1 text-frame-green">{firstLetter}</span>
-                                      {restOfText}
-                                    </p>
-                                  )
-                                }
-                                return <p {...props}>{children}</p>
-                              },
-                              // Custom code block with syntax highlighting feel
-                              code: ({ inline, children, ...props }) => {
-                                if (inline) {
-                                  return <code {...props}>{children}</code>
-                                }
-                                return (
-                                  <div className="relative group">
-                                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                      <button className="px-2 py-1 text-xs bg-paper-200 dark:bg-ink-700 rounded hover:bg-paper-300 dark:hover:bg-ink-600 transition-colors">
-                                        Copy
-                                      </button>
-                                    </div>
-                                    <code {...props}>{children}</code>
-                                  </div>
-                                )
-                              }
+                              // Keep defaults for paragraphs and code; styling handled via prose classes
                             }}
                           >
                             {fileContent}
