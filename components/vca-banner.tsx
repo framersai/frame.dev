@@ -89,7 +89,7 @@ export default function VCABanner() {
               </div>
 
               <p className="text-white/90 text-sm mb-3">
-                Discover free & premium AI agents compatible with AgentOS
+                Discover free & advanced AI agents compatible with AgentOS
               </p>
 
               <div className="flex items-center justify-between">

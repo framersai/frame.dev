@@ -6,6 +6,7 @@ import WindowFrame from '@/components/window-frame'
 import PageLayout from '@/components/page-layout'
 import OpenStrandPopover from '@/components/openstrand-popover'
 import VCABanner from '@/components/vca-banner'
+import FrameCodexBanner from '@/components/frame-codex-banner'
 
 export default function HomePage() {
   const [headingRevealed, setHeadingRevealed] = useState(false)
@@ -261,6 +262,9 @@ export default function HomePage() {
         >
           <WindowFrame />
         </motion.div>
+
+        {/* Frame Codex Banner */}
+        <FrameCodexBanner />
       </div>
     </PageLayout>
   )

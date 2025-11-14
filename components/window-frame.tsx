@@ -95,6 +95,29 @@ const osData: Record<string, OSDefinition> = {
     customSvg: <HomeOSIcon className="w-12 h-12" />,
     features: ['Matter Protocol Support', 'Voice Control', 'Energy Management', 'Security Integration']
   },
+  OpenStrand: {
+    title: 'OpenStrand',
+    icon: Layers,
+    description: 'AI-native knowledge infrastructure for teams that want to own their data',
+    longDescription:
+      'OpenStrand is the knowledge infrastructure powering Frame.dev. It combines TypeScript-everywhere architecture, database abstraction (PostgreSQL and embedded SQLite/PGlite), local-first defaults, and comprehensive documentation in a single monorepo. Built for teams that need full control over their knowledge management and AI interactions.',
+    status: 'Live',
+    statusColor: 'text-green-600',
+    logo: '/openstrand-logo.svg',
+    links: {
+      github: 'https://github.com/framersai/openstrand-monorepo',
+      npm: 'https://npmjs.com/org/framers',
+      website: 'https://openstrand.ai'
+    },
+    features: [
+      'TypeScript everywhere – backend, frontend, and shared SDKs in one workspace',
+      'Database abstraction – Prisma schema powers both PostgreSQL and embedded SQLite/PGlite modes',
+      'Local-first defaults – scripts detect local environments and disable cloud-only features automatically',
+      'Ready for OSS – MIT licensed, clean documentation set, and reproducible installs',
+      'Intelligent data pipeline – 20+ format imports with block-level organization',
+      'Knowledge graph visualization with typed edges and hierarchical structures'
+    ]
+  },
   AgentOS: {
     title: 'AgentOS',
     icon: Bot,
@@ -422,7 +445,7 @@ export default function WindowFrame() {
                         </div>
 
                         <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                          {isAgentOS ? (
+                          {os === 'AgentOS' ? (
                             <motion.div
                               className="mb-4 flex flex-col items-center"
                               whileHover={{ y: -5 }}
@@ -442,6 +465,33 @@ export default function WindowFrame() {
                                 >
                                   OS
                                 </span>
+                              </h3>
+                            </motion.div>
+                          ) : os === 'OpenStrand' ? (
+                            <motion.div
+                              className="mb-4 flex flex-col items-center"
+                              whileHover={{ y: -5 }}
+                              transition={{ type: 'spring', stiffness: 300 }}
+                            >
+                              <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-12 w-auto mb-2 drop-shadow-lg dark:hidden" />
+                              <img src="/openstrand-logo-gradient.svg" alt="OpenStrand" className="hidden h-12 w-auto mb-2 drop-shadow-lg dark:block" />
+                              <h3 className="text-lg sm:text-xl font-bold text-ink-900 dark:text-paper-50 tracking-tight">
+                                <span
+                                  style={{
+                                    background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                                    WebkitBackgroundClip: 'text',
+                                    backgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent'
+                                  }}
+                                >O</span>pen<span
+                                  className="ml-0.5"
+                                  style={{
+                                    background: 'linear-gradient(135deg, #10B981, #22C55E, #A7F3D0)',
+                                    WebkitBackgroundClip: 'text',
+                                    backgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent'
+                                  }}
+                                >S</span>trand
                               </h3>
                             </motion.div>
                           ) : data.placeholder ? (
@@ -557,6 +607,29 @@ export default function WindowFrame() {
                               >
                                 OS
                               </span>
+                            </span>
+                          </div>
+                        ) : selectedOS === 'OpenStrand' ? (
+                          <div className="flex items-center gap-4">
+                            <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-10 w-auto drop-shadow-md dark:hidden" />
+                            <img src="/openstrand-logo-gradient.svg" alt="OpenStrand" className="hidden h-10 w-auto drop-shadow-md dark:block" />
+                            <span className="text-3xl font-bold text-ink-900 dark:text-paper-50 tracking-tight">
+                              <span
+                                style={{
+                                  background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+                                  WebkitBackgroundClip: 'text',
+                                  backgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent'
+                                }}
+                              >O</span>pen<span
+                                className="ml-0.5"
+                                style={{
+                                  background: 'linear-gradient(135deg, #10B981, #22C55E, #A7F3D0)',
+                                  WebkitBackgroundClip: 'text',
+                                  backgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent'
+                                }}
+                              >S</span>trand
                             </span>
                           </div>
                         ) : (

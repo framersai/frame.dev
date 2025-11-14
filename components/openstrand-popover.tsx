@@ -44,41 +44,65 @@ const pages = [
         </p>
         
         <div className="grid grid-cols-3 gap-4">
-          <div className="text-center p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
-            <Layers className="w-10 h-10 mx-auto mb-2 text-frame-green" />
-            <p className="text-sm font-semibold">TypeScript everywhere</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Fastify API, Next.js UI, and SDKs in one workspace</p>
-          </div>
-          <div className="text-center p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
-            <GitBranch className="w-10 h-10 mx-auto mb-2 text-frame-green" />
-            <p className="text-sm font-semibold">Local-first knowledge graph</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Prisma schema targets PostgreSQL or embedded PGlite</p>
-          </div>
-          <div className="text-center p-4 bg-paper-100 dark:bg-ink-800 rounded-lg">
-            <Box className="w-10 h-10 mx-auto mb-2 text-frame-green" />
-            <p className="text-sm font-semibold">Automation ready</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400 mt-1">Scripts & SDK bootstrap local, self-hosted, or cloud builds</p>
-          </div>
+          <motion.div 
+            whileHover={{ y: -4, scale: 1.02 }}
+            className="relative overflow-hidden text-center p-5 bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-800 dark:to-ink-850 rounded-xl border border-ink-200/20 dark:border-white/5 group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-frame-green/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Layers className="w-10 h-10 mx-auto mb-3 text-frame-green drop-shadow-md transition-transform duration-300 group-hover:scale-110" />
+            <p className="text-sm font-bold text-ink-900 dark:text-paper-50">TypeScript everywhere</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 mt-2 leading-relaxed">Fastify API, Next.js UI, and SDKs in one workspace</p>
+          </motion.div>
+          <motion.div 
+            whileHover={{ y: -4, scale: 1.02 }}
+            className="relative overflow-hidden text-center p-5 bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-800 dark:to-ink-850 rounded-xl border border-ink-200/20 dark:border-white/5 group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-frame-green/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <GitBranch className="w-10 h-10 mx-auto mb-3 text-frame-green drop-shadow-md transition-transform duration-300 group-hover:scale-110" />
+            <p className="text-sm font-bold text-ink-900 dark:text-paper-50">Local-first knowledge graph</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 mt-2 leading-relaxed">Prisma schema targets PostgreSQL or embedded PGlite</p>
+          </motion.div>
+          <motion.div 
+            whileHover={{ y: -4, scale: 1.02 }}
+            className="relative overflow-hidden text-center p-5 bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-800 dark:to-ink-850 rounded-xl border border-ink-200/20 dark:border-white/5 group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-frame-green/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Box className="w-10 h-10 mx-auto mb-3 text-frame-green drop-shadow-md transition-transform duration-300 group-hover:scale-110" />
+            <p className="text-sm font-bold text-ink-900 dark:text-paper-50">Automation ready</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 mt-2 leading-relaxed">Scripts & SDK bootstrap local, self-hosted, or cloud builds</p>
+          </motion.div>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          <a 
+        <div className="flex flex-wrap gap-4">
+          <motion.a 
             href="https://openstrand.ai"
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2 text-sm"
+            className="relative inline-flex items-center justify-center gap-2.5 px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-frame-green to-frame-green-dark rounded-xl shadow-[0_10px_30px_-10px_rgba(34,139,34,0.5)] hover:shadow-[0_15px_40px_-10px_rgba(34,139,34,0.6)] transition-all duration-300 group overflow-hidden"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <Download className="w-5 h-5" />
-            Get Community Edition
-          </a>
-          <a 
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <Download className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+            <span className="relative z-10">Get Community Edition</span>
+          </motion.a>
+          <motion.a 
             href="https://openstrand.ai/signup" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn-secondary inline-flex items-center justify-center gap-2 px-5 py-2 text-sm"
+            className="inline-flex items-center justify-center gap-2.5 px-6 py-3 text-sm font-semibold text-ink-900 dark:text-paper-100 bg-gradient-to-r from-paper-200 to-paper-300 dark:from-ink-800 dark:to-ink-700 rounded-xl border border-ink-200/30 dark:border-white/10 shadow-sm hover:shadow-md transition-all duration-300 group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             Sign Up Now
-          </a>
+            <motion.span
+              className="inline-block"
+              initial={{ x: 0 }}
+              whileHover={{ x: 3 }}
+            >
+              →
+            </motion.span>
+          </motion.a>
         </div>
       </div>
     )
@@ -102,31 +126,43 @@ const pages = [
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
-            <p className="font-semibold text-sm mb-1">Collaborative strands</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400">
+        <div className="grid md:grid-cols-2 gap-4">
+          <motion.div 
+            whileHover={{ scale: 1.03, y: -2 }}
+            className="p-5 bg-gradient-to-br from-paper-50/80 to-paper-100/80 dark:from-ink-800/70 dark:to-ink-850/70 rounded-xl backdrop-blur-sm border border-ink-200/10 dark:border-white/5 shadow-sm hover:shadow-md transition-all"
+          >
+            <p className="font-bold text-sm mb-2 text-ink-900 dark:text-paper-50">Collaborative strands</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 leading-relaxed">
               Authorship, co-authoring, provenance, link justification, and approval states are first-class fields.
             </p>
-          </div>
-          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
-            <p className="font-semibold text-sm mb-1">Local ↔ Cloud symmetry</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400">
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.03, y: -2 }}
+            className="p-5 bg-gradient-to-br from-paper-50/80 to-paper-100/80 dark:from-ink-800/70 dark:to-ink-850/70 rounded-xl backdrop-blur-sm border border-ink-200/10 dark:border-white/5 shadow-sm hover:shadow-md transition-all"
+          >
+            <p className="font-bold text-sm mb-2 text-ink-900 dark:text-paper-50">Local ↔ Cloud symmetry</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 leading-relaxed">
               PGlite fallback for offline builds, PostgreSQL for team deployments, same Prisma schema powering both.
             </p>
-          </div>
-          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
-            <p className="font-semibold text-sm mb-1">Automation-first scripts</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400">
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.03, y: -2 }}
+            className="p-5 bg-gradient-to-br from-paper-50/80 to-paper-100/80 dark:from-ink-800/70 dark:to-ink-850/70 rounded-xl backdrop-blur-sm border border-ink-200/10 dark:border-white/5 shadow-sm hover:shadow-md transition-all"
+          >
+            <p className="font-bold text-sm mb-2 text-ink-900 dark:text-paper-50">Automation-first scripts</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 leading-relaxed">
               `start-local.sh` bootstraps the workspace, sets env flags, and runs API + App with workspace-aware installs.
             </p>
-          </div>
-          <div className="p-4 bg-paper-100 dark:bg-ink-800/70 rounded-lg">
-            <p className="font-semibold text-sm mb-1">Open documentation</p>
-            <p className="text-xs text-ink-600 dark:text-paper-400">
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.03, y: -2 }}
+            className="p-5 bg-gradient-to-br from-paper-50/80 to-paper-100/80 dark:from-ink-800/70 dark:to-ink-850/70 rounded-xl backdrop-blur-sm border border-ink-200/10 dark:border-white/5 shadow-sm hover:shadow-md transition-all"
+          >
+            <p className="font-bold text-sm mb-2 text-ink-900 dark:text-paper-50">Open documentation</p>
+            <p className="text-xs text-ink-600 dark:text-paper-400 leading-relaxed">
               Architecture, intelligent data pipeline, i18n system, packaging and deployment guides live in `docs/`.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     )
@@ -137,11 +173,18 @@ const pages = [
     content: (
       <div className="space-y-4">
         <div className="space-y-3">
-          <a href="https://github.com/framersai/openstrand" target="_blank" rel="noopener noreferrer" 
-             className="flex items-center gap-3 p-4 bg-paper-100 dark:bg-ink-800 rounded-lg hover:bg-paper-200 dark:hover:bg-ink-700 transition-all group">
-            <Github className="w-6 h-6 text-ink-600 dark:text-paper-300 group-hover:text-frame-green" />
+          <motion.a 
+            href="https://github.com/framersai/openstrand" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="relative flex items-center gap-4 p-5 bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-800 dark:to-ink-850 rounded-xl border border-ink-200/20 dark:border-white/5 hover:border-frame-green/30 dark:hover:border-frame-green/20 transition-all group overflow-hidden shadow-sm hover:shadow-lg"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-frame-green/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Github className="w-6 h-6 text-ink-600 dark:text-paper-300 group-hover:text-frame-green transition-colors duration-300" />
             <div className="flex-1">
-              <p className="font-semibold">
+              <p className="font-bold">
                 <span
                   style={{
                     background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
@@ -158,10 +201,10 @@ const pages = [
                   }}
                 >S</span>trand Core
               </p>
-              <p className="text-sm text-ink-500 dark:text-paper-500">github.com/framersai/openstrand</p>
+              <p className="text-sm text-ink-500 dark:text-paper-500 mt-0.5">github.com/framersai/openstrand</p>
             </div>
-            <ExternalLink className="w-4 h-4 text-ink-400" />
-          </a>
+            <ExternalLink className="w-4 h-4 text-ink-400 group-hover:text-frame-green transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </motion.a>
           
           <a href="https://npmjs.com/org/framers" target="_blank" rel="noopener noreferrer"
              className="flex items-center gap-3 p-4 bg-paper-100 dark:bg-ink-800 rounded-lg hover:bg-paper-200 dark:hover:bg-ink-700 transition-all group">
@@ -255,51 +298,84 @@ export default function OpenStrandPopover() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop - Less blur, more visible */}
+            {/* Backdrop - glass effect */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/35 z-[1000] backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 dark:bg-black/70 z-[9999] backdrop-blur-md"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Premium Modal - Consistent styling */}
-            <div className="fixed inset-0 z-[1001] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            {/* Modal - enhanced styling */}
+            <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
-                initial={{ opacity: 0, scale: 0.92, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.88, y: 40, rotateX: -8 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
                 exit={{
                   opacity: 0,
-                  scale: 0.96,
-                  y: 8,
-                  filter: 'blur(6px)',
-                  transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] }
+                  scale: 0.94,
+                  y: 20,
+                  filter: 'blur(8px)',
+                  transition: { duration: 0.28, ease: [0.32, 0, 0.67, 0] }
                 }}
-                transition={{ type: 'spring', duration: 0.4, bounce: 0.25 }}
-                className="pointer-events-auto relative w-full max-w-3xl h-[80vh] sm:h-[75vh] overflow-hidden rounded-3xl bg-paper-50 dark:bg-ink-900 flex flex-col shadow-2xl"
+                transition={{ 
+                  type: 'spring', 
+                  duration: 0.5, 
+                  bounce: 0.15,
+                  opacity: { duration: 0.3 }
+                }}
+                style={{ 
+                  perspective: '1200px',
+                  transformStyle: 'preserve-3d' 
+                }}
+                className="pointer-events-auto relative w-full max-w-4xl h-[85vh] sm:h-[80vh] overflow-hidden rounded-[32px] bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_120px_-30px_rgba(0,0,0,0.5),0_30px_60px_-30px_rgba(34,139,34,0.3)] dark:shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),0_30px_60px_-30px_rgba(34,139,34,0.2)] border border-ink-200/20 dark:border-white/10"
               >
-              {/* Header with logo */}
-              <div className="p-3 sm:p-6 pb-3 sm:pb-4 border-b border-ink-200/10 dark:border-paper-200/10 bg-gradient-to-r from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
-                <div className="flex items-center justify-center">
-                  <a href="https://openstrand.ai" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
-                    <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-10 w-auto dark:hidden" />
-                    <img src="/openstrand-logo-gradient.svg" alt="OpenStrand" className="hidden h-10 w-auto dark:block" />
-                  </a>
+              {/* Header with gradient backdrop and logo */}
+              <div className="relative p-4 sm:p-8 pb-4 sm:pb-6 border-b border-ink-200/20 dark:border-paper-200/10 bg-gradient-to-br from-paper-50/80 via-paper-100/60 to-paper-50/50 dark:from-ink-800/80 dark:via-ink-850/60 dark:to-ink-900/50 backdrop-blur-xl">
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-frame-green/5 via-transparent to-frame-green-dark/5 pointer-events-none" />
+                
+                <div className="relative flex items-center justify-center">
+                  <motion.a 
+                    href="https://openstrand.ai" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-center group"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <img src="/openstrand-logo.svg" alt="OpenStrand" className="h-12 w-auto dark:hidden drop-shadow-xl transition-transform duration-300 group-hover:drop-shadow-2xl" />
+                    <img src="/openstrand-logo-gradient.svg" alt="OpenStrand" className="hidden h-12 w-auto dark:block drop-shadow-xl transition-transform duration-300 group-hover:drop-shadow-2xl" />
+                  </motion.a>
                 </div>
+                <p className="text-center mt-3 text-sm text-ink-600 dark:text-paper-400">
+                  AI-native knowledge infrastructure
+                </p>
               </div>
 
-              {/* Content Pages */}
-              <div className="p-3 sm:p-8 flex-1 min-h-0 overflow-y-auto">
+              {/* Content Pages with enhanced styling */}
+              <div className="relative p-6 sm:p-10 flex-1 min-h-0 overflow-y-auto">
+                {/* Subtle pattern background */}
+                <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.02]">
+                  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <circle cx="2" cy="2" r="1" fill="currentColor" />
+                    </pattern>
+                    <rect width="100%" height="100%" fill="url(#dots)" />
+                  </svg>
+                </div>
+                
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentPage}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="relative z-10"
                   >
-                    <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 heading-display">
+                    <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 heading-display text-ink-900 dark:text-paper-50">
                       {pages[currentPage].title}
                     </h3>
                     {pages[currentPage].content}
@@ -307,57 +383,72 @@ export default function OpenStrandPopover() {
                 </AnimatePresence>
               </div>
 
-              {/* Navigation */}
-              <div className="flex items-center justify-between px-4 sm:px-8 pb-4 sm:pb-6">
-                <button
-                  onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
-                  disabled={currentPage === 0}
-                  className={`p-2 rounded-lg transition-all ${
-                    currentPage === 0 
-                      ? 'opacity-30 cursor-not-allowed' 
-                      : 'hover:bg-paper-100 dark:hover:bg-ink-800'
-                  }`}
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
+              {/* Enhanced Navigation */}
+              <div className="relative px-6 sm:px-10 pb-6 sm:pb-8 pt-4 border-t border-ink-200/10 dark:border-paper-200/5 bg-gradient-to-t from-paper-100/50 to-transparent dark:from-ink-900/50 dark:to-transparent">
+                <div className="flex items-center justify-between">
+                  <motion.button
+                    onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
+                    disabled={currentPage === 0}
+                    whileHover={{ scale: currentPage === 0 ? 1 : 1.1 }}
+                    whileTap={{ scale: currentPage === 0 ? 1 : 0.9 }}
+                    className={`p-2.5 rounded-xl transition-all backdrop-blur-sm ${
+                      currentPage === 0 
+                        ? 'opacity-30 cursor-not-allowed bg-paper-200/30 dark:bg-ink-800/30' 
+                        : 'bg-paper-200/50 dark:bg-ink-800/50 hover:bg-paper-200/80 dark:hover:bg-ink-700/80 shadow-sm hover:shadow-md'
+                    }`}
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </motion.button>
 
-                {/* Page Dots */}
-                <div className="flex gap-2">
-                  {pages.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentPage(i)}
-                      className={`h-2 rounded-full transition-all ${
-                        i === currentPage 
-                          ? 'w-8 bg-frame-green' 
-                          : 'w-2 bg-ink-300 dark:bg-ink-700 hover:bg-ink-400 dark:hover:bg-ink-600'
-                      }`}
-                    />
-                  ))}
+                  {/* Page Dots with enhanced design */}
+                  <div className="flex gap-3 items-center">
+                    {pages.map((_, i) => (
+                      <motion.button
+                        key={i}
+                        onClick={() => setCurrentPage(i)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="relative"
+                      >
+                        <motion.div
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            i === currentPage 
+                              ? 'w-10 bg-gradient-to-r from-frame-green to-frame-green-dark shadow-[0_0_20px_rgba(34,139,34,0.5)]' 
+                              : 'w-2 bg-ink-300 dark:bg-ink-600 hover:bg-ink-400 dark:hover:bg-ink-500'
+                          }`}
+                          layoutId="pageIndicator"
+                        />
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  <motion.button
+                    onClick={() => setCurrentPage(Math.min(pages.length - 1, currentPage + 1))}
+                    disabled={currentPage === pages.length - 1}
+                    whileHover={{ scale: currentPage === pages.length - 1 ? 1 : 1.1 }}
+                    whileTap={{ scale: currentPage === pages.length - 1 ? 1 : 0.9 }}
+                    className={`p-2.5 rounded-xl transition-all backdrop-blur-sm ${
+                      currentPage === pages.length - 1 
+                        ? 'opacity-30 cursor-not-allowed bg-paper-200/30 dark:bg-ink-800/30' 
+                        : 'bg-paper-200/50 dark:bg-ink-800/50 hover:bg-paper-200/80 dark:hover:bg-ink-700/80 shadow-sm hover:shadow-md'
+                    }`}
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </motion.button>
                 </div>
-
-                <button
-                  onClick={() => setCurrentPage(Math.min(pages.length - 1, currentPage + 1))}
-                  disabled={currentPage === pages.length - 1}
-                  className={`p-2 rounded-lg transition-all ${
-                    currentPage === pages.length - 1 
-                      ? 'opacity-30 cursor-not-allowed' 
-                      : 'hover:bg-paper-100 dark:hover:bg-ink-800'
-                  }`}
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
               </div>
 
-                {/* Close button - Inside modal, no animation */}
-                <button
+                {/* Close button */}
+                <motion.button
                   onClick={() => setIsOpen(false)}
-                  className="absolute top-3 sm:top-6 right-3 sm:right-6 p-2 rounded-full bg-paper-100/90 dark:bg-ink-800/90 border border-ink-200/60 dark:border-white/10 text-ink-700 dark:text-paper-100 shadow-sm hover:bg-paper-100 dark:hover:bg-ink-700 hover:shadow-md transition-colors z-50"
+                  className="absolute top-4 sm:top-6 right-4 sm:right-6 p-2.5 rounded-2xl bg-gradient-to-b from-paper-100 to-paper-200 dark:from-ink-800 dark:to-ink-900 border border-ink-200/30 dark:border-white/10 text-ink-700 dark:text-paper-100 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all backdrop-blur-sm group z-50"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
                   aria-label="Close (ESC)"
                   title="Press ESC to close"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
+                  <X className="w-5 h-5 transition-transform duration-300" />
+                </motion.button>
               </motion.div>
             </div>
           </>
