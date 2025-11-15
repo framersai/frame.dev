@@ -6,6 +6,25 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Layers, Bot, Code2, Globe, Shield, Package, ExternalLink, Search } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+
+type ProductSubItem = {
+  name: string
+  href: string
+  icon: LucideIcon
+}
+
+type ProductItem = {
+  name: string
+  href: string
+  description: string
+  icon: LucideIcon
+  color: string
+  bgColor: string
+  external?: boolean
+  hasInfinityIcon?: boolean
+  submenu?: ProductSubItem[]
+}
 
 const navigation = [
   { name: 'Products', href: '#', hasDropdown: true },
@@ -14,7 +33,7 @@ const navigation = [
   { name: 'FAQ', href: '/faq' },
 ]
 
-const productsDropdown = {
+const productsDropdown: Record<string, ProductItem[]> = {
   'Frame Products': [
     {
       name: 'Frame Codex',
