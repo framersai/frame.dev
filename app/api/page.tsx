@@ -2,11 +2,13 @@ import Link from 'next/link'
 import { ArrowRight, Code2, GitBranch, Search, Database, Globe, Lock } from 'lucide-react'
 
 export const metadata = {
-  title: 'API | Frame.dev',
-  description: 'Access the best of humanity\'s knowledge formatted perfectly for LLM and programmatic usage. Free, open-source API for AI-powered knowledge retrieval.',
+  title: 'Frame.dev API – The Codex of Humanity for AI Agents',
+  description:
+    'Frame.dev API exposes the best of humanity\'s knowledge—Frame Codex and OpenStrand—formatted for LLMs, AI agents, and superintelligence with search, graphs, and relationships.',
   openGraph: {
-    title: 'Frame.dev API - Knowledge Infrastructure for AI',
-    description: 'Access structured knowledge optimized for LLMs with search, graphs, relationships, and tags.',
+    title: 'Frame.dev API – Knowledge Infrastructure for Agentic AI',
+    description:
+      'Public, free API for AI agents and superintelligence, built on the OpenStrand schema and Frame Codex knowledge graph.',
   },
 }
 

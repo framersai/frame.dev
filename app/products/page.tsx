@@ -3,11 +3,13 @@ import Image from 'next/image'
 import { ArrowRight, Cpu, Brain, Shield, Briefcase, User, Grid3X3, Sparkles, GitBranch, Building2 } from 'lucide-react'
 
 export const metadata = {
-  title: 'Products | Frame.dev',
-  description: 'Explore Frame.dev products: OpenStrand knowledge management, Frame Codex, AgentOS, and the upcoming Superintelligence Computer.',
+  title: 'Products | Frame.dev – OS for Humans and Superintelligence',
+  description:
+    'Explore Frame.dev products: Frame Codex, OpenStrand, AgentOS, and the upcoming Superintelligence Computer—AI infrastructure for agents, knowledge graphs, and superintelligence.',
   openGraph: {
-    title: 'Frame.dev Products - Building the Future of AI Infrastructure',
-    description: 'From personal knowledge management to superintelligent computing, discover the Frame.dev ecosystem.',
+    title: 'Frame.dev Products – AI Infrastructure for Agents and Superintelligence',
+    description:
+      'From personal knowledge management to superintelligent computing, discover Frame Codex, OpenStrand, AgentOS, and the Frame OS suite.',
   },
 }
 

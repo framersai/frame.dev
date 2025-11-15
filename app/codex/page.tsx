@@ -3,9 +3,9 @@ import FrameCodexViewer from '@/components/frame-codex-viewer'
 import CodexBookIcon from '@/components/codex-book-icon'
 
 export const metadata = {
-  title: 'Frame Codex – The Codex of Humanity',
+  title: 'Frame Codex – The Codex of Humanity for Superintelligence',
   description:
-    'Explore the Frame Codex: structured, ingestible knowledge for LLMs, RAG, and OpenStrand-powered apps.',
+    'Explore Frame Codex: the codex of humanity for LLMs, AI agents, and superintelligence—structured as weaves, looms, and strands for OpenStrand-powered apps.',
 }
 
 export default function CodexPage() {

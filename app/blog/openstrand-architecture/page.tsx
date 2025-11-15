@@ -6,9 +6,9 @@ import { getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Understanding OpenStrand Architecture - Frame Blog',
+  title: 'Understanding OpenStrand Architecture – Frame.dev',
   description:
-    'Deep dive into the distributed architecture powering all Frame operating systems and enabling seamless interoperability.',
+    'Deep dive into OpenStrand, the distributed substrate behind Frame Codex, AI agents, and superintelligence across the Frame.dev ecosystem.',
 }
 
 export default function OpenStrandArchitecturePage() {

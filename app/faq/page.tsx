@@ -3,8 +3,9 @@ import PageLayout from '@/components/page-layout'
 import { ChevronDown } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'FAQ - Frame',
-  description: 'Frequently asked questions about Frame operating systems',
+  title: 'Frame.dev FAQ – OS for Humans and AI Agents',
+  description:
+    'Frequently asked questions about Frame.dev, Frame Codex, OpenStrand, and our AI infrastructure for agents, knowledge graphs, and superintelligence.',
 }
 
 const faqs = [

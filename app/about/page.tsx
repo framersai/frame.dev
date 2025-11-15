@@ -3,8 +3,9 @@ import PageLayout from '@/components/page-layout'
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Frame',
-  description: 'Building infrastructure for agentic AI through open-source operating systems',
+  title: 'About Frame.dev – AI Infrastructure for Knowledge and Superintelligence',
+  description:
+    'Frame.dev is building adaptive AI infrastructure for agents and superintelligence—denoising the web and serving as the OS for humans and the codex of humanity.',
 }
 
 export default function AboutPage() {

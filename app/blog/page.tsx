@@ -5,8 +5,9 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import { blogPosts } from '@/lib/blog-posts'
 
 export const metadata: Metadata = {
-  title: 'Blog - Frame',
-  description: 'Latest updates and insights from the Frame team',
+  title: 'Frame.dev Blog – AI Infrastructure, Agents, and Superintelligence',
+  description:
+    'Latest updates and deep dives from the Frame (framersai) team on AI infrastructure, Frame Codex, OpenStrand, agentic AI, and superintelligence.',
 }
 
 export default function BlogPage() {

@@ -5,7 +5,11 @@
 
 **AI Infrastructure for Knowledge**
 
-[Website](https://frame.dev) • [Documentation](../../wiki/frame/README.md) • [GitHub](https://github.com/framersai)
+*The OS for humans, the codex of humanity.*
+
+[Frame.dev](https://frame.dev) • [OpenStrand](https://openstrand.ai) • [Documentation](../../wiki/frame/README.md)
+
+**AI Infrastructure for Superintelligence.**
 
 </div>
 

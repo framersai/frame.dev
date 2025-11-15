@@ -6,9 +6,9 @@ import { getBlogPost, getRelatedPosts } from '@/lib/blog-posts'
 import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Introducing Frame: The OS for Your Life - Frame Blog',
+  title: 'Introducing Frame.dev – The OS for Humans and the Codex of Humanity',
   description:
-    'Discover how Frame unifies AgentOS, WebOS, HomeOS, SafeOS, WorkOS, and MyOS on the OpenStrand architecture to bring order to every aspect of your digital life.',
+    'Discover how Frame.dev unifies AgentOS, Frame Codex, and OpenStrand to denoise the web and build AI infrastructure for agents, knowledge graphs, and superintelligence.',
 }
 
 export default function IntroducingFramePage() {
