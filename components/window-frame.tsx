@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import type { ReactNode, ComponentType } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package, Layers } from 'lucide-react'
+import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package, Layers as LayersIcon } from 'lucide-react'
 import Image from 'next/image'
 import { WebOSIcon, HomeOSIcon, SafeOSIcon, WorkOSIcon, MyOSIcon } from './os-icons'
 
@@ -97,7 +97,7 @@ const osData: Record<string, OSDefinition> = {
   },
   OpenStrand: {
     title: 'OpenStrand',
-    icon: Layers,
+    icon: LayersIcon,
     description: 'AI-native knowledge infrastructure for teams that want to own their data',
     longDescription:
       'OpenStrand is the knowledge infrastructure powering Frame.dev. It combines TypeScript-everywhere architecture, database abstraction (PostgreSQL and embedded SQLite/PGlite), local-first defaults, and comprehensive documentation in a single monorepo. Built for teams that need full control over their knowledge management and AI interactions.',
