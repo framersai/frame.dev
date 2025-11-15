@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X, Search, Folder, FolderOpen, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText as FileTextIcon } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { X, Search, Folder, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText as FileTextIcon } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
