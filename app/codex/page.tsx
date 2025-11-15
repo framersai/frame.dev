@@ -29,7 +29,7 @@ export default function CodexPage() {
         </div>
 
         <div className="mt-4">
-          <FrameCodexViewer isOpen onClose={() => {}} mode="page" />
+          <FrameCodexViewer isOpen mode="page" />
         </div>
       </div>
     </PageLayout>

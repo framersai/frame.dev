@@ -19,7 +19,7 @@ interface GitHubFile {
 
 interface FrameCodexViewerProps {
   isOpen: boolean
-  onClose: () => void
+  onClose?: () => void
   mode?: 'modal' | 'page'
 }
 
@@ -116,6 +116,11 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
   }
 
   const isModal = mode === 'modal'
+  const handleClose = () => {
+    if (onClose) {
+      onClose()
+    }
+  }
 
   if (!isOpen && isModal) {
     return null
@@ -134,7 +139,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
       {isModal && (
         <div
           className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
-          onClick={onClose}
+          onClick={handleClose}
         />
       )}
       
@@ -158,9 +163,9 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                 </div>
               </div>
 
-              {isModal && (
+              {isModal && onClose && (
                 <motion.button
-                  onClick={onClose}
+                  onClick={handleClose}
                   className="p-2.5 rounded-xl bg-paper-100/90 dark:bg-ink-800/90 hover:bg-paper-200 dark:hover:bg-ink-700 border border-ink-200/30 dark:border-white/10 transition-all"
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
