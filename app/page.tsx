@@ -241,29 +241,20 @@ export default function HomePage() {
             </AnimatePresence>
           </div>
 
-          {/* Enhanced Tagline */}
-          <motion.div
-            className="relative inline-block"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+          {/* Handwritten-style tagline (monochrome, subtle) */}
+          <motion.p
+            className="relative inline-block text-xl md:text-2xl font-serif italic text-gray-800 dark:text-gray-200 px-4 py-2"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <motion.div
-              className="absolute -inset-2 bg-gradient-to-r from-frame-green/20 to-frame-green-dark/20 rounded-xl blur-xl"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <p className="relative text-xl md:text-2xl font-serif bg-gradient-to-r from-frame-green to-frame-green-dark bg-clip-text text-transparent px-4 py-2">
-              The OS for humans, the codex of humanity.
-            </p>
-          </motion.div>
+            <span className="relative">
+              <span className="relative z-10">
+                The OS for humans, the codex of humanity.
+              </span>
+              <span className="pointer-events-none absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-500/50 to-transparent" />
+            </span>
+          </motion.p>
 
           <motion.div
             className="text-2xl md:text-3xl mt-8"

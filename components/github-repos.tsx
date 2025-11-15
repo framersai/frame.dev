@@ -145,68 +145,70 @@ export default function GitHubRepos() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
         >
-          <h3 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200">{category}</h3>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <h3 className="text-sm font-semibold tracking-[0.2em] uppercase mb-4 text-gray-500 dark:text-gray-400">
+            {category}
+          </h3>
+          <div className="relative pl-4 space-y-3">
+            <div className="pointer-events-none absolute left-1 top-1 bottom-1 w-px bg-gradient-to-b from-gray-200 via-gray-300/70 to-gray-200 dark:from-gray-800 dark:via-gray-700/70 dark:to-gray-800" />
             {repos.map((repo, index) => {
               const Icon = repo.icon
               return (
                 <motion.div
                   key={repo.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   className="relative group"
                 >
-                  <Link href={repo.url} target="_blank" rel="noopener noreferrer">
-                    <div className="h-full bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5 hover:border-gray-300 dark:hover:border-gray-700 transition-all hover:shadow-lg">
-                      {/* Header */}
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${repo.bgColor}`}>
-                            <Icon className={`w-5 h-5 ${repo.color}`} />
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-frame-green dark:group-hover:text-frame-green transition-colors">
-                              {repo.name}
-                            </h4>
-                          </div>
-                        </div>
-                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" />
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                        {repo.description}
-                      </p>
-
-                      {/* Topics */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {repo.topics.slice(0, 3).map(topic => (
-                          <span key={topic} className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md">
-                            {topic}
+                  <Link
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start justify-between gap-4 rounded-lg px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-900/60 transition-colors"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="mt-1 w-2 h-2 rounded-full bg-gray-400 group-hover:bg-frame-green transition-colors" />
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <Icon className={`w-4 h-4 ${repo.color}`} />
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-frame-green">
+                            {repo.name}
                           </span>
-                        ))}
+                        </div>
+                        <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
+                          {repo.description}
+                        </p>
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {repo.topics.slice(0, 3).map((topic) => (
+                            <span
+                              key={topic}
+                              className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+                            >
+                              {topic}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-
-                      {/* Footer */}
-                      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                          {repo.language}
-                        </span>
+                    </div>
+                    <div className="flex flex-col items-end gap-1 text-[10px] text-gray-500 dark:text-gray-500">
+                      <span className="inline-flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+                        {repo.language}
+                      </span>
+                      <div className="flex items-center gap-2">
                         {repo.stars > 0 && (
-                          <span className="flex items-center gap-1">
+                          <span className="inline-flex items-center gap-1">
                             <Star className="w-3 h-3" />
                             {repo.stars}
                           </span>
                         )}
                         {repo.forks > 0 && (
-                          <span className="flex items-center gap-1">
+                          <span className="inline-flex items-center gap-1">
                             <GitFork className="w-3 h-3" />
                             {repo.forks}
                           </span>
                         )}
+                        <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
                       </div>
                     </div>
                   </Link>

@@ -188,9 +188,14 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
     fetchContents(parentPath)
   }
 
-  const filteredFiles = files.filter(file =>
-    file.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  // Only surface directories + markdown files in the sidebar to feel like a Codex TOC,
+  // not a raw repo file explorer.
+  const filteredFiles = files.filter((file) => {
+    const matchesQuery = file.name.toLowerCase().includes(searchQuery.toLowerCase())
+    if (!matchesQuery) return false
+    if (file.type === 'dir') return true
+    return isMarkdown(file.name)
+  })
 
   const loadMore = () => {
     setIsLoadingMore(true)
@@ -263,10 +268,28 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <Book className="w-6 h-6 text-purple-600" />
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white">Frame Codex</h2>
+              <Book className="w-5 h-5 text-gray-800 dark:text-gray-200" />
+              <h2 className="text-sm font-semibold tracking-[0.18em] uppercase text-gray-800 dark:text-gray-300">
+                Frame Codex
+              </h2>
             </div>
             <div className="flex items-center gap-2">
+              {/* High-level tools + contribute dropdown */}
+              <Link
+                href="/codex/search"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <Search className="w-3 h-3" />
+                Graph &amp; search
+              </Link>
+              <Link
+                href="/codex/architecture"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <Home className="w-3 h-3" />
+                Schema &amp; weaves
+              </Link>
+
               {/* Contribute dropdown */}
               <div className="relative">
                 <button

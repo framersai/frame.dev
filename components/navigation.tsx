@@ -5,8 +5,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, Layers, Bot, Code2, Globe, Shield, Package, ExternalLink, Search } from 'lucide-react'
+import { Menu, X, ChevronDown, Layers, Bot, Code2, Globe, Shield, Package, ExternalLink, Search, MessageCircle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import ThemeToggle from './theme-toggle'
 
 type ProductSubItem = {
   name: string
@@ -115,24 +116,23 @@ export default function Navigation() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-8 h-8">
-                <Image 
-                  src="/frame-logo-no-subtitle.svg" 
-                  alt="Frame.dev" 
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10">
+                <Image
+                  src="/frame-logo-no-subtitle.svg"
+                  alt="Frame.dev"
                   fill
-                  className="dark:hidden transition-transform group-hover:scale-110" 
+                  className="dark:hidden transition-transform group-hover:scale-110"
+                  priority
                 />
-                <Image 
-                  src="/frame-logo-dark-no-subtitle.svg" 
-                  alt="Frame.dev" 
+                <Image
+                  src="/frame-logo-dark-no-subtitle.svg"
+                  alt="Frame.dev"
                   fill
-                  className="hidden dark:block transition-transform group-hover:scale-110" 
+                  className="hidden dark:block transition-transform group-hover:scale-110"
+                  priority
                 />
               </div>
-              <span className="font-semibold text-lg text-gray-900 dark:text-white">
-                Frame.dev
-              </span>
             </Link>
           </div>
 
@@ -140,7 +140,13 @@ export default function Navigation() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-1">
               {navigation.map((item) => (
-                <div key={item.name} className="relative" ref={item.hasDropdown ? dropdownRef : undefined}>
+                <div
+                  key={item.name}
+                  className="relative"
+                  ref={item.hasDropdown ? dropdownRef : undefined}
+                  onMouseEnter={() => item.hasDropdown && setProductsOpen(true)}
+                  onMouseLeave={() => item.hasDropdown && setProductsOpen(false)}
+                >
                   {item.hasDropdown ? (
                     <button
                       onClick={() => setProductsOpen(!productsOpen)}
@@ -241,8 +247,18 @@ export default function Navigation() {
             </div>
           </div>
 
-          {/* GitHub Link */}
+          {/* Right-side actions: Discord, theme toggle, GitHub */}
           <div className="hidden md:flex items-center gap-4">
+            <Link
+              href="https://discord.gg/VXXC4SJMKh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-full px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Discord</span>
+            </Link>
+            <ThemeToggle />
             <Link
               href="https://github.com/framersai"
               target="_blank"
