@@ -44,7 +44,8 @@ const productsDropdown: Record<string, ProductItem[]> = {
       bgColor: 'bg-purple-50 dark:bg-purple-900/20',
       submenu: [
         { name: 'Browse', href: '/codex', icon: Code2 },
-        { name: 'Search & Explore', href: '/codex/search', icon: Search }
+        { name: 'Search & Explore', href: '/codex/search', icon: Search },
+        { name: 'Architecture', href: '/codex/architecture', icon: Layers }
       ]
     },
     {
