@@ -117,19 +117,12 @@ export default function Navigation() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10">
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12">
                 <Image
                   src="/frame-logo-no-subtitle.svg"
                   alt="Frame.dev"
                   fill
-                  className="dark:hidden transition-transform group-hover:scale-110"
-                  priority
-                />
-                <Image
-                  src="/frame-logo-dark-no-subtitle.svg"
-                  alt="Frame.dev"
-                  fill
-                  className="hidden dark:block transition-transform group-hover:scale-110"
+                  className="transition-transform group-hover:scale-110"
                   priority
                 />
               </div>

@@ -7,7 +7,6 @@ import CodexBookIcon from './codex-book-icon'
 import FrameCodexViewer from './frame-codex-viewer'
 
 export default function FrameCodexBanner() {
-  const [isHovered, setIsHovered] = useState(false)
   const [isCodexOpen, setIsCodexOpen] = useState(false)
 
   return (
@@ -23,9 +22,6 @@ export default function FrameCodexBanner() {
         
         <motion.div
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 border border-ink-200/20 dark:border-white/10 shadow-2xl"
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
-          whileHover={{ scale: 1.01 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         >
           {/* Animated gradient overlay */}
@@ -45,21 +41,9 @@ export default function FrameCodexBanner() {
 
           <div className="relative p-8 lg:p-12 flex flex-col lg:flex-row items-center gap-8">
             {/* Left side - Book icon */}
-            <motion.div
-              className="flex-shrink-0"
-              animate={{ 
-                y: isHovered ? [-2, 2, -2] : 0,
-                rotate: isHovered ? [-2, 2, -2] : 0
-              }}
-              transition={{ 
-                duration: 3, 
-                repeat: isHovered ? Infinity : 0,
-                repeatType: 'reverse',
-                ease: 'easeInOut'
-              }}
-            >
-              <CodexBookIcon className="w-24 h-32 lg:w-32 lg:h-40" isOpen={isHovered} />
-            </motion.div>
+            <div className="flex-shrink-0">
+              <CodexBookIcon className="w-24 h-32 lg:w-32 lg:h-40" isOpen={false} />
+            </div>
 
             {/* Center - Content */}
             <div className="flex-1 text-center lg:text-left">

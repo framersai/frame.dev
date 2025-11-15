@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Github, Package, ExternalLink, Layers, GitBranch, Box, Download, X } from 'lucide-react'
 
 const pages = [
@@ -279,58 +281,67 @@ export default function OpenStrandPopover() {
   return (
     <>
       <button
-        className="text-2xl md:text-3xl body-text font-light relative z-[100] group inline-flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
+        className="text-xl md:text-2xl body-text font-light relative z-[100] group inline-flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
         onClick={() => setIsOpen(true)}
       >
-        <span className="text-frame-green">
-          ∞
+        <span className="text-gray-500">∞</span>
+        <span className="relative text-gray-800 dark:text-gray-100">
+          The{' '}
+          <span className="font-semibold tracking-wide">OS</span>{' '}
+          for humans, the{' '}
+          <Link
+            href="/codex"
+            className="relative font-semibold"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="relative z-10 bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 dark:from-gray-100 dark:via-gray-300 dark:to-gray-100 bg-clip-text text-transparent group-hover:bg-[length:200%_100%] group-hover:bg-left">
+              Codex
+            </span>
+            <span className="pointer-events-none absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-600/70 to-transparent" />
+          </Link>{' '}
+          of humanity.
         </span>
-        <span className="relative">
-          <span className="relative z-10 border-b-2 border-dotted border-frame-green/40 hover:border-frame-green/60 transition-colors">
-            The <span className="font-bold bg-gradient-to-r from-frame-green to-frame-green-dark bg-clip-text text-transparent">OS</span> for your life
-          </span>
-        </span>
-        <span className="text-frame-green">
-          ∞
-        </span>
+        <span className="text-gray-500">∞</span>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop - glass effect (always above window frame) */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 dark:bg-black/70 z-[10000] backdrop-blur-md"
-              onClick={() => setIsOpen(false)}
-            />
+      {typeof document !== 'undefined'
+        ? createPortal(
+            <AnimatePresence>
+              {isOpen && (
+                <>
+                  {/* Backdrop - glass effect (always above window frame) */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-black/50 dark:bg-black/70 z-[10000] backdrop-blur-md"
+                    onClick={() => setIsOpen(false)}
+                  />
 
-            {/* Modal - enhanced styling */}
-            <div className="fixed inset-0 z-[10010] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.88, y: 40, rotateX: -8 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.94,
-                  y: 20,
-                  filter: 'blur(8px)',
-                  transition: { duration: 0.28, ease: [0.32, 0, 0.67, 0] }
-                }}
-                transition={{ 
-                  type: 'spring', 
-                  duration: 0.5, 
-                  bounce: 0.15,
-                  opacity: { duration: 0.3 }
-                }}
-                style={{ 
-                  perspective: '1200px',
-                  transformStyle: 'preserve-3d' 
-                }}
-                className="pointer-events-auto relative w-full max-w-4xl h-[85vh] sm:h-[80vh] overflow-hidden rounded-[32px] bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_120px_-30px_rgba(0,0,0,0.5),0_30px_60px_-30px_rgba(34,139,34,0.3)] dark:shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),0_30px_60px_-30px_rgba(34,139,34,0.2)] border border-ink-200/20 dark:border-white/10"
-              >
+                  {/* Modal - enhanced styling */}
+                  <div className="fixed inset-0 z-[10010] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.88, y: 40, rotateX: -8 }}
+                      animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.94,
+                        y: 20,
+                        filter: 'blur(8px)',
+                        transition: { duration: 0.28, ease: [0.32, 0, 0.67, 0] }
+                      }}
+                      transition={{
+                        type: 'spring',
+                        duration: 0.5,
+                        bounce: 0.15,
+                        opacity: { duration: 0.3 }
+                      }}
+                      style={{
+                        perspective: '1200px',
+                        transformStyle: 'preserve-3d'
+                      }}
+                      className="pointer-events-auto relative w-full max-w-4xl h-[85vh] sm:h-[80vh] overflow-hidden rounded-[32px] bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_120px_-30px_rgba(0,0,0,0.5),0_30px_60px_-30px_rgba(34,139,34,0.3)] dark:shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8),0_30px_60px_-30px_rgba(34,139,34,0.2)] border border-ink-200/20 dark:border-white/10"
+                    >
               {/* Header with gradient backdrop and logo */}
               <div className="relative p-4 sm:p-8 pb-4 sm:pb-6 border-b border-ink-200/20 dark:border-paper-200/10 bg-gradient-to-br from-paper-50/80 via-paper-100/60 to-paper-50/50 dark:from-ink-800/80 dark:via-ink-850/60 dark:to-ink-900/50 backdrop-blur-xl">
                 {/* Subtle gradient overlay */}
@@ -449,11 +460,14 @@ export default function OpenStrandPopover() {
                 >
                   <X className="w-5 h-5 transition-transform duration-300" />
                 </motion.button>
-              </motion.div>
-            </div>
-          </>
-        )}
-      </AnimatePresence>
+                    </motion.div>
+                  </div>
+                </>
+              )}
+            </AnimatePresence>,
+            document.body
+          )
+        : null}
     </>
   )
 }

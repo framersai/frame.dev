@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { motion, useAnimation, AnimatePresence } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 import Link from 'next/link'
 import WindowFrame from '@/components/window-frame'
 import PageLayout from '@/components/page-layout'
@@ -11,28 +11,13 @@ import FrameCodexBanner from '@/components/frame-codex-banner'
 import GitHubRepos from '@/components/github-repos'
 import SuperintelligenceBanner from '@/components/superintelligence-banner'
 
-const taglines = [
-  "Building adaptive AI intelligence that is emergent and permanent",
-  "Infrastructure for open source SAFE superintelligence",
-  "Denoising the web for humanity's collective knowledge"
-]
-
 export default function HomePage() {
   const [headingRevealed, setHeadingRevealed] = useState(false)
   const [noiseLevel, setNoiseLevel] = useState(100)
   const [isDenoising, setIsDenoising] = useState(false)
-  const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>()
   const controls = useAnimation()
-
-  // Cycle through taglines
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTaglineIndex((prev) => (prev + 1) % taglines.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -225,22 +210,6 @@ export default function HomePage() {
             </motion.span>
           </motion.h1>
 
-          {/* Animated Taglines */}
-          <div className="h-16 relative mb-4">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={currentTaglineIndex}
-                className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto absolute inset-0 flex items-center justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-              >
-                {taglines[currentTaglineIndex]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-
           {/* Handwritten-style tagline (monochrome, subtle) */}
           <motion.p
             className="relative inline-block text-xl md:text-2xl font-serif italic text-gray-800 dark:text-gray-200 px-4 py-2"
@@ -250,7 +219,7 @@ export default function HomePage() {
           >
             <span className="relative">
               <span className="relative z-10">
-                The OS for humans, the codex of humanity.
+                The OS for humans, the Codex of humanity.
               </span>
               <span className="pointer-events-none absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-500/50 to-transparent" />
             </span>

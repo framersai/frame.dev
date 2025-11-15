@@ -218,31 +218,6 @@ export default function GitHubRepos() {
           </div>
         </motion.div>
       ))}
-
-      {/* Call to Action */}
-      <motion.div
-        className="text-center mt-12 p-8 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-          Join Our Open Source Mission
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-          We&apos;re looking for collaborators and experts who share our vision of building 
-          infrastructure for open source SAFE superintelligence. Every contribution matters.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Link 
-            href="https://github.com/framersai" 
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all"
-          >
-            <GitBranch className="w-5 h-5" />
-            View All Repositories
-          </Link>
-        </div>
-      </motion.div>
     </div>
   )
-}
+}*** End Patch```}"/>
