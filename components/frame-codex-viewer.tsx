@@ -140,7 +140,7 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
   }
 
   return (
-    <>
+    <div>
       {modalOverlay}
 
       {/* Container */}
@@ -428,6 +428,6 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
           </div>
         </motion.div>
       </div>
-    </>
+    </div>
   )
 }
