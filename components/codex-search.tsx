@@ -45,33 +45,52 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
   useEffect(() => {
     const loadIndex = async () => {
       try {
-        // In production, this would load a pre-built index from GitHub Actions
-        const response = await fetch('/api/codex-index.json')
-        if (response.ok) {
-          const data: SearchResult[] = await response.json()
-          
-          const fuse = new Fuse(data, {
-            keys: [
-              { name: 'name', weight: 0.3 },
-              { name: 'content', weight: 0.5 },
-              { name: 'metadata.title', weight: 0.2 },
-              { name: 'metadata.tags', weight: 0.2 },
-              { name: 'metadata.summary', weight: 0.3 },
-            ],
-            threshold: 0.3,
-            includeScore: true,
-            includeMatches: true,
-            minMatchCharLength: 2,
-          })
-          
-          setIndex(fuse)
-          setRawIndex(data)
+        // Try hosted index (GitHub Actions "index" branch), then fall back to local static file if present
+        const sources = [
+          'https://raw.githubusercontent.com/framersai/codex/index/codex-index.json',
+          '/codex-index.json',
+        ]
+
+        let data: SearchResult[] | null = null
+
+        for (const url of sources) {
+          try {
+            const response = await fetch(url)
+            if (response.ok) {
+              data = await response.json()
+              break
+            }
+          } catch {
+            // try next source
+          }
         }
+
+        if (!data) {
+          console.warn('Codex search index could not be loaded from any source.')
+          return
+        }
+
+        const fuse = new Fuse(data, {
+          keys: [
+            { name: 'name', weight: 0.3 },
+            { name: 'content', weight: 0.5 },
+            { name: 'metadata.title', weight: 0.2 },
+            { name: 'metadata.tags', weight: 0.2 },
+            { name: 'metadata.summary', weight: 0.3 },
+          ],
+          threshold: 0.3,
+          includeScore: true,
+          includeMatches: true,
+          minMatchCharLength: 2,
+        })
+
+        setIndex(fuse)
+        setRawIndex(data)
       } catch (error) {
         console.error('Failed to load search index:', error)
       }
     }
-    
+
     loadIndex()
   }, [])
 
@@ -136,11 +155,21 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
   }, [query, performSearch])
 
   const handleSelect = (result: SearchResult) => {
+    // If a consumer wants to override navigation, let them
     if (onSelect) {
       onSelect(result)
     } else {
-      // Navigate to the file
-      router.push(`/codex?file=${result.path}`)
+      // Navigate to the file within Frame Codex.
+      // Split the path so the Codex viewer can load the correct directory + file.
+      const lastSlash = result.path.lastIndexOf('/')
+      const dir = lastSlash === -1 ? '' : result.path.slice(0, lastSlash)
+      const filePath = result.path
+
+      const params = new URLSearchParams()
+      if (dir) params.set('path', dir)
+      params.set('file', filePath)
+
+      router.push(`/codex?${params.toString()}`)
     }
     setShowDropdown(false)
     setActiveIndex(-1)

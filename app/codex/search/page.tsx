@@ -16,33 +16,6 @@ export default function CodexSearchPage() {
   return (
     <PageLayout>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hitchhiker's Guide Style Header */}
-        <div className="text-center mb-12 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-3xl" />
-          <h1 className="relative text-5xl md:text-6xl font-black mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Don&apos;t Panic
-          </h1>
-          <p className="relative text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Your guide to the Frame Codex has everything you need to navigate humanity&apos;s knowledge
-          </p>
-          
-          {/* Guide Stats */}
-          <div className="relative flex justify-center gap-8 mt-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600">42</div>
-              <div className="text-sm text-gray-500">Weaves</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600">∞</div>
-              <div className="text-sm text-gray-500">Connections</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600">∀</div>
-              <div className="text-sm text-gray-500">Knowledge</div>
-            </div>
-          </div>
-        </div>
-
         {/* Tab Navigation */}
         <Tabs defaultValue="search" className="w-full">
           <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-8">
@@ -153,10 +126,18 @@ export default function CodexSearchPage() {
           </TabsContent>
         </Tabs>
 
-        {/* Call to Action */}
-        <div className="mt-16 text-center p-8 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl">
-          <h2 className="text-2xl font-bold mb-4">Ready to explore?</h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+        {/* Call to Action + subtle Hitchhiker nod */}
+        <div className="mt-16 text-center p-8 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 opacity-10 flex items-center justify-center select-none">
+            <span className="text-5xl md:text-7xl font-black tracking-widest text-gray-400 dark:text-gray-600">
+              Don&apos;t Panic
+            </span>
+          </div>
+          <p className="relative text-xs uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400 mb-3">
+            Your guide to the Frame Codex
+          </p>
+          <h2 className="relative text-2xl font-bold mb-4">Ready to explore?</h2>
+          <p className="relative text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
             The Frame Codex is constantly growing. Browse the latest additions or contribute your own knowledge.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">

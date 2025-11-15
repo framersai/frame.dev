@@ -10,7 +10,10 @@ interface GraphNode {
   name: string
   type: 'weave' | 'loom' | 'strand'
   group: number
-  metadata?: any
+  metadata?: {
+    description?: string
+    url?: string
+  }
 }
 
 interface GraphLink {
@@ -39,15 +42,96 @@ export default function CodexGraph({ data, onNodeClick, height = 600 }: CodexGra
   // Sample data if none provided
   const defaultData = {
     nodes: [
-      { id: 'frame', name: 'Frame Codex', type: 'weave' as const, group: 0 },
-      { id: 'openstrand', name: 'OpenStrand', type: 'loom' as const, group: 1 },
-      { id: 'agentos', name: 'AgentOS', type: 'loom' as const, group: 1 },
-      { id: 'architecture', name: 'Architecture', type: 'strand' as const, group: 2 },
-      { id: 'api', name: 'API Reference', type: 'strand' as const, group: 2 },
-      { id: 'schemas', name: 'Schemas', type: 'strand' as const, group: 2 },
-      { id: 'guides', name: 'Guides', type: 'loom' as const, group: 1 },
-      { id: 'quickstart', name: 'Quick Start', type: 'strand' as const, group: 2 },
-      { id: 'tutorials', name: 'Tutorials', type: 'strand' as const, group: 2 },
+      {
+        id: 'frame',
+        name: 'Frame Codex',
+        type: 'weave' as const,
+        group: 0,
+        metadata: {
+          description: 'The codex of humanity – curated knowledge for LLMs and agents.',
+          url: '/codex',
+        },
+      },
+      {
+        id: 'openstrand',
+        name: 'OpenStrand',
+        type: 'loom' as const,
+        group: 1,
+        metadata: {
+          description: 'AI-native knowledge infrastructure and local-first slip-box.',
+          url: 'https://openstrand.ai',
+        },
+      },
+      {
+        id: 'agentos',
+        name: 'AgentOS',
+        type: 'loom' as const,
+        group: 1,
+        metadata: {
+          description: 'Adaptive AI agency runtime and experience platform.',
+          url: 'https://agentos.sh',
+        },
+      },
+      {
+        id: 'architecture',
+        name: 'Architecture',
+        type: 'strand' as const,
+        group: 2,
+        metadata: {
+          description: 'Visual overview of weaves, looms, and strands.',
+          url: '/codex/architecture',
+        },
+      },
+      {
+        id: 'api',
+        name: 'API Reference',
+        type: 'strand' as const,
+        group: 2,
+        metadata: {
+          description: 'Programmatic access to the Frame Codex.',
+          url: '/api',
+        },
+      },
+      {
+        id: 'schemas',
+        name: 'Schemas',
+        type: 'strand' as const,
+        group: 2,
+        metadata: {
+          description: 'OpenStrand and Codex schema reference.',
+          url: '/codex/search?tab=schema',
+        },
+      },
+      {
+        id: 'guides',
+        name: 'Guides',
+        type: 'loom' as const,
+        group: 1,
+        metadata: {
+          description: 'Tutorials and best practices for modelling knowledge.',
+          url: '/codex/search',
+        },
+      },
+      {
+        id: 'quickstart',
+        name: 'Quick Start',
+        type: 'strand' as const,
+        group: 2,
+        metadata: {
+          description: 'First steps to explore and contribute to the Codex.',
+          url: 'https://github.com/framersai/codex#readme',
+        },
+      },
+      {
+        id: 'tutorials',
+        name: 'Tutorials',
+        type: 'strand' as const,
+        group: 2,
+        metadata: {
+          description: 'Deep dives into strands, looms, and weaves.',
+          url: '/codex/search',
+        },
+      },
     ],
     links: [
       { source: 'frame', target: 'openstrand', type: 'contains' as const, strength: 1 },
@@ -189,6 +273,14 @@ export default function CodexGraph({ data, onNodeClick, height = 600 }: CodexGra
       .on('click', (event, d: any) => {
         setSelectedNode(d.id)
         if (onNodeClick) onNodeClick(d)
+        if (d.metadata?.url) {
+          const url: string = d.metadata.url
+          if (url.startsWith('http')) {
+            window.open(url, '_blank', 'noopener,noreferrer')
+          } else {
+            window.location.href = url
+          }
+        }
       })
 
     // Node labels
@@ -330,10 +422,23 @@ export default function CodexGraph({ data, onNodeClick, height = 600 }: CodexGra
           animate={{ opacity: 1, y: 0 }}
           className="absolute bottom-4 right-4 z-10 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 max-w-xs"
         >
-          <h3 className="font-semibold mb-2">{graphData.nodes.find(n => n.id === selectedNode)?.name}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Click to explore this {graphData.nodes.find(n => n.id === selectedNode)?.type}
-          </p>
+          {(() => {
+            const node = graphData.nodes.find(n => n.id === selectedNode)
+            if (!node) return null
+            return (
+              <>
+                <h3 className="font-semibold mb-1">{node.name}</h3>
+                {node.metadata?.description && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    {node.metadata.description}
+                  </p>
+                )}
+                <p className="text-xs text-gray-500 dark:text-gray-500">
+                  Click a node to open its documentation or Codex view.
+                </p>
+              </>
+            )
+          })()}
         </motion.div>
       )}
     </div>
