@@ -20,9 +20,10 @@ interface GitHubFile {
 interface FrameCodexViewerProps {
   isOpen: boolean
   onClose: () => void
+  mode?: 'modal' | 'page'
 }
 
-export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerProps) {
+export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerProps) {
   const [currentPath, setCurrentPath] = useState('')
   const [files, setFiles] = useState<GitHubFile[]>([])
   const [loading, setLoading] = useState(false)
@@ -123,31 +124,44 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
   // Helper: check markdown extension
   const isMarkdown = (name: string): boolean => name.toLowerCase().endsWith('.md');
 
+  const isModal = mode === 'modal'
+
   return (
     <>
-      {/* Backdrop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
-        onClick={onClose}
-      />
-
-      {/* Modal */}
-      <div className="fixed inset-0 z-[10001] flex items-center justify-center p-4 pointer-events-none">
+      {isModal && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 40 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20, filter: 'blur(8px)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Container */}
+      <div
+        className={
+          isModal
+            ? 'fixed inset-0 z-[10001] flex items-center justify-center p-4 pointer-events-none'
+            : 'relative z-10 px-4 pb-8 sm:px-6 lg:px-8'
+        }
+      >
+        <motion.div
+          initial={isModal ? { opacity: 0, scale: 0.9, y: 40 } : { opacity: 0, y: 24 }}
+          animate={isModal ? { opacity: 1, scale: 1, y: 0 } : { opacity: 1, y: 0 }}
+          exit={isModal ? { opacity: 0, scale: 0.95, y: 20, filter: 'blur(8px)' } : undefined}
           transition={{ type: 'spring', duration: 0.5, bounce: 0.1 }}
-          className="pointer-events-auto w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-ink-200/20 dark:border-white/10"
+          className={
+            isModal
+              ? 'pointer-events-auto w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-ink-200/20 dark:border-white/10'
+              : 'w-full max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] border border-ink-200/20 dark:border-white/10'
+          }
         >
           {/* Header */}
           <div className="relative px-6 py-4 border-b border-ink-200/20 dark:border-white/10 bg-gradient-to-r from-paper-100/80 to-paper-50/80 dark:from-ink-800/80 dark:to-ink-900/80 backdrop-blur-xl">
             <div className="absolute inset-0 bg-gradient-to-r from-frame-green/5 via-transparent to-frame-green-dark/5 pointer-events-none" />
             
-            <div className="relative flex items-center justify-between">
+              <div className="relative flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Book className="w-8 h-8 text-frame-green" />
                 <div>
@@ -156,14 +170,16 @@ export default function FrameCodexViewer({ isOpen, onClose }: FrameCodexViewerPr
                 </div>
               </div>
 
-              <motion.button
-                onClick={onClose}
-                className="p-2.5 rounded-xl bg-paper-100/90 dark:bg-ink-800/90 hover:bg-paper-200 dark:hover:bg-ink-700 border border-ink-200/30 dark:border-white/10 transition-all"
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <X className="w-5 h-5" />
-              </motion.button>
+              {isModal && (
+                <motion.button
+                  onClick={onClose}
+                  className="p-2.5 rounded-xl bg-paper-100/90 dark:bg-ink-800/90 hover:bg-paper-200 dark:hover:bg-ink-700 border border-ink-200/30 dark:border-white/10 transition-all"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              )}
             </div>
           </div>
 
