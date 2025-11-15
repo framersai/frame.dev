@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown, Layers, Bot, Code2, Globe, Shield, Package, ExternalLink } from 'lucide-react'
+import { Menu, X, ChevronDown, Layers, Bot, Code2, Globe, Shield, Package, ExternalLink, Search } from 'lucide-react'
 
 const navigation = [
   { name: 'Products', href: '#', hasDropdown: true },
