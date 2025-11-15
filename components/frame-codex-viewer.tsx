@@ -557,7 +557,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                           const match = /language-(\w+)/.exec(className || '')
                           return !inline && match ? (
                             <SyntaxHighlighter
-                              style={vscDarkPlus}
+                              style={vscDarkPlus as any}
                               language={match[1]}
                               PreTag="div"
                               customStyle={{
@@ -631,7 +631,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                   </article>
                 ) : (
                   <SyntaxHighlighter
-                    style={vscDarkPlus}
+                    style={vscDarkPlus as any}
                     language={selectedFile.name.split('.').pop() || 'text'}
                     showLineNumbers
                     wrapLongLines
