@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import FrameCodexViewer from '@/components/frame-codex-viewer'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Frame Codex – The Codex of Humanity for Superintelligence',
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 }
 
 export default function CodexPage() {
-  return <FrameCodexViewer isOpen mode="page" />
+  return (
+    <Suspense fallback={<div className="py-20 text-center text-gray-500">Loading Codex…</div>}>
+      <FrameCodexViewer isOpen mode="page" />
+    </Suspense>
+  )
 }
