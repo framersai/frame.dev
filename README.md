@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../logos/frame-logo-green-no-tagline.svg" alt="Frame.dev" width="200" />
+  <img src="public/frame-logo-no-subtitle.svg" alt="Frame.dev" width="200" />
 
 # Frame.dev
 
