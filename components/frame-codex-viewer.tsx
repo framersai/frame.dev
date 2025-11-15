@@ -23,7 +23,7 @@ interface FrameCodexViewerProps {
   mode?: 'modal' | 'page'
 }
 
-function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerProps) {
+const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mode = 'modal' }) => {
   const [currentPath, setCurrentPath] = useState('')
   const [files, setFiles] = useState<GitHubFile[]>([])
   const [loading, setLoading] = useState(false)
@@ -35,12 +35,10 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   const [displayLimit, setDisplayLimit] = useState(50)
 
-  // GitHub API configuration
   const REPO_OWNER = 'framersai'
   const REPO_NAME = 'codex'
   const API_BASE = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`
 
-  // Fetch directory contents
   const fetchContents = useCallback(async (path: string = '') => {
     setLoading(true)
     setError(null)
@@ -53,7 +51,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
       
       const data: GitHubFile[] = await response.json()
       
-      // Sort directories first, then files
       const sortedData = data.sort((a, b) => {
         if (a.type === b.type) return a.name.localeCompare(b.name)
         return a.type === 'dir' ? -1 : 1
@@ -67,7 +64,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
     }
   }, [API_BASE])
 
-  // Fetch file content
   const fetchFileContent = useCallback(async (file: GitHubFile) => {
     if (!file.download_url) return
     
@@ -88,31 +84,26 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
     }
   }, [])
 
-  // Initial load
   useEffect(() => {
     if (isOpen) {
       fetchContents(currentPath)
     }
   }, [isOpen, currentPath, fetchContents])
 
-  // Handle folder navigation
   const navigateToFolder = (path: string) => {
     setCurrentPath(path)
     setSelectedFile(null)
     setFileContent('')
   }
 
-  // Handle breadcrumb navigation
   const breadcrumbs = currentPath.split('/').filter(Boolean)
 
-  // Filter files based on search with lazy loading
   const allFilteredFiles = files.filter(file => 
     file.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
   const filteredFiles = allFilteredFiles.slice(0, displayLimit)
   const hasMore = allFilteredFiles.length > displayLimit
 
-  // Load more files
   const loadMore = () => {
     setIsLoadingMore(true)
     setTimeout(() => {
@@ -121,7 +112,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
     }, 300)
   }
 
-  // Helper: check markdown extension
   const isMarkdown = (name: string): boolean => {
     return name.toLowerCase().endsWith('.md')
   }
@@ -132,41 +122,35 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
     return null
   }
 
-  // Modal backdrop
-  const modalBackdrop = isModal ? (
-    <div
-      className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
-      onClick={onClose}
-    />
-  ) : null
+  const containerClass = isModal
+    ? 'fixed inset-0 z-[10001] flex items-center justify-center p-4 pointer-events-none'
+    : 'relative z-10 px-4 pb-8 sm:px-6 lg:px-8'
+
+  const contentClass = isModal
+    ? 'pointer-events-auto w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-ink-200/20 dark:border-white/10'
+    : 'w-full max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] border border-ink-200/20 dark:border-white/10'
 
   return (
-    <React.Fragment>
-      {modalBackdrop}
+    <>
+      {isModal && (
+        <div
+          className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
+          onClick={onClose}
+        />
+      )}
       
-      <div
-        className={
-          isModal
-            ? 'fixed inset-0 z-[10001] flex items-center justify-center p-4 pointer-events-none'
-            : 'relative z-10 px-4 pb-8 sm:px-6 lg:px-8'
-        }
-      >
+      <div className={containerClass}>
         <motion.div
           initial={isModal ? { opacity: 0, scale: 0.9, y: 40 } : { opacity: 0, y: 24 }}
           animate={isModal ? { opacity: 1, scale: 1, y: 0 } : { opacity: 1, y: 0 }}
           exit={isModal ? { opacity: 0, scale: 0.95, y: 20, filter: 'blur(8px)' } : undefined}
           transition={{ type: 'spring', duration: 0.5, bounce: 0.1 }}
-          className={
-            isModal
-              ? 'pointer-events-auto w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-ink-200/20 dark:border-white/10'
-              : 'w-full max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-b from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950 flex flex-col shadow-[0_40px_90px_-30px_rgba(0,0,0,0.45)] border border-ink-200/20 dark:border-white/10'
-          }
+          className={contentClass}
         >
-          {/* Header */}
           <div className="relative px-6 py-4 border-b border-ink-200/20 dark:border-white/10 bg-gradient-to-r from-paper-100/80 to-paper-50/80 dark:from-ink-800/80 dark:to-ink-900/80 backdrop-blur-xl">
             <div className="absolute inset-0 bg-gradient-to-r from-frame-green/5 via-transparent to-frame-green-dark/5 pointer-events-none" />
             
-              <div className="relative flex items-center justify-between">
+            <div className="relative flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <Book className="w-8 h-8 text-frame-green" />
                 <div>
@@ -188,7 +172,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
             </div>
           </div>
 
-          {/* Search Bar */}
           <div className="px-6 py-4 border-b border-ink-200/10 dark:border-white/5">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-ink-400" />
@@ -202,7 +185,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
             </div>
           </div>
 
-          {/* Breadcrumbs */}
           {(currentPath || breadcrumbs.length > 0) && (
             <div className="px-6 py-3 border-b border-ink-200/10 dark:border-white/5 bg-paper-50/50 dark:bg-ink-900/50">
               <div className="flex items-center gap-2 text-sm">
@@ -228,11 +210,8 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
             </div>
           )}
 
-          {/* Content Area */}
           <div className="flex-1 flex overflow-hidden">
-            {/* File Browser with book spine effect */}
             <div className="relative w-1/3 border-r border-ink-200/10 dark:border-white/5 overflow-y-auto bg-gradient-to-r from-paper-50 to-paper-100 dark:from-ink-900 dark:to-ink-950">
-              {/* Book spine texture */}
               <div className="absolute inset-0 opacity-[0.03]" style={{
                 backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.03) 1px, rgba(0,0,0,0.03) 2px)`
               }} />
@@ -256,70 +235,72 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
                     {searchQuery ? 'No files match your search' : 'No files in this directory'}
                   </p>
                 ) : (
-                  <div className="space-y-1">
-                    {filteredFiles.map((file) => (
-                      <motion.button
-                        key={file.sha}
-                        onClick={() => {
-                          if (file.type === 'dir') {
-                            navigateToFolder(file.path)
-                          } else {
-                            fetchFileContent(file)
-                          }
-                        }}
-                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-all text-left ${
-                          selectedFile?.sha === file.sha ? 'bg-paper-100 dark:bg-ink-800' : ''
-                        }`}
-                        whileHover={{ x: 2 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {file.type === 'dir' ? (
-                          <Folder className="w-5 h-5 text-frame-green flex-shrink-0" />
-                        ) : (
-                          <span className="text-ink-500 dark:text-paper-500 flex-shrink-0">
-                            {isMarkdown(file.name) ? (
-                              <FileTextIcon className="w-4 h-4" />
+                  <>
+                    <div className="space-y-1">
+                      {filteredFiles.map((file) => {
+                        const isSelected = selectedFile?.sha === file.sha
+                        return (
+                          <motion.button
+                            key={file.sha}
+                            onClick={() => {
+                              if (file.type === 'dir') {
+                                navigateToFolder(file.path)
+                              } else {
+                                fetchFileContent(file)
+                              }
+                            }}
+                            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-paper-100 dark:hover:bg-ink-800 transition-all text-left ${
+                              isSelected ? 'bg-paper-100 dark:bg-ink-800' : ''
+                            }`}
+                            whileHover={{ x: 2 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            {file.type === 'dir' ? (
+                              <Folder className="w-5 h-5 text-frame-green flex-shrink-0" />
                             ) : (
-                              <FileIcon className="w-4 h-4" />
+                              <span className="text-ink-500 dark:text-paper-500 flex-shrink-0">
+                                {isMarkdown(file.name) ? (
+                                  <FileTextIcon className="w-4 h-4" />
+                                ) : (
+                                  <FileIcon className="w-4 h-4" />
+                                )}
+                              </span>
                             )}
-                          </span>
-                        )}
-                        <span className="text-sm truncate">{file.name}</span>
-                        {file.type === 'dir' && (
-                          <ChevronRight className="w-4 h-4 text-ink-400 ml-auto flex-shrink-0" />
-                        )}
-                      </motion.button>
-                    ))}
-                  </div>
-                  
-                  {/* Load more button */}
-                  {hasMore && (
-                    <div className="mt-4 text-center">
-                      <button
-                        onClick={loadMore}
-                        disabled={isLoadingMore}
-                        className="px-4 py-2 text-sm bg-paper-100 dark:bg-ink-800 hover:bg-paper-200 dark:hover:bg-ink-700 rounded-lg transition-colors inline-flex items-center gap-2"
-                      >
-                        {isLoadingMore ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            Loading...
-                          </>
-                        ) : (
-                          <>
-                            Load More ({allFilteredFiles.length - filteredFiles.length} more)
-                          </>
-                        )}
-                      </button>
+                            <span className="text-sm truncate">{file.name}</span>
+                            {file.type === 'dir' && (
+                              <ChevronRight className="w-4 h-4 text-ink-400 ml-auto flex-shrink-0" />
+                            )}
+                          </motion.button>
+                        )
+                      })}
                     </div>
-                  )}
+                    
+                    {hasMore && (
+                      <div className="mt-4 text-center">
+                        <button
+                          onClick={loadMore}
+                          disabled={isLoadingMore}
+                          className="px-4 py-2 text-sm bg-paper-100 dark:bg-ink-800 hover:bg-paper-200 dark:hover:bg-ink-700 rounded-lg transition-colors inline-flex items-center gap-2"
+                        >
+                          {isLoadingMore ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Loading...
+                            </>
+                          ) : (
+                            <>
+                              Load More ({allFilteredFiles.length - filteredFiles.length} more)
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
 
-            {/* File Viewer with page texture */}
             <div className="relative flex-1 overflow-y-auto bg-gradient-to-br from-paper-50 via-paper-100 to-paper-50 dark:from-ink-950 dark:via-ink-900 dark:to-ink-950">
-              {/* Paper texture overlay */}
               <div className="absolute inset-0 opacity-[0.015]" style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23000' stroke-width='0.1' opacity='0.3'%3E%3Cpath d='M30 30L45 15M30 30L15 45M30 30L45 45M30 30L15 15'/%3E%3C/g%3E%3C/svg%3E")`
               }} />
@@ -331,7 +312,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
                   </div>
                 ) : (
                   <div className="p-6">
-                    {/* File header */}
                     <div className="flex items-center justify-between mb-6 pb-4 border-b border-ink-200/10 dark:border-white/5">
                       <div>
                         <h3 className="text-xl font-semibold text-ink-900 dark:text-paper-50">{selectedFile.name}</h3>
@@ -348,10 +328,8 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
                       </a>
                     </div>
 
-                    {/* File content with book-like styling */}
                     {selectedFile.name.endsWith('.md') ? (
                       <div className="relative">
-                        {/* Book page texture */}
                         <div className="absolute inset-0 opacity-[0.02]" style={{
                           backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
                           mixBlendMode: 'multiply'
@@ -384,7 +362,6 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
                           <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
                             components={{
-                              // Custom heading renderer with anchors
                               h1: ({ children, ...props }) => (
                                 <h1 {...props} className="group relative">
                                   <span className="absolute -left-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-frame-green">#</span>
@@ -397,14 +374,12 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
                                   {children}
                                 </h2>
                               ),
-                              // Keep defaults for paragraphs and code; styling handled via prose classes
                             }}
                           >
                             {fileContent}
                           </ReactMarkdown>
                         </div>
                         
-                        {/* Page edge shadow for book effect */}
                         <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-l from-black/5 to-transparent pointer-events-none" />
                         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
                       </div>
@@ -428,7 +403,7 @@ function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: FrameCodexViewerP
           </div>
         </motion.div>
       </div>
-    </React.Fragment>
+    </>
   )
 }
 
