@@ -117,7 +117,7 @@ export default function Navigation() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-11 h-11 sm:w-12 sm:h-12">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16">
                 <Image
                   src="/frame-logo-no-subtitle.svg"
                   alt="Frame.dev"

@@ -188,6 +188,11 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
     fetchContents(parentPath)
   }
 
+  // Helper to restrict content to markdown strands
+  const isMarkdown = (filename: string) => {
+    return filename.toLowerCase().endsWith('.md') || filename.toLowerCase().endsWith('.mdx')
+  }
+
   // Only surface directories + markdown files in the sidebar to feel like a Codex TOC,
   // not a raw repo file explorer.
   const filteredFiles = files.filter((file) => {
@@ -208,10 +213,6 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
   const allFilteredFiles = filteredFiles
   const displayedFiles = allFilteredFiles.slice(0, displayLimit)
   const hasMore = allFilteredFiles.length > displayLimit
-
-  const isMarkdown = (filename: string) => {
-    return filename.toLowerCase().endsWith('.md') || filename.toLowerCase().endsWith('.mdx')
-  }
 
   // Build contribution targets based on current folder / file
   const getCurrentDir = (): string => {

@@ -210,21 +210,6 @@ export default function HomePage() {
             </motion.span>
           </motion.h1>
 
-          {/* Handwritten-style tagline (monochrome, subtle) */}
-          <motion.p
-            className="relative inline-block text-xl md:text-2xl font-serif italic text-gray-800 dark:text-gray-200 px-4 py-2"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <span className="relative">
-              <span className="relative z-10">
-                The OS for humans, the Codex of humanity.
-              </span>
-              <span className="pointer-events-none absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-500/50 to-transparent" />
-            </span>
-          </motion.p>
-
           <motion.div
             className="text-2xl md:text-3xl mt-8"
             initial={{ opacity: 0, scale: 0.95 }}
