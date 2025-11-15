@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import PageLayout from '@/components/page-layout'
-import CodexArchitectureViz from '@/components/codex-architecture-viz'
+import CodexArchitectureDiagram from '@/components/codex-architecture-diagram'
 import Link from 'next/link'
 import { Book, Layers, FileText, ArrowRight, Sparkles } from 'lucide-react'
 
@@ -28,7 +28,7 @@ export default function CodexArchitecturePage() {
         </div>
 
         {/* Interactive Visualization */}
-        <CodexArchitectureViz />
+        <CodexArchitectureDiagram />
 
         {/* Detailed Explanation */}
         <div className="mt-16 grid gap-12 md:grid-cols-2">
