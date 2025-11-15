@@ -31,7 +31,6 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
   const [selectedFile, setSelectedFile] = useState<GitHubFile | null>(null)
   const [fileContent, setFileContent] = useState<string>('')
   const [searchQuery, setSearchQuery] = useState('')
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set())
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   const [displayLimit, setDisplayLimit] = useState(50)
 
