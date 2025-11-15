@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import PageLayout from '@/components/page-layout'
-import { ChevronDown, MessageSquare } from 'lucide-react'
+import FAQAccordion from '@/components/faq-accordion'
+import { MessageSquare } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions – Frame.dev',
@@ -56,21 +57,7 @@ export default function FAQPage() {
       <div className="container mx-auto px-4 max-w-4xl pt-20 pb-20">
         <h1 className="text-5xl font-bold mb-12 heading-gradient">Frequently Asked Questions</h1>
         
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <details key={index} className="paper-card group">
-              <summary className="p-6 cursor-pointer flex items-center justify-between hover:bg-paper-100 dark:hover:bg-ink-800 transition-colors rounded-lg">
-                <h2 className="text-xl font-semibold pr-4">{faq.question}</h2>
-                <ChevronDown className="w-5 h-5 text-ink-600 dark:text-paper-400 transition-transform group-open:rotate-180" />
-              </summary>
-              <div className="px-6 pb-6 pt-2 body-text">
-                <p className="text-ink-600 dark:text-paper-400">
-                  {faq.answer}
-                </p>
-              </div>
-            </details>
-          ))}
-        </div>
+        <FAQAccordion items={faqs} />
 
         {/* Call to Action */}
         <div className="mt-16 paper-card p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20">

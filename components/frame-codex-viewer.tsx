@@ -264,8 +264,8 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
 
   const content = (
     <>
-      {/* File Browser - Sidebar */}
-      <div className="w-80 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col flex-shrink-0">
+      {/* File Browser - Sidebar - collapsible on mobile */}
+      <div className="w-full md:w-80 bg-gray-50 dark:bg-gray-900 md:border-r border-gray-200 dark:border-gray-800 flex flex-col flex-shrink-0">
         {/* Header */}
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex flex-col gap-2">
@@ -277,30 +277,31 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
               </h2>
             </div>
 
-            {/* Toolbar row */}
+            {/* Toolbar row - touch-optimized */}
             <div className="flex items-center gap-2 flex-wrap">
               {/* High-level tools */}
               <Link
                 href="/codex/search"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors touch-manipulation"
               >
                 <Search className="w-3 h-3" />
-                Search
+                <span className="hidden sm:inline">Search</span>
               </Link>
               <Link
                 href="/codex/architecture"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors touch-manipulation"
               >
                 <Home className="w-3 h-3" />
-                Diagram
+                <span className="hidden sm:inline">Diagram</span>
               </Link>
 
               {/* Contribute dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setShowContribute((v) => !v)}
-                  className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors touch-manipulation"
                   title="Contribute: add a new file or open a PR on GitHub"
+                  aria-label="Contribute"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -830,7 +831,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
     )
   }
 
-  return <div className="w-full h-screen flex">{content}</div>;
+  return <div className="w-full h-screen flex flex-col md:flex-row">{content}</div>;
 }
 
 export default FrameCodexViewer
