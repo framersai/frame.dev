@@ -11,7 +11,17 @@ export default function AboutPage() {
   return (
     <PageLayout>
       <div className="container mx-auto px-4 max-w-4xl pt-20 pb-20">
-        <h1 className="text-5xl font-bold mb-12 heading-gradient">About Frame</h1>
+        <h1 className="text-5xl font-bold mb-6 heading-gradient">About Frame</h1>
+        
+        <p 
+          className="text-xl text-gray-500 text-center mb-12 italic"
+          style={{ 
+            fontFamily: '"Brush Script MT", "Apple Chancery", cursive',
+            letterSpacing: '0.02em'
+          }}
+        >
+          The OS for humans, the codex of humanity.
+        </p>
         
         {/* Mission */}
         <section className="mb-16">

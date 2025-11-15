@@ -73,6 +73,15 @@ export default function Footer() {
           <div className="flex items-center justify-center gap-4 mb-3">
             <ThemeToggle />
           </div>
+          <p 
+            className="text-sm text-ink-400 dark:text-paper-500 mb-2 italic"
+            style={{ 
+              fontFamily: '"Brush Script MT", "Apple Chancery", cursive',
+              letterSpacing: '0.02em'
+            }}
+          >
+            The OS for humans, the codex of humanity.
+          </p>
           <p className="text-xs text-ink-500 dark:text-paper-500">
             © 2025 Framers • Infrastructure for agentic AI
           </p>

@@ -254,6 +254,20 @@ export default function HomePage() {
             Building adaptive AI intelligence that is emergent and permanent
           </motion.p>
 
+          {/* Tagline */}
+          <motion.p 
+            className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto italic"
+            style={{ 
+              fontFamily: '"Brush Script MT", "Apple Chancery", cursive',
+              letterSpacing: '0.02em'
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            The OS for humans, the codex of humanity.
+          </motion.p>
+
           <motion.div
             className="text-2xl md:text-3xl mt-6"
             initial={{ opacity: 0, scale: 0.95 }}
