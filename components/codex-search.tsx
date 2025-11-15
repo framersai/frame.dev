@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, FileText, Folder, Hash, Sparkles, TrendingUp, Clock } from 'lucide-react'
+import { Search, FileText, Folder, Hash, Sparkles, TrendingUp, Clock, ArrowUpDown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Fuse from 'fuse.js'
 
@@ -26,8 +26,11 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
   const [results, setResults] = useState<SearchResult[]>([])
   const [loading, setLoading] = useState(false)
   const [index, setIndex] = useState<any>(null)
+  const [rawIndex, setRawIndex] = useState<SearchResult[]>([])
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [recentSearches, setRecentSearches] = useState<string[]>([])
+  const [activeIndex, setActiveIndex] = useState<number>(-1)
+  const [showDropdown, setShowDropdown] = useState(false)
   const router = useRouter()
 
   // Load recent searches from localStorage
@@ -45,7 +48,7 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
         // In production, this would load a pre-built index from GitHub Actions
         const response = await fetch('/api/codex-index.json')
         if (response.ok) {
-          const data = await response.json()
+          const data: SearchResult[] = await response.json()
           
           const fuse = new Fuse(data, {
             keys: [
@@ -62,6 +65,7 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
           })
           
           setIndex(fuse)
+          setRawIndex(data)
         }
       } catch (error) {
         console.error('Failed to load search index:', error)
@@ -93,6 +97,7 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
   const performSearch = useCallback((searchQuery: string) => {
     if (!index || searchQuery.length < 2) {
       setResults([])
+      setShowDropdown(false)
       return
     }
 
@@ -109,6 +114,8 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
     }))
     
     setResults(transformedResults)
+    setShowDropdown(true)
+    setActiveIndex(transformedResults.length > 0 ? 0 : -1)
     setLoading(false)
     
     // Save to recent searches
@@ -135,6 +142,48 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
       // Navigate to the file
       router.push(`/codex?file=${result.path}`)
     }
+    setShowDropdown(false)
+    setActiveIndex(-1)
+  }
+
+  // Autocomplete options derived from index
+  const autocompleteOptions = useMemo(() => {
+    if (!query || query.length < 2 || rawIndex.length === 0) return []
+
+    const lower = query.toLowerCase()
+
+    const matches = rawIndex
+      .filter((item) => {
+        const title = (item.metadata?.title || item.name || '').toLowerCase()
+        return title.includes(lower)
+      })
+      .slice(0, 6)
+
+    return matches
+  }, [query, rawIndex])
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showDropdown || autocompleteOptions.length === 0) return
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setActiveIndex((prev) =>
+        prev < autocompleteOptions.length - 1 ? prev + 1 : 0
+      )
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setActiveIndex((prev) =>
+        prev > 0 ? prev - 1 : autocompleteOptions.length - 1
+      )
+    } else if (e.key === 'Enter') {
+      if (activeIndex >= 0 && activeIndex < autocompleteOptions.length) {
+        e.preventDefault()
+        handleSelect(autocompleteOptions[activeIndex])
+      }
+    } else if (e.key === 'Escape') {
+      setShowDropdown(false)
+      setActiveIndex(-1)
+    }
   }
 
   if (compact) {
@@ -147,12 +196,18 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
             placeholder="Search codex..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setShowDropdown(true)}
+            onBlur={() => {
+              // Small delay to allow click
+              setTimeout(() => setShowDropdown(false), 120)
+            }}
+            onKeyDown={handleKeyDown}
             className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
           />
         </div>
         
         <AnimatePresence>
-          {(results.length > 0 || suggestions.length > 0) && (
+          {showDropdown && (results.length > 0 || suggestions.length > 0) && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -163,11 +218,15 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
               {results.length > 0 && (
                 <div className="p-2">
                   <div className="text-xs font-medium text-gray-500 px-2 py-1">Results</div>
-                  {results.map((result) => (
+                  {results.map((result, idx) => (
                     <button
                       key={result.path}
                       onClick={() => handleSelect(result)}
-                      className="w-full text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg flex items-start gap-2"
+                      className={`w-full text-left px-3 py-2 rounded-lg flex items-start gap-2 transition-colors ${
+                        idx === activeIndex
+                          ? 'bg-purple-50 dark:bg-purple-900/30'
+                          : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                      }`}
                     >
                       {result.type === 'dir' ? (
                         <Folder className="w-4 h-4 text-amber-600 mt-0.5" />
@@ -218,6 +277,11 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
           placeholder="Search the codex of humanity..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setShowDropdown(true)}
+          onBlur={() => {
+            setTimeout(() => setShowDropdown(false), 120)
+          }}
+          onKeyDown={handleKeyDown}
           className="w-full pl-12 pr-4 py-4 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-2xl text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
         />
         {loading && (
@@ -225,6 +289,55 @@ export default function CodexSearch({ onSelect, compact = false }: CodexSearchPr
             <div className="w-5 h-5 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
           </div>
         )}
+
+        {/* Inline autocomplete dropdown */}
+        <AnimatePresence>
+          {showDropdown && autocompleteOptions.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              className="absolute z-50 mt-2 w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl overflow-hidden max-h-80 overflow-y-auto"
+            >
+              <div className="flex items-center justify-between px-4 py-2 text-xs text-gray-500 border-b border-gray-100 dark:border-gray-800">
+                <span className="flex items-center gap-1">
+                  <ArrowUpDown className="w-3 h-3" />
+                  Use ↑ ↓ and Enter to select
+                </span>
+                <span>{autocompleteOptions.length} matches</span>
+              </div>
+              {autocompleteOptions.map((item, idx) => (
+                <button
+                  key={item.path}
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault()
+                    handleSelect(item)
+                  }}
+                  className={`w-full text-left px-4 py-2 flex items-start gap-3 text-sm transition-colors ${
+                    idx === activeIndex
+                      ? 'bg-purple-50 dark:bg-purple-900/30'
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  {item.type === 'dir' ? (
+                    <Folder className="w-4 h-4 text-amber-600 mt-1" />
+                  ) : (
+                    <FileText className="w-4 h-4 text-blue-600 mt-1" />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-gray-900 dark:text-white truncate">
+                      {item.metadata?.title || item.name}
+                    </div>
+                    <div className="text-xs text-gray-500 truncate">
+                      {item.path}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Recent searches */}
