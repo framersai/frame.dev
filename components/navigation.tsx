@@ -111,13 +111,13 @@ export default function Navigation() {
   }, [])
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 h-24">
+    <nav className="fixed top-0 z-50 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 h-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-24 items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 -mt-2">
                 <Image
                   src="/frame-logo-no-subtitle.svg"
                   alt="Frame.dev"

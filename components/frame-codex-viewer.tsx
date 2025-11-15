@@ -268,45 +268,46 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
       <div className="w-80 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col flex-shrink-0">
         {/* Header */}
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col gap-2">
+            {/* Heading row */}
             <div className="flex items-center gap-2">
-              <Book className="w-5 h-5 text-gray-800 dark:text-gray-200" />
+              <Image src="/frame-logo-no-subtitle.svg" alt="Frame" width={20} height={20} className="dark:invert" />
               <h2 className="text-sm font-semibold tracking-[0.18em] uppercase text-gray-800 dark:text-gray-300">
                 Frame Codex
               </h2>
             </div>
-            <div className="flex items-center gap-2">
-              {/* High-level tools + contribute dropdown */}
+
+            {/* Toolbar row */}
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* High-level tools */}
               <Link
                 href="/codex/search"
-                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 <Search className="w-3 h-3" />
-                Graph &amp; search
+                Search
               </Link>
               <Link
                 href="/codex/architecture"
-                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 <Home className="w-3 h-3" />
-                Schema &amp; weaves
+                Diagram
               </Link>
 
               {/* Contribute dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setShowContribute((v) => !v)}
-                  className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
                   title="Contribute: add a new file or open a PR on GitHub"
                 >
-                  <Plus className="w-5 h-5" />
+                  <Plus className="w-4 h-4" />
                 </button>
                 {showContribute && (
                   <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-xl z-50">
                     <div className="px-3 py-2 text-xs text-gray-500 border-b border-gray-100 dark:border-gray-800">
                       Contribute to {currentDir || 'root'} in Frame Codex.
-                      <br />
-                      Use these shortcuts to create files or open a pull request.
                     </div>
                     <div className="py-1">
                       <a
