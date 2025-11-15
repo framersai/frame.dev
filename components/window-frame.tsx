@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import type { ReactNode, ComponentType } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package } from 'lucide-react'
+import { Globe, Home, Shield, Briefcase, User, Bot, X, ExternalLink, Github, Package, Layers } from 'lucide-react'
 import Image from 'next/image'
 import { WebOSIcon, HomeOSIcon, SafeOSIcon, WorkOSIcon, MyOSIcon } from './os-icons'
 
