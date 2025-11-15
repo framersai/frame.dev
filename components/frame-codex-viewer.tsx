@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Search, Folder, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText, Code, Database, Image, Hash, Link2, Map } from 'lucide-react'
+import { X, Search, Folder, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText, Code, Database, Image, Hash, Link2, Map, Plus, GitPullRequest, HelpCircle } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -79,6 +79,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
   const [displayLimit, setDisplayLimit] = useState(50)
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set())
   const [showVisualization, setShowVisualization] = useState(false)
+  const [showContribute, setShowContribute] = useState(false)
 
   const REPO_OWNER = 'framersai'
   const REPO_NAME = 'codex'
@@ -207,6 +208,24 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
     return filename.toLowerCase().endsWith('.md') || filename.toLowerCase().endsWith('.mdx')
   }
 
+  // Build contribution targets based on current folder / file
+  const getCurrentDir = (): string => {
+    if (selectedFile && selectedFile.type === 'file') {
+      return selectedFile.path.split('/').slice(0, -1).join('/')
+    }
+    return currentPath || ''
+  }
+
+  const currentDir = getCurrentDir()
+  const baseNewUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/new/main/${currentDir ? `${currentDir}/` : ''}`
+  const addStrandUrl = `${baseNewUrl}?filename=new-strand.md`
+  const yamlSuggestion = currentDir.includes('/looms')
+    ? 'loom.yaml'
+    : currentDir.includes('/weaves')
+    ? 'weave.yaml'
+    : ''
+  const addYamlUrl = yamlSuggestion ? `${baseNewUrl}?filename=${yamlSuggestion}` : ''
+
   const getFileIcon = (file: GitHubFile) => {
     if (file.type === 'dir') return <Folder className="w-5 h-5 text-amber-600" />
     
@@ -248,6 +267,69 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
               <h2 className="text-lg font-bold text-gray-900 dark:text-white">Frame Codex</h2>
             </div>
             <div className="flex items-center gap-2">
+              {/* Contribute dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowContribute((v) => !v)}
+                  className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  title="Contribute: add a new file or open a PR on GitHub"
+                >
+                  <Plus className="w-5 h-5" />
+                </button>
+                {showContribute && (
+                  <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-xl z-50">
+                    <div className="px-3 py-2 text-xs text-gray-500 border-b border-gray-100 dark:border-gray-800">
+                      Contribute to {currentDir || 'root'} in Frame Codex.
+                      <br />
+                      Use these shortcuts to create files or open a pull request.
+                    </div>
+                    <div className="py-1">
+                      <a
+                        href={addStrandUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowContribute(false)}
+                        className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm"
+                      >
+                        <FileText className="w-4 h-4 text-blue-600" />
+                        <span>Add new Markdown strand (MD)</span>
+                      </a>
+                      {addYamlUrl && (
+                        <a
+                          href={addYamlUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setShowContribute(false)}
+                          className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm"
+                        >
+                          <Code className="w-4 h-4 text-purple-600" />
+                          <span>Add {yamlSuggestion} manifest</span>
+                        </a>
+                      )}
+                      <a
+                        href={`https://github.com/${REPO_OWNER}/${REPO_NAME}/compare`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowContribute(false)}
+                        className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm"
+                      >
+                        <GitPullRequest className="w-4 h-4" />
+                        <span>Open Compare &amp; Pull Request</span>
+                      </a>
+                      <a
+                        href={`https://github.com/${REPO_OWNER}/${REPO_NAME}#contributing`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setShowContribute(false)}
+                        className="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-sm"
+                      >
+                        <HelpCircle className="w-4 h-4" />
+                        <span>Read contribution guide</span>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
               <button
                 onClick={() => setShowVisualization(!showVisualization)}
                 className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
@@ -464,7 +546,14 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                     <ReactMarkdown 
                       remarkPlugins={[remarkGfm]}
                       components={{
-                        code({ inline, className, children, ...props }) {
+                        // Typed loosely to avoid TS issues with react-markdown's internal props
+                        code(codeProps) {
+                          const { inline, className, children, ...props } = codeProps as {
+                            inline?: boolean
+                            className?: string
+                            children?: React.ReactNode
+                          } & React.HTMLAttributes<HTMLElement>
+
                           const match = /language-(\w+)/.exec(className || '')
                           return !inline && match ? (
                             <SyntaxHighlighter
@@ -478,7 +567,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                               }}
                               {...props}
                             >
-                              {String(children).replace(/\n$/, '')}
+                              {String(children ?? '').toString().replace(/\n$/, '')}
                             </SyntaxHighlighter>
                           ) : (
                             <code className="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-sm" {...props}>
