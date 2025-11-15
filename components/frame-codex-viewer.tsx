@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Search, Folder, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText, Code, Database, Image, Hash, Link2, Map, Plus, GitPullRequest, HelpCircle } from 'lucide-react'
+import { X, Search, Folder, File as FileIcon, ChevronRight, Home, Loader2, ExternalLink, Book, FileText, Code, Database, Image as ImageIcon, Hash, Link2, Map, Plus, GitPullRequest, HelpCircle } from 'lucide-react'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -252,7 +253,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
       case 'svg':
       case 'png':
       case 'jpg':
-        return <Image className="w-5 h-5 text-pink-600" />
+        return <ImageIcon className="w-5 h-5 text-pink-600" />
       default:
         return <FileIcon className="w-5 h-5 text-gray-600" />
     }
