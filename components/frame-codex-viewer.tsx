@@ -124,11 +124,11 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
   // Helper: check markdown extension
   const isMarkdown = (name: string): boolean => name.toLowerCase().endsWith('.md');
 
-  const isModal = mode === 'modal'
+  const isModal = mode === 'modal';
 
   return (
     <>
-      {isModal && (
+      {isModal ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -136,7 +136,7 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
           className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
           onClick={onClose}
         />
-      )}
+      ) : null}
 
       {/* Container */}
       <div
