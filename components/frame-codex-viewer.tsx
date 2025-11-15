@@ -74,6 +74,7 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
   const [selectedFile, setSelectedFile] = useState<GitHubFile | null>(null)
   const [fileContent, setFileContent] = useState<string>('')
   const [fileMetadata, setFileMetadata] = useState<Record<string, any>>({})
+  const [showMetadata, setShowMetadata] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   const [displayLimit, setDisplayLimit] = useState(50)
@@ -436,23 +437,31 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
             </div>
           ) : (
             <>
-              {displayedFiles.map((file) => (
-                <motion.button
-                  key={file.sha}
-                  onClick={() => handleFileClick(file)}
-                  className={`w-full text-left p-3 rounded-lg flex items-center gap-3 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors group ${
-                    selectedFile?.path === file.path ? 'bg-purple-100 dark:bg-purple-900/20 border border-purple-300 dark:border-purple-700' : ''
-                  }`}
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {getFileIcon(file)}
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex-1">{file.name}</span>
-                  {file.type === 'dir' && (
-                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600" />
-                  )}
-                </motion.button>
-              ))}
+              {displayedFiles.map((file) => {
+                const depth = file.path.split('/').length - (file.type === 'dir' ? 0 : 1)
+                const padding = depth * 12 + 4
+
+                const isDir = file.type === 'dir'
+
+                return (
+                  <motion.button
+                    key={file.sha}
+                    onClick={() => handleFileClick(file)}
+                    className={`w-full text-left py-2 pr-3 pl-[${padding}px] rounded-lg flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors ${
+                      selectedFile?.path === file.path ? 'bg-purple-100 dark:bg-purple-900/20 border border-purple-300 dark:border-purple-700' : ''
+                    }`}
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {isDir ? (
+                      <span className="inline-block w-1 h-1 rounded-full bg-gray-400 flex-shrink-0" />
+                    ) : (
+                      <span className="inline-block w-1 h-1 opacity-0" />
+                    )}
+                    <span className={`text-sm flex-1 truncate ${isDir ? 'font-semibold tracking-wide uppercase text-gray-800 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}`}>${file.name.replace(/\.(md|mdx)$/,'')}</span>
+                  </motion.button>
+                )
+              })}
               
               {hasMore && (
                 <button
@@ -538,6 +547,38 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                 </div>
               </div>
               
+              {/* Metadata toolbar */}
+              {Object.keys(fileMetadata).length > 0 && (
+                <div className="border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 px-4 py-2 text-xs flex items-center gap-4">
+                  <button
+                    className="font-semibold text-purple-600 hover:underline"
+                    onClick={() => setShowMetadata(!showMetadata)}
+                  >
+                    {showMetadata ? 'Hide' : 'Show'} metadata
+                  </button>
+                  {showMetadata && (
+                    <div className="flex flex-wrap gap-2">
+                      {fileMetadata.tags &&
+                        fileMetadata.tags.split(',').map((tag: string) => (
+                          <span key={tag} className="px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
+                            {tag.trim()}
+                          </span>
+                        ))}
+                      {fileMetadata.taxonomy && (
+                        <span className="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                          {fileMetadata.taxonomy.subject?.join?.(', ')}
+                        </span>
+                      )}
+                      {fileMetadata.version && (
+                        <span className="px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                          v{fileMetadata.version}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Metadata tags */}
               {(fileMetadata.tags || fileMetadata.taxonomy) && (
                 <div className="flex flex-wrap gap-2 mt-3">
@@ -614,6 +655,15 @@ const FrameCodexViewer: React.FC<FrameCodexViewerProps> = ({ isOpen, onClose, mo
                             {children}
                           </blockquote>
                         ),
+                        img: ({ src = '', alt = '', ...imgProps }) => {
+                          let fixedSrc = src
+                          if (src && !src.startsWith('http')) {
+                            // convert relative repo path to raw github url
+                            const base = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/`
+                            fixedSrc = base + src.replace(/^\//, '')
+                          }
+                          return <img src={fixedSrc} alt={alt} {...imgProps} />
+                        },
                         a: ({ href, children, ...props }) => {
                           // Handle internal wiki links
                           if (href?.startsWith('./') || href?.startsWith('../')) {
