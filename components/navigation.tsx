@@ -22,7 +22,11 @@ const productsDropdown = {
       description: 'The codex of humanity for LLMs',
       icon: Code2,
       color: 'text-purple-600',
-      bgColor: 'bg-purple-50 dark:bg-purple-900/20'
+      bgColor: 'bg-purple-50 dark:bg-purple-900/20',
+      submenu: [
+        { name: 'Browse', href: '/codex', icon: Code2 },
+        { name: 'Search & Explore', href: '/codex/search', icon: Search }
+      ]
     },
     {
       name: 'Frame API',
