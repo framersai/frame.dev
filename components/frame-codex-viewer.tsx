@@ -126,23 +126,18 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
 
   const isModal = mode === 'modal';
 
-  let modalOverlay: React.ReactNode = null;
-  if (isModal) {
-    modalOverlay = (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
-        onClick={onClose}
-      />
-    );
-  }
-
   return (
-    <div>
-      {modalOverlay}
-
+    <AnimatePresence>
+      {isModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
+          onClick={onClose}
+        />
+      )}
+      
       {/* Container */}
       <div
         className={
@@ -428,6 +423,6 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
           </div>
         </motion.div>
       </div>
-    </div>
+    </AnimatePresence>
   )
 }
