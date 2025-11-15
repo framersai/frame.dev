@@ -126,8 +126,9 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
 
   const isModal = mode === 'modal';
 
-  const modalOverlay = isModal
-    ? (
+  let modalOverlay: React.ReactNode = null;
+  if (isModal) {
+    modalOverlay = (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -135,8 +136,8 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
         className="fixed inset-0 bg-black/60 dark:bg-black/80 z-[10000] backdrop-blur-md"
         onClick={onClose}
       />
-    )
-    : null;
+    );
+  }
 
   return (
     <>
