@@ -144,14 +144,12 @@ export default function FrameCodexBanner() {
               </motion.div>
             </div>
 
-            {/* Right side - Animated decoration */}
+            {/* Right side - Animated decoration (slow continuous rotation) */}
             <motion.div
               className="hidden lg:block flex-shrink-0"
-              animate={{ 
-                rotate: isHovered ? 360 : 0,
-              }}
-              transition={{ 
-                duration: 20,
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 40,
                 repeat: Infinity,
                 ease: 'linear'
               }}
