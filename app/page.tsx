@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { motion, useAnimation } from 'framer-motion'
+import Link from 'next/link'
 import WindowFrame from '@/components/window-frame'
 import PageLayout from '@/components/page-layout'
 import OpenStrandPopover from '@/components/openstrand-popover'
@@ -243,6 +244,16 @@ export default function HomePage() {
             </motion.span>
           </motion.h1>
 
+          {/* Mission Statement */}
+          <motion.p 
+            className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            Building adaptive AI intelligence that is emergent and permanent
+          </motion.p>
+
           <motion.div
             className="text-2xl md:text-3xl mt-6"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -262,6 +273,95 @@ export default function HomePage() {
         >
           <WindowFrame />
         </motion.div>
+
+        {/* Core Infrastructure Section */}
+        <motion.section 
+          className="mt-16 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Core Infrastructure</h2>
+          
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <h3 className="text-xl font-semibold mb-3">Frame Codex</h3>
+              <p className="text-gray-600 mb-4">
+                The codex of humanity&apos;s knowledge, formatted perfectly for LLM retrieval. 
+                Free, open-source, and distributed.
+              </p>
+              <Link href="/codex" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
+                Explore Codex
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <h3 className="text-xl font-semibold mb-3">OpenStrand</h3>
+              <p className="text-gray-600 mb-4">
+                AI-native personal knowledge management. Local-first with semantic search 
+                and knowledge synthesis.
+              </p>
+              <Link href="https://openstrand.ai" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
+                Visit OpenStrand
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <h3 className="text-xl font-semibold mb-3">Frame API</h3>
+              <p className="text-gray-600 mb-4">
+                Programmatic access to structured knowledge with search, graphs, and relationships 
+                for AI applications.
+              </p>
+              <Link href="/api" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
+                API Documentation
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center">
+            <Link 
+              href="/products" 
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
+            >
+              View All Products
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </motion.section>
+
+        {/* Superintelligence Teaser */}
+        <motion.section 
+          className="bg-gray-900 text-white rounded-2xl p-8 md:p-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 bg-yellow-500/10 text-yellow-400 px-4 py-2 rounded-full text-sm mb-6">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+            </svg>
+            <span>Coming Soon</span>
+          </div>
+          
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            The Superintelligence Computer
+          </h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            We&apos;re building the future—a superintelligence computer that ingests all of Frame 
+            to answer any question and perform any task.
+          </p>
+        </motion.section>
 
         {/* Frame Codex Banner */}
         <FrameCodexBanner />
