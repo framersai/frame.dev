@@ -124,9 +124,9 @@ export default function FrameCodexViewer({ isOpen, onClose, mode = 'modal' }: Fr
   // Helper: check markdown extension
   const isMarkdown = (name: string): boolean => name.toLowerCase().endsWith('.md');
 
-  const isModal = mode === 'modal'
+  const isModal = mode === 'modal';
 
-  if (!isOpen && mode === 'modal') return null
+  if (!isOpen && mode === 'modal') return null;
 
   return (
     <div>
