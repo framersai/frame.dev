@@ -1,31 +1,48 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import WindowFrame from '@/components/window-frame'
 import PageLayout from '@/components/page-layout'
 import OpenStrandPopover from '@/components/openstrand-popover'
 import VCABanner from '@/components/vca-banner'
 import FrameCodexBanner from '@/components/frame-codex-banner'
+import GitHubRepos from '@/components/github-repos'
+import SuperintelligenceBanner from '@/components/superintelligence-banner'
+
+const taglines = [
+  "Building adaptive AI intelligence that is emergent and permanent",
+  "Infrastructure for open source SAFE superintelligence",
+  "Denoising the web for humanity's collective knowledge"
+]
 
 export default function HomePage() {
   const [headingRevealed, setHeadingRevealed] = useState(false)
   const [noiseLevel, setNoiseLevel] = useState(100)
   const [isDenoising, setIsDenoising] = useState(false)
+  const [currentTaglineIndex, setCurrentTaglineIndex] = useState(0)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>()
   const controls = useAnimation()
+
+  // Cycle through taglines
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTaglineIndex((prev) => (prev + 1) % taglines.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setHeadingRevealed(true)
       setIsDenoising(true)
-    }, 50) // Much faster start
+    }, 50)
     return () => clearTimeout(timeout)
   }, [])
 
-  // More interesting noise animation effect
+  // Noise animation effect
   useEffect(() => {
     if (!canvasRef.current || !isDenoising) return
 
@@ -33,7 +50,6 @@ export default function HomePage() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size
     const updateCanvasSize = () => {
       canvas.width = window.innerWidth
       canvas.height = 200
@@ -41,43 +57,35 @@ export default function HomePage() {
     updateCanvasSize()
     window.addEventListener('resize', updateCanvasSize)
 
-    let currentNoise = 80 // Start higher for more dramatic effect
-    const targetNoise = 0
-    const animationDuration = 800 // Faster denoise reveal
+    let currentNoise = 80
+    const animationDuration = 800
     const startTime = Date.now()
 
     const drawNoise = () => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / animationDuration, 1)
-
-      // More dramatic easing
       const easeOutQuart = 1 - Math.pow(1 - progress, 4)
       currentNoise = 80 * (1 - easeOutQuart)
       setNoiseLevel(currentNoise)
 
-      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       if (currentNoise > 0.5) {
-        // Create more interesting noise pattern with particles
         const imageData = ctx.createImageData(canvas.width, canvas.height)
         const data = imageData.data
 
-        // More varied noise pattern
         for (let i = 0; i < data.length; i += 4) {
           const noise = Math.random() * currentNoise
           const shouldShowNoise = Math.random() * 100 < currentNoise * 0.8
 
           if (shouldShowNoise) {
-            // Create digital rain effect with green tint
             const isGreenRain = Math.random() > 0.7
             if (isGreenRain) {
-              data[i] = noise * 0.1     // Red
-              data[i + 1] = noise * 0.8 // Green (strong tint)
-              data[i + 2] = noise * 0.2 // Blue
-              data[i + 3] = noise * 2.5 // Alpha
+              data[i] = noise * 0.1
+              data[i + 1] = noise * 0.8
+              data[i + 2] = noise * 0.2
+              data[i + 3] = noise * 2.5
             } else {
-              // Regular static
               data[i] = noise * 0.3
               data[i + 1] = noise * 0.4
               data[i + 2] = noise * 0.3
@@ -88,7 +96,7 @@ export default function HomePage() {
 
         ctx.putImageData(imageData, 0, 0)
 
-        // Digital scan lines effect
+        // Digital scan lines
         if (currentNoise > 15) {
           ctx.strokeStyle = `rgba(0, 248, 180, ${currentNoise / 300})`
           ctx.lineWidth = 1
@@ -102,7 +110,7 @@ export default function HomePage() {
           }
         }
 
-        // Matrix-style falling characters
+        // Matrix-style characters
         if (currentNoise > 25) {
           ctx.font = '10px monospace'
           ctx.fillStyle = `rgba(0, 248, 180, ${currentNoise / 150})`
@@ -114,35 +122,11 @@ export default function HomePage() {
             }
           }
         }
-
-        // Wave distortion with multiple waves
-        if (currentNoise > 10) {
-          ctx.strokeStyle = `rgba(0, 248, 180, ${currentNoise / 200})`
-          ctx.lineWidth = 2
-
-          for (let wave = 0; wave < 3; wave++) {
-            ctx.beginPath()
-            const waveOffset = (Date.now() / (10 + wave * 5)) % canvas.width
-            for (let x = 0; x < canvas.width; x += 5) {
-              const y = canvas.height / 2 +
-                       Math.sin((x + waveOffset) * 0.02) * currentNoise * 0.5 +
-                       Math.cos((x + waveOffset) * 0.01) * currentNoise * 0.3 +
-                       wave * 20
-              if (x === 0) {
-                ctx.moveTo(x, y)
-              } else {
-                ctx.lineTo(x, y)
-              }
-            }
-            ctx.stroke()
-          }
-        }
       }
 
       if (progress < 1) {
         animationRef.current = requestAnimationFrame(drawNoise)
       } else {
-        // Clean up when done
         ctx.clearRect(0, 0, canvas.width, canvas.height)
       }
     }
@@ -157,7 +141,6 @@ export default function HomePage() {
     }
   }, [isDenoising])
 
-  // Faster text reveal animation
   useEffect(() => {
     if (isDenoising) {
       controls.start({
@@ -213,7 +196,7 @@ export default function HomePage() {
                 letterSpacing: '0.2em'
               }}
             >
-              {/* Glitch effect with more intensity */}
+              {/* Glitch effect */}
               {noiseLevel > 30 && (
                 <>
                   <span
@@ -236,40 +219,54 @@ export default function HomePage() {
                   </span>
                 </>
               )}
-
-              {/* Main text */}
               <span className="relative z-10 block pb-1">
                 Denoising the web
               </span>
             </motion.span>
           </motion.h1>
 
-          {/* Mission Statement */}
-          <motion.p 
-            className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            Building adaptive AI intelligence that is emergent and permanent
-          </motion.p>
+          {/* Animated Taglines */}
+          <div className="h-16 relative mb-4">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={currentTaglineIndex}
+                className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto absolute inset-0 flex items-center justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                {taglines[currentTaglineIndex]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
 
-          {/* Tagline */}
-          <motion.p 
-            className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto italic"
-            style={{ 
-              fontFamily: '"Brush Script MT", "Apple Chancery", cursive',
-              letterSpacing: '0.02em'
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+          {/* Enhanced Tagline */}
+          <motion.div
+            className="relative inline-block"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
           >
-            The OS for humans, the codex of humanity.
-          </motion.p>
+            <motion.div
+              className="absolute -inset-2 bg-gradient-to-r from-frame-green/20 to-frame-green-dark/20 rounded-xl blur-xl"
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <p className="relative text-xl md:text-2xl font-serif bg-gradient-to-r from-frame-green to-frame-green-dark bg-clip-text text-transparent px-4 py-2">
+              The OS for humans, the codex of humanity.
+            </p>
+          </motion.div>
 
           <motion.div
-            className="text-2xl md:text-3xl mt-6"
+            className="text-2xl md:text-3xl mt-8"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.3 }}
@@ -278,7 +275,7 @@ export default function HomePage() {
           </motion.div>
         </motion.div>
 
-        {/* Interactive Window Frame with quick reveal */}
+        {/* Interactive Window Frame */}
         <motion.div
           className="relative z-20"
           initial={{ opacity: 0, scale: 0.98, filter: 'blur(4px)' }}
@@ -288,65 +285,35 @@ export default function HomePage() {
           <WindowFrame />
         </motion.div>
 
-        {/* Core Infrastructure Section */}
-        <motion.section 
-          className="mt-16 mb-12"
+        {/* Open Source Mission Statement */}
+        <motion.section
+          className="mt-16 mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Core Infrastructure</h2>
-          
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-semibold mb-3">Frame Codex</h3>
-              <p className="text-gray-600 mb-4">
-                The codex of humanity&apos;s knowledge, formatted perfectly for LLM retrieval. 
-                Free, open-source, and distributed.
-              </p>
-              <Link href="/codex" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
-                Explore Codex
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-semibold mb-3">OpenStrand</h3>
-              <p className="text-gray-600 mb-4">
-                AI-native personal knowledge management. Local-first with semantic search 
-                and knowledge synthesis.
-              </p>
-              <Link href="https://openstrand.ai" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
-                Visit OpenStrand
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-semibold mb-3">Frame API</h3>
-              <p className="text-gray-600 mb-4">
-                Programmatic access to structured knowledge with search, graphs, and relationships 
-                for AI applications.
-              </p>
-              <Link href="/api" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
-                API Documentation
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-          
-          <div className="mt-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 bg-clip-text text-transparent">
+            Infrastructure for Open Source SAFE Superintelligence
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
+            We&apos;re building the foundation for humanity&apos;s collective intelligence. 
+            Our mission is to ensure that superintelligence remains open, safe, and aligned with human values.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link 
-              href="/products" 
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
+              href="https://github.com/framersai" 
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all transform hover:scale-105"
             >
-              View All Products
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              Join as Collaborator
+            </Link>
+            <Link 
+              href="/about" 
+              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all transform hover:scale-105"
+            >
+              Learn Our Mission
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
@@ -354,31 +321,22 @@ export default function HomePage() {
           </div>
         </motion.section>
 
-        {/* Superintelligence Teaser */}
-        <motion.section 
-          className="bg-gray-900 text-white rounded-2xl p-8 md:p-12 text-center"
+        {/* GitHub Repos Showcase */}
+        <motion.section
+          className="mt-16 mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
         >
-          <div className="inline-flex items-center gap-2 bg-yellow-500/10 text-yellow-400 px-4 py-2 rounded-full text-sm mb-6">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-            </svg>
-            <span>Coming Soon</span>
-          </div>
-          
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            The Superintelligence Computer
-          </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            We&apos;re building the future—a superintelligence computer that ingests all of Frame 
-            to answer any question and perform any task.
-          </p>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Open Source Projects</h2>
+          <GitHubRepos />
         </motion.section>
 
         {/* Frame Codex Banner */}
         <FrameCodexBanner />
+
+        {/* Superintelligence Banner */}
+        <SuperintelligenceBanner />
       </div>
     </PageLayout>
   )

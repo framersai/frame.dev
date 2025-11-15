@@ -303,12 +303,12 @@ export default function OpenStrandPopover() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 dark:bg-black/70 z-[9999] backdrop-blur-md"
+              className="fixed inset-0 bg-black/50 dark:bg-black/70 z-[60] backdrop-blur-md"
               onClick={() => setIsOpen(false)}
             />
 
             {/* Modal - enhanced styling */}
-            <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+            <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.88, y: 40, rotateX: -8 }}
                 animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}

@@ -1,212 +1,259 @@
-import type { Metadata } from 'next'
+import { Metadata } from 'next'
+import Link from 'next/link'
 import PageLayout from '@/components/page-layout'
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
+import { Github, Linkedin, Twitter, Mail, Zap, Shield, Globe, Brain } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Frame.dev – AI Infrastructure for Knowledge and Superintelligence',
-  description:
-    'Frame.dev is building adaptive AI infrastructure for agents and superintelligence—denoising the web and serving as the OS for humans and the codex of humanity.',
+  title: 'About Frame.dev – Building AI Infrastructure for Superintelligence',
+  description: 'Learn about our mission to build open source SAFE superintelligence infrastructure. We\'re creating the OS for humans, the codex of humanity, and denoising the web for AI agents and beyond.',
 }
 
 export default function AboutPage() {
   return (
     <PageLayout>
       <div className="container mx-auto px-4 max-w-4xl pt-20 pb-20">
-        <h1 className="text-5xl font-bold mb-6 heading-gradient">About Frame</h1>
+        <h1 className="text-5xl font-bold mb-8 heading-gradient">About Frame.dev</h1>
         
-        <p 
-          className="text-xl text-gray-500 text-center mb-12 italic"
-          style={{ 
-            fontFamily: '"Brush Script MT", "Apple Chancery", cursive',
-            letterSpacing: '0.02em'
-          }}
-        >
-          The OS for humans, the codex of humanity.
-        </p>
-        
+        {/* Tagline */}
+        <div className="text-center mb-12">
+          <p className="text-2xl font-serif bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            The OS for humans, the codex of humanity.
+          </p>
+        </div>
+
         {/* Mission */}
-        <section className="mb-16">
+        <section className="mb-16" id="superintelligence">
           <h2 className="text-3xl font-bold mb-6 heading-display">Our Mission</h2>
           <div className="space-y-6 body-text">
-            <p className="text-lg">
-              Frame is building the infrastructure layer for agentic AI. We believe the future of computing 
-              requires specialized operating systems that can manage, orchestrate, and secure AI agents 
-              at scale.
+            <p className="text-xl font-medium text-gray-900 dark:text-white">
+              We&apos;re building the AI infrastructure for superintelligence.
             </p>
             <p className="text-lg">
-              Through our suite of open-source operating systems—WebOS, HomeOS, AgentOS, SafeOS, WorkOS, 
-              and MyOS—we're creating the foundation for a world where AI agents seamlessly integrate 
-              into every aspect of digital life.
+              Frame.dev is creating the foundation for open source SAFE superintelligence—infrastructure 
+              that ensures AGI and superintelligence remain transparent, auditable, and aligned with human values. 
+              Our work spans three core pillars:
             </p>
-          </div>
-        </section>
-
-        {/* Open Source Commitment */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 heading-display">Open Source First</h2>
-          <div className="space-y-6 body-text">
-            <p className="text-lg">
-              All Frame projects are open source, available under MIT or Apache 2.0 licenses. We believe 
-              in building in public and empowering developers worldwide to contribute to and build upon 
-              our work.
-            </p>
-            <p className="text-lg">
-              Every operating system we publish ships with a fully functional Community Edition that is free 
-              for personal use forever. Enterprise and Teams editions add multi-tenant controls, fine-grained 
-              RBAC, and advanced collaboration features for organizations, but the core capabilities are always 
-              accessible to the community.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div className="grid gap-6 md:grid-cols-3 mt-8">
               <div className="paper-card p-6">
-                <h3 className="text-xl font-semibold mb-3 text-frame-green">Community Edition</h3>
+                <Brain className="w-12 h-12 text-purple-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-3">Adaptive Intelligence</h3>
                 <p className="text-ink-600 dark:text-paper-400">
-                  Full access to all core features, perfect for individuals and small teams building 
-                  the future of AI.
+                  Building AI that is emergent and permanent, capable of continuous learning and adaptation 
+                  while maintaining safety guarantees.
                 </p>
               </div>
               <div className="paper-card p-6">
-                <h3 className="text-xl font-semibold mb-3 text-frame-green">Enterprise Edition</h3>
+                <Shield className="w-12 h-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-3">SAFE Architecture</h3>
                 <p className="text-ink-600 dark:text-paper-400">
-                  Advanced features, dedicated support, and SLAs for organizations deploying at scale.
+                  Open source infrastructure with built-in safety mechanisms, transparency, and 
+                  human-aligned values by design.
+                </p>
+              </div>
+              <div className="paper-card p-6">
+                <Globe className="w-12 h-12 text-blue-600 mb-4" />
+                <h3 className="text-xl font-semibold mb-3">Denoising the Web</h3>
+                <p className="text-ink-600 dark:text-paper-400">
+                  Curating humanity&apos;s knowledge into structured, verifiable formats that AI systems 
+                  can understand and trust.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Team */}
+        {/* Vision */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 heading-display">The Team</h2>
+          <h2 className="text-3xl font-bold mb-6 heading-display">The Superintelligence Computer</h2>
           <div className="space-y-6 body-text">
             <p className="text-lg">
-              Frame is built by a distributed team of engineers, researchers, and designers passionate 
-              about the intersection of AI and operating systems. We're united by our belief that the 
-              next generation of computing requires fundamentally new infrastructure.
+              Our ultimate vision is the Superintelligence Computer—a system that ingests all of Frame&apos;s 
+              knowledge to answer any question and perform any task, while remaining safe, transparent, and 
+              aligned with human values.
             </p>
-            <div className="paper-card p-8">
-              <p className="text-lg mb-6">
-                Our team brings together expertise in distributed systems, AI/ML, security, and developer 
-                experience. We've previously built products at leading technology companies and research 
-                institutions.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="https://github.com/framersai" target="_blank" rel="noopener noreferrer"
-                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
-                  <Github className="w-5 h-5" />
-                  GitHub
+            <p className="text-lg">
+              This isn&apos;t just about building powerful AI. It&apos;s about ensuring that as we approach 
+              AGI and superintelligence, the infrastructure remains open, auditable, and beneficial to all 
+              humanity. We believe the path to safe superintelligence requires:
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Open source development for transparency and trust</li>
+              <li>Structured knowledge that AI can verify and understand</li>
+              <li>Local-first architecture giving users control</li>
+              <li>Community governance and oversight</li>
+              <li>Safety mechanisms built into every layer</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Products */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">Our Infrastructure</h2>
+          <div className="space-y-6 body-text">
+            <p className="text-lg">
+              Frame.dev&apos;s infrastructure forms the foundation for safe superintelligence:
+            </p>
+            <div className="space-y-8 mt-8">
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-semibold mb-3 text-purple-600">Frame Codex</h3>
+                <p className="text-ink-600 dark:text-paper-400 mb-3">
+                  The codex of humanity—a structured repository of human knowledge designed for LLM ingestion. 
+                  Organized as strands, looms, and weaves for optimal AI understanding.
+                </p>
+                <Link href="/codex" className="text-frame-green hover:underline">
+                  Explore the Codex →
+                </Link>
+              </div>
+              
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-semibold mb-3 text-frame-green">OpenStrand</h3>
+                <p className="text-ink-600 dark:text-paper-400 mb-3">
+                  AI-native knowledge infrastructure that adds computational intelligence on top of Frame Codex. 
+                  Enables local-first knowledge management with semantic search and knowledge graphs.
+                </p>
+                <a href="https://openstrand.ai" target="_blank" rel="noopener noreferrer" 
+                   className="text-frame-green hover:underline">
+                  Learn more →
                 </a>
-                <a href="https://linkedin.com/company/framersai" target="_blank" rel="noopener noreferrer"
-                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
-                  <Linkedin className="w-5 h-5" />
-                  LinkedIn
-                </a>
-                <a href="https://twitter.com/framersai" target="_blank" rel="noopener noreferrer"
-                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
-                  <Twitter className="w-5 h-5" />
-                  Twitter
-                </a>
-                <a href="mailto:team@frame.dev"
-                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
-                  <Mail className="w-5 h-5" />
-                  team@frame.dev
+              </div>
+              
+              <div className="paper-card p-6">
+                <h3 className="text-xl font-semibold mb-3 text-green-600">AgentOS</h3>
+                <p className="text-ink-600 dark:text-paper-400 mb-3">
+                  Adaptive AI agency runtime that orchestrates intelligent agents with safety guardrails, 
+                  human-in-the-loop controls, and transparent decision-making.
+                </p>
+                <a href="https://agentos.sh" target="_blank" rel="noopener noreferrer" 
+                   className="text-frame-green hover:underline">
+                  Get started →
                 </a>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Open Source Philosophy */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-6 heading-display">Open Source for Open Superintelligence</h2>
+          <div className="space-y-6 body-text">
+            <p className="text-lg">
+              We demand and build infrastructure for open source SAFE superintelligence. Every line of code, 
+              every design decision, and every architectural choice is made with transparency and safety in mind.
+            </p>
+            <p className="text-lg">
+              All Frame projects are available under MIT or Apache 2.0 licenses. We believe that the path to 
+              safe superintelligence requires radical transparency, community collaboration, and collective 
+              oversight. No single entity should control the infrastructure of superintelligence.
+            </p>
           </div>
         </section>
 
         {/* Join Us */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 heading-display">Join Us</h2>
-          <div className="paper-card p-8 bg-gradient-to-br from-paper-100/50 to-paper-50/50 dark:from-ink-800/50 dark:to-ink-900/50">
-            <p className="text-lg mb-4">
-              We're always looking for exceptional people to join our mission. If you're passionate about 
-              building the future of AI infrastructure, we'd love to hear from you.
-            </p>
-            <p className="text-lg">
-              For opportunities and general inquiries, please reach out to{' '}
-              <a href="mailto:team@frame.dev" className="text-frame-green hover:underline">
-                team@frame.dev
-              </a>
-            </p>
-          </div>
-        </section>
-
-        {/* Frame Ecosystem */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 heading-display">The Frame Ecosystem</h2>
+          <h2 className="text-3xl font-bold mb-6 heading-display">Join the Mission</h2>
           <div className="space-y-6 body-text">
             <p className="text-lg">
-              Every Frame OS is built on top of <strong>AgentOS</strong> and <strong>OpenStrand</strong>, 
-              our foundational technologies for agent orchestration and distributed computing. This shared 
-              architecture ensures seamless interoperability and consistent developer experience across all 
-              our operating systems.
+              We&apos;re looking for collaborators and experts who share our vision of building infrastructure 
+              for open source SAFE superintelligence. Whether you&apos;re a researcher, developer, or thinker, 
+              there&apos;s a place for you in this mission.
             </p>
-            <div className="grid gap-4">
-              <div className="paper-card p-6">
-                <h3 className="text-xl font-bold mb-3 text-frame-green">WebOS</h3>
-                <p className="text-ink-600 dark:text-paper-400">
-                  Your OS interface for the web. A unified layer bridging Web 2.0 and Web 3.0 standards, 
-                  authentication systems, and protocols—providing a consistent interface for all web interactions.
-                </p>
-              </div>
-              <div className="paper-card p-6">
-                <h3 className="text-xl font-bold mb-3 text-frame-green">HomeOS</h3>
-                <p className="text-ink-600 dark:text-paper-400">
-                  All-in-one intelligent smart home. The complete platform with AI integrations and assistants 
-                  managing everything from security to comfort, energy to entertainment.
-                </p>
-              </div>
-              <div className="paper-card p-6">
-                <h3 className="text-xl font-bold mb-3 text-frame-green">SafeOS</h3>
-                <p className="text-ink-600 dark:text-paper-400">
-                  Digital trusted safe vault. Your secure digital vault for documents, identity monitoring, 
-                  and malware protection. Features automated signing, death switches, and dependent management 
-                  intelligence.
-                </p>
-              </div>
-              <div className="paper-card p-6">
-                <h3 className="text-xl font-bold mb-3 text-frame-green">WorkOS</h3>
-                <p className="text-ink-600 dark:text-paper-400">
-                  CRM & work platform with AI agents. The complete work platform combining CRM, project 
-                  management, and AI agents. Built on AgentOS and OpenStrand for seamless enterprise automation.
-                </p>
-              </div>
-              <div className="paper-card p-6">
-                <h3 className="text-xl font-bold mb-3 text-frame-green">MyOS</h3>
-                <p className="text-ink-600 dark:text-paper-400">
-                  Your personalized virtual assistant. The central dashboard customized for you, managing all 
-                  Frame OS integrations, data sharing, and syncing across your digital life.
-                </p>
+            <div className="paper-card p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20">
+              <h3 className="text-xl font-semibold mb-4">Ways to Contribute</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-2">
+                  <Zap className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <span>Contribute code to our open source repositories</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Zap className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <span>Add knowledge to Frame Codex</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Zap className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <span>Build applications using our APIs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Zap className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <span>Join discussions on safety and alignment</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Zap className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <span>Help us denoise the web</span>
+                </li>
+              </ul>
+              <div className="flex flex-wrap gap-4 mt-6">
+                <a href="https://github.com/framersai" target="_blank" rel="noopener noreferrer"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Github className="w-5 h-5" />
+                  GitHub
+                </a>
+                <a href="https://github.com/framersai/discussions" target="_blank" rel="noopener noreferrer"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Mail className="w-5 h-5" />
+                  Discussions
+                </a>
+                <a href="mailto:team@frame.dev"
+                   className="inline-flex items-center gap-2 text-frame-green hover:underline">
+                  <Mail className="w-5 h-5" />
+                  Contact
+                </a>
               </div>
             </div>
           </div>
         </section>
 
         {/* Values */}
-        <section>
+        <section className="mb-16">
           <h2 className="text-3xl font-bold mb-6 heading-display">Our Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="paper-card p-6">
-              <h3 className="text-xl font-semibold mb-3">Transparency</h3>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Transparency</h3>
               <p className="text-ink-600 dark:text-paper-400">
-                Building in public, sharing our learnings, and fostering open collaboration.
+                Open source everything. No black boxes. Every decision and implementation detail is public.
               </p>
             </div>
-            <div className="paper-card p-6">
-              <h3 className="text-xl font-semibold mb-3">Innovation</h3>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Safety First</h3>
               <p className="text-ink-600 dark:text-paper-400">
-                Pushing boundaries and reimagining what's possible with AI infrastructure.
+                Every feature is designed with safety in mind. We build guardrails before capabilities.
               </p>
             </div>
-            <div className="paper-card p-6">
-              <h3 className="text-xl font-semibold mb-3">Community</h3>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Human Alignment</h3>
               <p className="text-ink-600 dark:text-paper-400">
-                Empowering developers worldwide to build the future together.
+                Technology should amplify human potential, not replace it. Humans remain in control.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Community Driven</h3>
+              <p className="text-ink-600 dark:text-paper-400">
+                The future of AI belongs to everyone. We build with and for the global community.
               </p>
             </div>
           </div>
         </section>
+
+        {/* Footer CTA */}
+        <div className="text-center paper-card p-12 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+          <h2 className="text-3xl font-bold mb-4">Ready to build the future?</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+            Join us in building the infrastructure for open source SAFE superintelligence. 
+            Every contribution matters in shaping how AI will serve humanity.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link href="/products" className="btn-primary">
+              Explore Our Products
+            </Link>
+            <a 
+              href="https://github.com/framersai" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-secondary"
+            >
+              Start Contributing
+            </a>
+          </div>
+        </div>
       </div>
     </PageLayout>
   )

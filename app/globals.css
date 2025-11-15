@@ -41,16 +41,18 @@
 @layer components {
   /* Paper-inspired components */
   .paper-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 248, 253, 0.9) 100%);
-    @apply dark:bg-transparent rounded-xl;
-    @apply shadow-paper hover:shadow-paper-hover;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 251, 252, 0.95) 100%);
+    @apply rounded-xl;
     @apply transition-all duration-300;
-    @apply border border-white/60 dark:border-frame-green/15;
-    @apply dark:shadow-[0_20px_40px_-24px_rgba(0,0,0,0.8)];
+    @apply border border-gray-200/80 dark:border-gray-800/50;
+    @apply shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)];
+    @apply hover:shadow-[0_10px_25px_rgba(0,0,0,0.12),0_4px_10px_rgba(0,0,0,0.08)];
+    @apply dark:shadow-[0_1px_3px_rgba(0,0,0,0.4),0_1px_2px_rgba(0,0,0,0.3)];
+    @apply dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.6),0_5px_15px_rgba(0,0,0,0.4)];
   }
 
   .dark .paper-card {
-    background: linear-gradient(145deg, rgba(32, 40, 56, 0.95) 0%, rgba(18, 23, 36, 0.92) 100%);
+    background: linear-gradient(145deg, rgba(24, 24, 27, 0.98) 0%, rgba(17, 17, 19, 0.95) 100%);
   }
 
   .paper-card-lifted {

@@ -95,29 +95,6 @@ const osData: Record<string, OSDefinition> = {
     customSvg: <HomeOSIcon className="w-12 h-12" />,
     features: ['Matter Protocol Support', 'Voice Control', 'Energy Management', 'Security Integration']
   },
-  OpenStrand: {
-    title: 'OpenStrand',
-    icon: LayersIcon,
-    description: 'AI-native knowledge infrastructure for teams that want to own their data',
-    longDescription:
-      'OpenStrand is the knowledge infrastructure powering Frame.dev. It combines TypeScript-everywhere architecture, database abstraction (PostgreSQL and embedded SQLite/PGlite), local-first defaults, and comprehensive documentation in a single monorepo. Built for teams that need full control over their knowledge management and AI interactions.',
-    status: 'Live',
-    statusColor: 'text-green-600',
-    logo: '/openstrand-logo.svg',
-    links: {
-      github: 'https://github.com/framersai/openstrand-monorepo',
-      npm: 'https://npmjs.com/org/framers',
-      website: 'https://openstrand.ai'
-    },
-    features: [
-      'TypeScript everywhere – backend, frontend, and shared SDKs in one workspace',
-      'Database abstraction – Prisma schema powers both PostgreSQL and embedded SQLite/PGlite modes',
-      'Local-first defaults – scripts detect local environments and disable cloud-only features automatically',
-      'Ready for OSS – MIT licensed, clean documentation set, and reproducible installs',
-      'Intelligent data pipeline – 20+ format imports with block-level organization',
-      'Knowledge graph visualization with typed edges and hierarchical structures'
-    ]
-  },
   AgentOS: {
     title: 'AgentOS',
     icon: Bot,

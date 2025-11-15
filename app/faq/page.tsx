@@ -1,53 +1,52 @@
-import type { Metadata } from 'next'
+import { Metadata } from 'next'
 import PageLayout from '@/components/page-layout'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, MessageSquare } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Frame.dev FAQ – OS for Humans and AI Agents',
-  description:
-    'Frequently asked questions about Frame.dev, Frame Codex, OpenStrand, and our AI infrastructure for agents, knowledge graphs, and superintelligence.',
+  title: 'Frequently Asked Questions – Frame.dev',
+  description: 'Learn about Frame.dev\'s mission to build AI infrastructure for open source SAFE superintelligence, Frame Codex, OpenStrand, and how you can contribute to the future of AI.',
 }
 
 const faqs = [
   {
-    question: 'What is Frame?',
-    answer: 'Frame is a revolutionary suite of operating systems designed to organize, simplify, and enhance every aspect of your digital existence. We provide specialized operating systems for different domains—web, home, work, security, and personal life—all built on our unified OpenStrand architecture.'
+    question: 'What is Frame.dev?',
+    answer: 'Frame.dev is building the AI infrastructure for superintelligence. We provide the OS for humans, the codex of humanity, and the foundation for open source SAFE superintelligence. Our ecosystem includes specialized operating systems, knowledge management tools, and AI runtimes—all designed to empower the next generation of intelligent systems.'
   },
   {
-    question: 'How are all Frame operating systems connected?',
-    answer: 'Every Frame OS is built on top of AgentOS and OpenStrand. AgentOS provides the adaptive intelligence runtime for AI agents, while OpenStrand is our distributed architecture that enables event-driven message passing, federated state management, and seamless interoperability between all operating systems.'
+    question: 'What is your mission with superintelligence?',
+    answer: 'We believe superintelligence should be open, safe, and aligned with human values. We\'re building the infrastructure to ensure AGI and superintelligence remain transparent, auditable, and beneficial to all humanity. This includes Frame Codex (knowledge repository), OpenStrand (AI-native infrastructure), and AgentOS (adaptive AI runtime).'
   },
   {
-    question: 'What is AgentOS?',
-    answer: 'AgentOS is our production-ready runtime for AI agents. It\'s the foundational layer that powers all Frame operating systems, enabling developers to deploy, manage, and orchestrate intelligent agents at scale. Built with TypeScript, it supports all major AI providers and includes features like real-time observability, guardrails, and policy enforcement.'
+    question: 'Is Frame open source?',
+    answer: 'Yes! We demand and build infrastructure for open source SAFE superintelligence. All Frame projects are available under MIT or Apache 2.0 licenses. We believe that the path to safe superintelligence requires transparency, collaboration, and community oversight.'
   },
   {
-    question: 'What is OpenStrand?',
-    answer: 'OpenStrand is the distributed architecture that connects all Frame operating systems. It provides event-driven message passing for real-time communication, federated state management with distributed consensus, zero-trust security model with end-to-end encryption, and infinite extensibility through a modular, plugin-based architecture.'
+    question: 'What is Frame Codex?',
+    answer: 'Frame Codex is "the codex of humanity"—a structured repository of human knowledge designed for LLM ingestion. It organizes information as strands (atomic units), looms (curated groups), and weaves (complete collections). The Codex powers our API and is freely available on GitHub for AI training and research.'
   },
   {
-    question: 'Are Frame operating systems open source?',
-    answer: 'Yes! All Frame projects are open source, available under MIT or Apache 2.0 licenses. We believe in building in public and invite developers worldwide to contribute. Each OS has both Community and Enterprise editions, with the Community edition being free for personal use forever.'
+    question: 'How does OpenStrand fit into the vision?',
+    answer: 'OpenStrand is our AI-native knowledge infrastructure that adds computational intelligence on top of Frame Codex. It enables local-first knowledge management, semantic search, and knowledge graphs—all designed to help AI systems understand and navigate human knowledge effectively.'
   },
   {
-    question: 'Which operating systems are currently available?',
-    answer: 'AgentOS is currently live and production-ready. WebOS, HomeOS, SafeOS, WorkOS, and MyOS are in active development, with early access versions coming soon. Follow our GitHub repositories for the latest updates.'
+    question: 'Which products are currently available?',
+    answer: 'AgentOS (AI runtime) and OpenStrand are currently live. Frame Codex is accessible at frame.dev/codex, and our API is in beta. WebOS, HomeOS, SafeOS, WorkOS, and MyOS are in development. The Superintelligence Computer is our long-term vision currently in research phase.'
   },
   {
-    question: 'How can I get started with Frame?',
-    answer: 'Start with AgentOS at agentos.sh. You can install it with pnpm add @framers/agentos, use the create-agentos CLI to scaffold a project, or explore our GitHub repositories. Join our Discord community for support and to connect with other builders.'
+    question: 'How can I contribute to the mission?',
+    answer: 'We\'re looking for collaborators and experts who share our vision of open source SAFE superintelligence. You can contribute code on GitHub, add knowledge to Frame Codex, build on our APIs, or join our community discussions. Every contribution helps build safer AI infrastructure.'
   },
   {
-    question: 'What makes Frame different from other platforms?',
-    answer: 'Frame is not just another platform—it\'s a fundamental reimagining of how we interact with technology. By providing specialized operating systems for every domain of digital life, all interconnected through AgentOS and OpenStrand, we enable a level of integration and intelligence that traditional platforms can\'t match.'
+    question: 'What makes Frame different from other AI platforms?',
+    answer: 'Frame is building adaptive AI intelligence that is emergent and permanent. We\'re not just creating tools—we\'re building the foundation for superintelligence. Our focus on openness, safety, and human-aligned values sets us apart. We\'re denoising the web and creating infrastructure that will serve humanity for generations.'
   },
   {
-    question: 'Can I use Frame operating systems independently?',
-    answer: 'Yes! While Frame operating systems are designed to work seamlessly together through OpenStrand, each one is fully functional on its own. You can start with the OS that best fits your needs and expand to others as desired.'
+    question: 'How does Frame ensure AI safety?',
+    answer: 'Safety is built into our architecture: open source for transparency, local-first for control, structured knowledge for alignment, and community governance for oversight. Our infrastructure is designed to be auditable, interpretable, and aligned with human values by default.'
   },
   {
-    question: 'How does Frame handle my data and privacy?',
-    answer: 'Frame is built with privacy and data sovereignty at its core. Our zero-trust security model ensures end-to-end encryption, and you maintain full control over your data. Each OS can run locally or in your preferred cloud environment, and our open-source nature means you can audit exactly how your data is handled.'
+    question: 'What about data privacy and sovereignty?',
+    answer: 'Frame is built with privacy and data sovereignty at its core. Our local-first architecture means you control your data. The infrastructure supports end-to-end encryption, zero-knowledge proofs, and decentralized storage options. You choose where your data lives and who can access it.'
   }
 ]
 
@@ -73,21 +72,34 @@ export default function FAQPage() {
           ))}
         </div>
 
-        {/* Contact Section */}
-        <div className="mt-16 paper-card p-8 bg-gradient-to-br from-frame-green/5 to-frame-green-dark/5">
-          <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
+        {/* Call to Action */}
+        <div className="mt-16 paper-card p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20">
+          <h2 className="text-2xl font-bold mb-4">Join the Mission</h2>
           <p className="body-text mb-6">
-            Can't find what you're looking for? Get in touch with our team or join our community.
+            We&apos;re building the infrastructure for open source SAFE superintelligence. 
+            Join our community of researchers, developers, and thinkers working towards a future 
+            where AI amplifies human potential.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href="https://discord.gg/VXXC4SJMKh" className="btn-primary">
-              Join Discord
+            <a 
+              href="https://github.com/framersai/discussions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary flex items-center gap-2"
+            >
+              <MessageSquare className="w-5 h-5" />
+              Join Discussions
             </a>
-            <a href="mailto:team@frame.dev" className="btn-secondary">
-              Email Us
-            </a>
-            <a href="https://github.com/framersai" className="btn-ghost">
-              View on GitHub
+            <a 
+              href="https://github.com/framersai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary flex items-center gap-2"
+            >
+              Contribute on GitHub
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
             </a>
           </div>
         </div>
