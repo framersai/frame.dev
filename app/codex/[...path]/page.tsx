@@ -17,6 +17,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+// Required for static export with dynamic routes
+export async function generateStaticParams() {
+  // Return empty array - pages will be generated on-demand
+  return []
+}
+
+export const dynamicParams = true
+
 export default function CodexWikiPage({ params }: Props) {
   // Convert path array to path string
   const path = params.path?.join('/') || ''
