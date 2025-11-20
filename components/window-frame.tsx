@@ -23,14 +23,14 @@ const panes: Pane[] = [
   {
     id: 'homeos',
     title: 'HomeOS',
-    subtitle: 'Smart home platform',
+    subtitle: 'Smart home platform & AI Agent',
     color: 'from-amber-400 to-orange-600',
     active: false
   },
   {
     id: 'agentos',
     title: 'AgentOS',
-    subtitle: 'Adaptive agent platform',
+    subtitle: 'Adaptive AI Agent platform',
     color: 'from-green-400 to-emerald-600',
     url: 'https://agentos.sh',
     active: true
@@ -45,14 +45,14 @@ const panes: Pane[] = [
   {
     id: 'workos',
     title: 'WorkOS',
-    subtitle: 'Project & CRM platform',
+    subtitle: 'Project, CRM & AI Agency',
     color: 'from-pink-400 to-rose-600',
     active: false
   },
   {
     id: 'myos',
     title: 'MyOS',
-    subtitle: 'Universal dashboard',
+    subtitle: 'Universal dashboard for your life',
     color: 'from-gray-400 to-gray-600',
     active: false
   }
@@ -108,9 +108,9 @@ export default function WindowFrame({ hoveredPane, setHoveredPane }: WindowFrame
               
               {/* Content */}
               <div className="relative z-10 h-full flex flex-col justify-center items-center p-4 text-center">
-                <h3 className="text-lg md:text-xl font-bold ink-text mb-1">
+                <h2 className="text-lg md:text-xl font-bold ink-text mb-1">
                   {pane.title}
-                </h3>
+                </h2>
                 <p className="text-xs md:text-sm text-ink-600 dark:text-paper-300">
                   {pane.subtitle}
                 </p>

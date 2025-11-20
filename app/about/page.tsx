@@ -28,14 +28,14 @@ export default function AboutPage() {
 
             <h2 className="text-2xl font-serif font-bold mt-12 mb-4">The OS for Your Life</h2>
             <p>
-              We're building more than software; we're creating a new paradigm for how humans interact with digital systems. Frame represents a suite of operating systems, each designed for a specific aspect of modern life, all working in harmony to create a cohesive digital experience.
+              We're building more than software; we're creating a new paradigm for how humans interact with digital systems. Frame represents a suite of operating systems—from AgentOS to HomeOS—each designed for a specific aspect of modern life, all working in harmony to create a cohesive digital experience.
             </p>
 
             <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Our Ecosystem</h2>
             <div className="space-y-4">
               <div className="pl-4 border-l-4 border-frame-green">
                 <h3 className="font-bold">AgentOS</h3>
-                <p className="text-base">The adaptive agent platform—our first and original OS, powered by Frame. Live and evolving.</p>
+                <p className="text-base">The adaptive AI agent platform—our first and original OS, powered by Frame. Live and evolving as an open-source initiative.</p>
               </div>
               <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
                 <h3 className="font-bold">WebOS</h3>
@@ -43,7 +43,7 @@ export default function AboutPage() {
               </div>
               <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
                 <h3 className="font-bold">HomeOS</h3>
-                <p className="text-base">The intelligent platform for smart home management and automation.</p>
+                <p className="text-base">The intelligent platform for smart home management and automation, functioning as your personal AI Agency at home.</p>
               </div>
               <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
                 <h3 className="font-bold">SafeOS</h3>
@@ -51,20 +51,22 @@ export default function AboutPage() {
               </div>
               <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
                 <h3 className="font-bold">WorkOS</h3>
-                <p className="text-base">The comprehensive platform for work management, projects, and CRM.</p>
+                <p className="text-base">The comprehensive platform for work management, projects, and CRM, integrated with AI agents.</p>
               </div>
               <div className="pl-4 border-l-4 border-ink-300 dark:border-ink-700">
                 <h3 className="font-bold">MyOS</h3>
-                <p className="text-base">The dashboard that manages all OSes—your personal command center.</p>
+                <p className="text-base">The dashboard that manages all OSes—your personal command center and OS for your life.</p>
               </div>
             </div>
 
             <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Built on OpenStrand</h2>
             <p>
-              At the foundation of our ecosystem lies OpenStrand—the backbone technology that powers all our OS sites. It represents our commitment to open infrastructure, allowing anyone to build upon and extend our work.
+              At the foundation of our ecosystem lies OpenStrand (OpenStrand.ai)—the backbone technology that powers all our OS sites. It represents our commitment to open infrastructure, allowing anyone to build upon and extend our work, contributing to the OpenStrand OS vision.
             </p>
 
-            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">Our Philosophy</h2>
+            <h2 className="text-2xl font-serif font-bold mt-12 mb-4">
+              Our Philosophy: <span className="lowercase text-lg font-medium animate-ink-breathe inline-block ml-2 font-sans text-ink-500 dark:text-paper-400">we are the framers</span>
+            </h2>
             <p>
               We believe in minimalism without sacrifice, elegance without pretense, and functionality without complexity. Every line of code, every design decision, every interaction is crafted with intention—to create systems that feel as natural as paper and ink, yet as powerful as the future demands.
             </p>

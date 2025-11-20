@@ -2,9 +2,16 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import WindowFrame from '@/components/window-frame'
+import dynamic from 'next/dynamic'
 import Navigation from '@/components/navigation'
 import ThemeToggle from '@/components/theme-toggle'
+
+const WindowFrame = dynamic(() => import('@/components/window-frame'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full aspect-[16/10] max-h-[70vh] bg-paper-100 dark:bg-ink-800 rounded-lg animate-pulse" />
+  )
+})
 
 export default function HomePage() {
   const [hoveredPane, setHoveredPane] = useState<string | null>(null)
@@ -26,22 +33,17 @@ export default function HomePage() {
             Denoising the web
           </h1>
           <p className="text-xl md:text-2xl text-ink-600 dark:text-paper-300 font-light">
-            The OS for your life
+            The OS for your life. Built by Framers AI.
           </p>
         </motion.div>
 
         {/* Interactive Window Frame */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="max-w-7xl mx-auto"
-        >
+        <div className="max-w-7xl mx-auto">
           <WindowFrame 
             hoveredPane={hoveredPane}
             setHoveredPane={setHoveredPane}
           />
-        </motion.div>
+        </div>
 
         {/* Footer Links */}
         <motion.footer 

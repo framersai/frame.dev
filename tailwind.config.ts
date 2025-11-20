@@ -49,6 +49,7 @@ const config: Config = {
       },
       animation: {
         'ink-spread': 'inkSpread 1.5s ease-out forwards',
+        'ink-breathe': 'inkBreathe 4s ease-in-out infinite',
         'paper-fold': 'paperFold 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
         'frame-appear': 'frameAppear 1s ease-out',
         'pane-glow': 'paneGlow 2s ease-in-out infinite',
@@ -62,6 +63,16 @@ const config: Config = {
           '100%': { 
             clipPath: 'circle(100% at 50% 50%)',
             opacity: '1'
+          }
+        },
+        inkBreathe: {
+          '0%, 100%': { 
+            opacity: '0.5',
+            filter: 'blur(1px)'
+          },
+          '50%': { 
+            opacity: '1',
+            filter: 'blur(0px)'
           }
         },
         paperFold: {
