@@ -1,0 +1,364 @@
+{
+  "generatedAt": "2025-11-18T00:40:07.439Z",
+  "repo": "framersai/codex",
+  "branch": "main",
+  "questions": {
+    "weaves/frame/looms/openstrand/strands/architecture.md": {
+      "analysis": {
+        "words": 316,
+        "headings": 4,
+        "codeBlocks": 0,
+        "links": 0,
+        "significance": 23,
+        "difficulty": 22
+      },
+      "questions": [
+        {
+          "question": "What is OpenStrand Architecture – Condensed Overview?",
+          "difficulty": "beginner",
+          "tags": [
+            "Key Ideas",
+            "Ingestion Mapping",
+            "RAG & Search"
+          ]
+        }
+      ]
+    },
+    "weaves/wiki/looms/architecture/strands/overview.md": {
+      "analysis": {
+        "words": 698,
+        "headings": 19,
+        "codeBlocks": 4,
+        "links": 5,
+        "significance": 100,
+        "difficulty": 56
+      },
+      "questions": [
+        {
+          "question": "What is Three-Tier Knowledge Organization used for?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "Three-Tier Knowledge Organization",
+            "Why This Structure?"
+          ]
+        },
+        {
+          "question": "Explain Core Concepts",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "Three-Tier Knowledge Organization",
+            "Why This Structure?"
+          ]
+        },
+        {
+          "question": "How do I configure Frame Codex Architecture Overview?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "Three-Tier Knowledge Organization",
+            "Why This Structure?"
+          ]
+        },
+        {
+          "question": "Show me an example of Frame Codex Architecture Overview",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "Three-Tier Knowledge Organization",
+            "Why This Structure?"
+          ]
+        }
+      ]
+    },
+    "docs/contributing/how-to-submit.md": {
+      "analysis": {
+        "words": 1327,
+        "headings": 31,
+        "codeBlocks": 7,
+        "links": 12,
+        "significance": 100,
+        "difficulty": 55
+      },
+      "questions": [
+        {
+          "question": "What is Submission Methods used for?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Quick Start",
+            "Submission Methods",
+            "Method 1: Web Submission UI (Recommended)"
+          ]
+        },
+        {
+          "question": "Explain Quick Start",
+          "difficulty": "intermediate",
+          "tags": [
+            "Quick Start",
+            "Submission Methods",
+            "Method 1: Web Submission UI (Recommended)"
+          ]
+        },
+        {
+          "question": "How do I configure How to Submit to Frame Codex?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Quick Start",
+            "Submission Methods",
+            "Method 1: Web Submission UI (Recommended)"
+          ]
+        },
+        {
+          "question": "Show me an example of How to Submit to Frame Codex",
+          "difficulty": "intermediate",
+          "tags": [
+            "Quick Start",
+            "Submission Methods",
+            "Method 1: Web Submission UI (Recommended)"
+          ]
+        }
+      ]
+    },
+    "docs/contributing/submission-schema.md": {
+      "analysis": {
+        "words": 1854,
+        "headings": 57,
+        "codeBlocks": 19,
+        "links": 12,
+        "significance": 100,
+        "difficulty": 66
+      },
+      "questions": [
+        {
+          "question": "How do I implement Frame Codex Submission Schema Reference?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Table of Contents",
+            "Schema Overview",
+            "Key Principles"
+          ]
+        },
+        {
+          "question": "What are the key concepts in Frame Codex Submission Schema Reference?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Table of Contents",
+            "Schema Overview",
+            "Key Principles"
+          ]
+        },
+        {
+          "question": "What is the difference between Table of Contents and Schema Overview?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Table of Contents",
+            "Schema Overview",
+            "Key Principles"
+          ]
+        },
+        {
+          "question": "Show me an example of Frame Codex Submission Schema Reference",
+          "difficulty": "intermediate",
+          "tags": [
+            "Table of Contents",
+            "Schema Overview",
+            "Key Principles"
+          ]
+        }
+      ]
+    },
+    "docs/DEVELOPMENT.md": {
+      "analysis": {
+        "words": 2361,
+        "headings": 73,
+        "codeBlocks": 32,
+        "links": 2,
+        "significance": 100,
+        "difficulty": 69
+      },
+      "questions": [
+        {
+          "question": "What is First-Time Setup used for?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Initial Setup & Cataloging",
+            "First-Time Setup",
+            "How It Works Subsequently"
+          ]
+        },
+        {
+          "question": "Explain Initial Setup & Cataloging",
+          "difficulty": "intermediate",
+          "tags": [
+            "Initial Setup & Cataloging",
+            "First-Time Setup",
+            "How It Works Subsequently"
+          ]
+        },
+        {
+          "question": "How do I configure Frame Codex Development Guide?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Initial Setup & Cataloging",
+            "First-Time Setup",
+            "How It Works Subsequently"
+          ]
+        },
+        {
+          "question": "Show me an example of Frame Codex Development Guide",
+          "difficulty": "intermediate",
+          "tags": [
+            "Initial Setup & Cataloging",
+            "First-Time Setup",
+            "How It Works Subsequently"
+          ]
+        }
+      ]
+    },
+    "docs/openstrand-architecture.md": {
+      "analysis": {
+        "words": 800,
+        "headings": 19,
+        "codeBlocks": 2,
+        "links": 4,
+        "significance": 100,
+        "difficulty": 47
+      },
+      "questions": [
+        {
+          "question": "What is The Three-Tier Hierarchy used for?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "The Three-Tier Hierarchy",
+            "Why This Structure?"
+          ]
+        },
+        {
+          "question": "Explain Core Concepts",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "The Three-Tier Hierarchy",
+            "Why This Structure?"
+          ]
+        },
+        {
+          "question": "How do I configure OpenStrand Architecture Overview?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "The Three-Tier Hierarchy",
+            "Why This Structure?"
+          ]
+        },
+        {
+          "question": "Show me an example of OpenStrand Architecture Overview",
+          "difficulty": "intermediate",
+          "tags": [
+            "Core Concepts",
+            "The Three-Tier Hierarchy",
+            "Why This Structure?"
+          ]
+        }
+      ]
+    },
+    "docs/RECATALOG_GUIDE.md": {
+      "analysis": {
+        "words": 1148,
+        "headings": 35,
+        "codeBlocks": 9,
+        "links": 0,
+        "significance": 100,
+        "difficulty": 53
+      },
+      "questions": [
+        {
+          "question": "How do I implement Frame Codex Re-Catalog Guide?",
+          "difficulty": "intermediate",
+          "tags": [
+            "When to Re-Catalog",
+            "Method 1: GitHub Actions (Recommended)",
+            "Via GitHub Web UI"
+          ]
+        },
+        {
+          "question": "What are the key concepts in Frame Codex Re-Catalog Guide?",
+          "difficulty": "intermediate",
+          "tags": [
+            "When to Re-Catalog",
+            "Method 1: GitHub Actions (Recommended)",
+            "Via GitHub Web UI"
+          ]
+        },
+        {
+          "question": "What is the difference between When to Re-Catalog and Method 1: GitHub Actions (Recommended)?",
+          "difficulty": "intermediate",
+          "tags": [
+            "When to Re-Catalog",
+            "Method 1: GitHub Actions (Recommended)",
+            "Via GitHub Web UI"
+          ]
+        },
+        {
+          "question": "Show me an example of Frame Codex Re-Catalog Guide",
+          "difficulty": "intermediate",
+          "tags": [
+            "When to Re-Catalog",
+            "Method 1: GitHub Actions (Recommended)",
+            "Via GitHub Web UI"
+          ]
+        }
+      ]
+    },
+    "docs/schema-reference.md": {
+      "analysis": {
+        "words": 831,
+        "headings": 32,
+        "codeBlocks": 4,
+        "links": 3,
+        "significance": 100,
+        "difficulty": 59
+      },
+      "questions": [
+        {
+          "question": "How do I implement Frame Codex Schema Reference?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Weave Schema",
+            "Required Fields",
+            "Optional Fields"
+          ]
+        },
+        {
+          "question": "What are the key concepts in Frame Codex Schema Reference?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Weave Schema",
+            "Required Fields",
+            "Optional Fields"
+          ]
+        },
+        {
+          "question": "What is the difference between Weave Schema and Required Fields?",
+          "difficulty": "intermediate",
+          "tags": [
+            "Weave Schema",
+            "Required Fields",
+            "Optional Fields"
+          ]
+        },
+        {
+          "question": "Show me an example of Frame Codex Schema Reference",
+          "difficulty": "intermediate",
+          "tags": [
+            "Weave Schema",
+            "Required Fields",
+            "Optional Fields"
+          ]
+        }
+      ]
+    }
+  }
+}
