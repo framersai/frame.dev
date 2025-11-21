@@ -10,6 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        border: '#dcd7cb',
+        background: '#f9f6f2',
+        foreground: '#1f1c18',
         // Paper-inspired palette
         paper: {
           50: '#fdfcfb',
