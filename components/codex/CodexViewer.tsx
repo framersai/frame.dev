@@ -866,7 +866,7 @@ export default function FrameCodexViewer({
         onTreeDensityChange={updateTreeDensity}
         onSidebarModeChange={updateDefaultSidebarMode}
         onSidebarOpenMobileChange={updateSidebarOpenMobile}
-        onHistoryTrackingChange={(enabled) => {
+        onHistoryTrackingChange={(enabled: boolean) => {
           updateMultiple({ historyTrackingEnabled: enabled })
           if (!enabled) {
             // When disabling history tracking, clear any existing history
