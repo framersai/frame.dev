@@ -14,10 +14,10 @@ export function ContentSkeleton() {
   )
 }
 
-export function FileListSkeleton() {
+export function FileListSkeleton({ count = 8 }: { count?: number }) {
   return (
     <div className="space-y-2">
-      {Array.from({ length: 8 }).map((_, idx) => (
+      {Array.from({ length: count }).map((_, idx) => (
         <div key={idx} className="h-10 rounded-xl bg-zinc-100 dark:bg-zinc-900 animate-pulse" />
       ))}
     </div>
