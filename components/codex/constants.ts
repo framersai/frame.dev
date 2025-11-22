@@ -198,5 +198,11 @@ export const HOTKEYS = {
   GO_HOME: 'g h',
   /** Toggle sidebar (mobile) */
   TOGGLE_SIDEBAR: 's',
+  /** Toggle strand editor */
+  TOGGLE_EDIT: 'e',
+  /** Toggle QA interface */
+  TOGGLE_QA: 'q',
+  /** Toggle shortcuts modal */
+  TOGGLE_SHORTCUTS: 'k',
 } as const
 

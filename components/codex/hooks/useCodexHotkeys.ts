@@ -31,6 +31,12 @@ interface HotkeyHandlers {
   onOpenPreferences?: () => void
   /** Handler for toggling help panel (default: '?') */
   onToggleHelp?: () => void
+  /** Handler for toggling edit mode (default: 'e') */
+  onToggleEdit?: () => void
+  /** Handler for toggling QA interface (default: 'q') */
+  onToggleQA?: () => void
+  /** Handler for toggling shortcuts modal (default: 'k') */
+  onToggleShortcuts?: () => void
 }
 
 /**
@@ -117,6 +123,18 @@ export function useCodexHotkeys(handlers: HotkeyHandlers): void {
       } else if (event.key === '?' && handlers.onToggleHelp) {
         event.preventDefault()
         handlers.onToggleHelp()
+        sequenceBuffer = ''
+      } else if (event.key === HOTKEYS.TOGGLE_EDIT && handlers.onToggleEdit) {
+        event.preventDefault()
+        handlers.onToggleEdit()
+        sequenceBuffer = ''
+      } else if (event.key === HOTKEYS.TOGGLE_QA && handlers.onToggleQA) {
+        event.preventDefault()
+        handlers.onToggleQA()
+        sequenceBuffer = ''
+      } else if (event.key === HOTKEYS.TOGGLE_SHORTCUTS && handlers.onToggleShortcuts) {
+        event.preventDefault()
+        handlers.onToggleShortcuts()
         sequenceBuffer = ''
       }
     }
