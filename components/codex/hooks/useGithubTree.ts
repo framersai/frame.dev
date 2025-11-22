@@ -29,6 +29,8 @@ interface UseGithubTreeResult {
   totalStrands: number
   /** Total number of top-level weaves */
   totalWeaves: number
+  /** Whether GraphQL API is available */
+  graphqlAvailable: boolean
   /** Refetch the tree */
   refetch: () => Promise<void>
 }
@@ -59,10 +61,12 @@ export function useGithubTree(): UseGithubTreeResult {
   const [error, setError] = useState<string | null>(null)
   const [totalStrands, setTotalStrands] = useState(0)
   const [totalWeaves, setTotalWeaves] = useState(0)
+  const [graphqlAvailable, setGraphqlAvailable] = useState(true)
 
   const fetchTree = async () => {
     setLoading(true)
     setError(null)
+    setGraphqlAvailable(true)
 
     try {
       let rawEntries: Array<{ name: string; type: string; path: string; size?: number }> = []
@@ -82,6 +86,7 @@ export function useGithubTree(): UseGithubTreeResult {
             console.warn('Codex GitHub GraphQL unavailable, switching to REST.', graphqlError)
             graphQlWarningLogged = true
           }
+          setGraphqlAvailable(false)
           try {
             rawEntries = await fetchGithubTreeREST(REPO_CONFIG.OWNER, REPO_CONFIG.NAME, branch)
             REPO_CONFIG.BRANCH = branch
@@ -139,6 +144,7 @@ export function useGithubTree(): UseGithubTreeResult {
     error,
     totalStrands,
     totalWeaves,
+    graphqlAvailable,
     refetch: fetchTree,
   }
 }
