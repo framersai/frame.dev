@@ -44,7 +44,8 @@ const SettingsModal = dynamic(() => import('./ui/SettingsModal'), { ssr: false }
 const StrandEditor = dynamic(() => import('./ui/StrandEditor'), { ssr: false })
 const QAInterface = dynamic(() => import('./ui/QAInterface'), { ssr: false })
 const KeyboardShortcutsModal = dynamic(() => import('./ui/KeyboardShortcutsModal'), { ssr: false })
-import { TUTORIALS, type TutorialId } from './tutorials'
+import { TUTORIALS } from './tutorials'
+import type { TutorialId } from './tutorials'
 import { useSearchFilter } from './hooks/useSearchFilter'
 import { getSearchEngine } from '@/lib/search/engine'
 import type { CodexSearchResult } from '@/lib/search/types'
